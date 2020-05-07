@@ -73,7 +73,7 @@ create table Luogo(
 
 create table VisitaGuidata(
                         id              char(36)        not null primary key,
-                        id_luogo        varchar(25)     not null,
+                        id_luogo        char(36)     not null,
                         costo           double          not null,
                         partecipanti    int             not null,
                         foreign key (id_luogo) references Luogo (id)
