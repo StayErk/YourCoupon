@@ -125,14 +125,14 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
      */
     @Override
     public void doUpdate(HotelBean objectToUpdate) throws SQLException {
-        String sql = "UPDATE StrutturaAlberghiera SET nome = ? " +
-                    "indirizzo = ? " +
-                    "citta = ? " +
-                    "costoNotte = ? " +
-                    "stelle = ? " +
-                    "immagine = ? " +
-                    "email = ? " +
-                    "numeroTelefono = ?";
+        String sql = "UPDATE StrutturaAlberghiera SET nome = ?, " +
+                    "indirizzo = ?, " +
+                    "citta = ?, " +
+                    "costoNotte = ?, " +
+                    "stelle = ?, " +
+                    "immagine = ?, " +
+                    "email = ?, " +
+                    "numeroTelefono = ? " + "WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -147,6 +147,10 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
             preparedStatement.setString(6, objectToUpdate.getImmagine());
             preparedStatement.setString(7, objectToUpdate.getEmail());
             preparedStatement.setString(8, objectToUpdate.getNumeroTelefono());
+            preparedStatement.setString(9, objectToUpdate.getId().toString());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
