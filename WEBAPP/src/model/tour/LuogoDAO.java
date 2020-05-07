@@ -66,8 +66,8 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
 
     @Override
     public void doSave(LuogoBean objectToSave) throws SQLException {
-        String sql= "INSERT INTO Luogo (id, nome, indirizzo, descrizione, immagine)" +
-                        "VALUES (UUID(), ?, ?, ?, ?)";
+        String sql= "INSERT INTO Luogo (id, nome, indirizzo, citta, descrizione, immagine)" +
+                        "VALUES (UUID(), ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
@@ -75,8 +75,9 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, objectToSave.getNome());
             preparedStatement.setString(2, objectToSave.getIndirizzo());
-            preparedStatement.setString(3, objectToSave.getDescrizione());
-            preparedStatement.setString(4, objectToSave.getImmagine());
+            preparedStatement.setString(3, objectToSave.getCitta());
+            preparedStatement.setString(4, objectToSave.getDescrizione());
+            preparedStatement.setString(5, objectToSave.getImmagine());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -95,6 +96,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         String sql = "UPDATE Luogo SET id = ?" +
                 "nome = ?" +
                 "indirizzo = ?" +
+                "citta = ?" +
                 "descrizione = ?" +
                 "immagine = ?";
 
@@ -107,8 +109,9 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
             preparedStatement.setString(1, objectToUpdate.getId().toString());
             preparedStatement.setString(2, objectToUpdate.getNome());
             preparedStatement.setString(3, objectToUpdate.getIndirizzo());
-            preparedStatement.setString(4, objectToUpdate.getDescrizione());
-            preparedStatement.setString(5, objectToUpdate.getImmagine());
+            preparedStatement.setString(4, objectToUpdate.getCitta());
+            preparedStatement.setString(5, objectToUpdate.getDescrizione());
+            preparedStatement.setString(6, objectToUpdate.getImmagine());
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -146,6 +149,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
+                    rs.getString("citta"),
                     rs.getString("descrizione"),
                     rs.getString("immagine")
             ));
@@ -158,6 +162,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
+                    rs.getString("citta"),
                     rs.getString("descrizione"),
                     rs.getString("immagine")
             );

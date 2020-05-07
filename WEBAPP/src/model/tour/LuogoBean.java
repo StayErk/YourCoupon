@@ -7,6 +7,7 @@ public class LuogoBean {
     private UUID id;
     private String nome;
     private String indirizzo;
+    private String citta;
     private String descrizione;
     private String immagine;
 
@@ -14,10 +15,11 @@ public class LuogoBean {
 
     }
 
-    public LuogoBean(UUID id, String nome, String indirizzo, String descrizione, String immagine) {
+    public LuogoBean(UUID id, String nome, String indirizzo, String citta, String descrizione, String immagine) {
         this.id = id;
         this.nome = nome;
         this.indirizzo = indirizzo;
+        this.citta = citta;
         this.descrizione = descrizione;
         this.immagine = immagine;
     }
@@ -61,4 +63,8 @@ public class LuogoBean {
     public void setImmagine(String immagine) {
         this.immagine = immagine;
     }
+
+    public String getCitta() { return citta; }
+
+    public void setCitta(String citta) { this.citta = citta; }
 }
