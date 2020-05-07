@@ -169,9 +169,9 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
         }
     }
 
-    private void mapFromResultSet(RestaurantBean ristorante, ResultSet result) throws SQLException {
+    private RestaurantBean mapFromResultSet(ResultSet result) throws SQLException {
         while (result.next()){
-            ristorante = new RestaurantBean(
+            return new RestaurantBean(
                     UUID.fromString(result.getString("id")),
                     result.getString("indirizzo"),
                     result.getString("nome"),
@@ -181,5 +181,6 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
                     result.getString("email")
             );
         }
+        return new RestaurantBean();
     }
 }
