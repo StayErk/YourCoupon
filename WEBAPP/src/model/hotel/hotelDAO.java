@@ -167,7 +167,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
      */
     @Override
     public void doDelete(HotelBean objectToDelete) throws SQLException {
-        String sql = "DELETE FROM StrutturaAlberghiera WHERE id = ?";
+        String sql = "DELETE FROM StrutturaAlberghiera WHERE id = ? ";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
