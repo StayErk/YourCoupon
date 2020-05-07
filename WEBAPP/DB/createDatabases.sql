@@ -43,8 +43,8 @@ create table Pacchetto(
 
 create table StruttureRistorative(
                         id              char(36)        not null primary key,
-                        indirizzo       varchar(15)     not null,
-                        nome            varchar(15)     not null,
+                        indirizzo       varchar(20)     not null,
+                        nome            varchar(20)     not null,
                         costo           double          not null,
                         immagine        varchar(100)    not null,
                         numeroTelefono  varchar(9)      not null,
