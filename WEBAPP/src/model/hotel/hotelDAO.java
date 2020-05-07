@@ -95,14 +95,52 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
     public void doUpdate(HotelBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StrutturaAlberghiera SET nome = ? " +
                     "indirizzo = ? " +
-                    "";
+                    "costoNotte = ? " +
+                    "stelle = ? " +
+                    "immagine = ? " +
+                    "email = ? " +
+                    "numeroTelefono = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToUpdate.getNome());
+            preparedStatement.setString(2, objectToUpdate.getIndirizzo());
+            preparedStatement.setDouble(3, objectToUpdate.getCostoNotte());
+            preparedStatement.setInt(4, objectToUpdate.getStelle());
+            preparedStatement.setString(5, objectToUpdate.getImmagine());
+            preparedStatement.setString(6, objectToUpdate.getEmail());
+            preparedStatement.setString(7, objectToUpdate.getNumeroTelefono());
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
     public void doDelete(HotelBean objectToDelete) throws SQLException {
+        String sql = "DELETE FROM StrutturaAlberghiera WHERE id = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToDelete.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+               if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     private void mapFromResultSet(List<HotelBean> hotels, ResultSet rs) throws SQLException {
