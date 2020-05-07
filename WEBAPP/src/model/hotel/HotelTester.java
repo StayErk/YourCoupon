@@ -18,7 +18,7 @@ public class HotelTester {
             e.printStackTrace();
         }
 
-        System.out.println("RetrieveALL vuoto con filter");
+        System.out.println("RetrieveALL con filter");
         try {
             lista = new ArrayList<>(modelDAO.retrieveAll("nome", ""));
             System.out.println("Lista hotel dopo retrieve: " + lista);
@@ -27,7 +27,7 @@ public class HotelTester {
             e.printStackTrace();
         }
 
-        System.out.println("RetrieveALL vuoto con filter e order");
+        System.out.println("RetrieveALL con filter e order");
         try {
             lista = new ArrayList<>(modelDAO.retrieveAll("nome", "DESC"));
             System.out.println("Lista hotel dopo retrieve: " + lista);
