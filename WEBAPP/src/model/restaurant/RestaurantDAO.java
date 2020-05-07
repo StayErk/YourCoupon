@@ -99,6 +99,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
         }
     }
 
+
     @Override
     public void doUpdate(RestaurantBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StruttureRistorative SET " +
