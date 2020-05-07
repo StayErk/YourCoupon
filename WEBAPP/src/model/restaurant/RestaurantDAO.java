@@ -70,8 +70,8 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
 
     @Override
     public void doSave(RestaurantBean objectToSave) throws SQLException {
-        String sql = "INSERT INTO StruttureRistorative (id, indirizzo, nome, costo, immagine, numeroTelefono, email) " +
-                    "VALUES (UUID(), ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO StruttureRistorative (id, indirizzo, citta, nome, costo, immagine, numeroTelefono, email) " +
+                    "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -80,11 +80,12 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, objectToSave.getIndirizzo());
-            preparedStatement.setString(2, objectToSave.getNome());
-            preparedStatement.setDouble(3, objectToSave.getCosto());
-            preparedStatement.setString(4, objectToSave.getImmagine());
-            preparedStatement.setString(5, objectToSave.getNumeroTelefono());
-            preparedStatement.setString(6, objectToSave.getEmail());
+            preparedStatement.setString(2, objectToSave.getCitta());
+            preparedStatement.setString(3, objectToSave.getNome());
+            preparedStatement.setDouble(4, objectToSave.getCosto());
+            preparedStatement.setString(5, objectToSave.getImmagine());
+            preparedStatement.setString(6, objectToSave.getNumeroTelefono());
+            preparedStatement.setString(7, objectToSave.getEmail());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -102,11 +103,12 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
     @Override
     public void doUpdate(RestaurantBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StruttureRistorative SET " +
-                "indirizzo = ? " +
-                "nome = ? " +
-                "costo = ? " +
-                "immagine = ? " +
-                "numeroTelefono = ? " +
+                "indirizzo = ?, " +
+                "citta =  ?, " +
+                "nome = ?, " +
+                "costo = ?, " +
+                "immagine = ?, " +
+                "numeroTelefono = ?, " +
                 "email = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -115,11 +117,12 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, objectToUpdate.getIndirizzo());
-            preparedStatement.setString(2, objectToUpdate.getNome());
-            preparedStatement.setDouble(3, objectToUpdate.getCosto());
-            preparedStatement.setString(4, objectToUpdate.getImmagine());
-            preparedStatement.setString(5, objectToUpdate.getNumeroTelefono());
-            preparedStatement.setString(6, objectToUpdate.getEmail());
+            preparedStatement.setString(2, objectToUpdate.getCitta());
+            preparedStatement.setString(3, objectToUpdate.getNome());
+            preparedStatement.setDouble(4, objectToUpdate.getCosto());
+            preparedStatement.setString(5, objectToUpdate.getImmagine());
+            preparedStatement.setString(6, objectToUpdate.getNumeroTelefono());
+            preparedStatement.setString(7, objectToUpdate.getEmail());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -160,6 +163,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             ristoranti.add( new RestaurantBean(
                     UUID.fromString(result.getString("id")),
                     result.getString("indirizzo"),
+                    result.getString("citta"),
                     result.getString("nome"),
                     result.getDouble("costo"),
                     result.getString("immagine"),
@@ -174,6 +178,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             return new RestaurantBean(
                     UUID.fromString(result.getString("id")),
                     result.getString("indirizzo"),
+                    result.getString("citta"),
                     result.getString("nome"),
                     result.getDouble("costo"),
                     result.getString("immagine"),
