@@ -8,8 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Questa classe implementa tutte le operazioni CRUD relative alla tabella
+ * Struttura Alberghiera
+ */
 public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
 
+    /**
+     * Restituisce un singolo Hotel data una chiave
+     * @param key chiave dell'hotel
+     * @return HotelBean con chiave key
+     * @throws SQLException
+     */
     @Override
     public HotelBean retrieveByKey(UUID key) throws SQLException {
         String sql = "SELECT * FROM StrutturaAlberghiera WHERE id = ?";
@@ -34,6 +44,14 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         return null;
     }
 
+    /**
+     * Restutuisce tutti gli Hotel memorizzati nella tabella StrutturaAlberghiera
+     * Ordina il result set secondo una determinata colonna
+     * @param filter Colonna per cui ordinare i dati
+     * @param order ASC | DESC
+     * @return Lista di HotelBean Ordinata
+     * @throws SQLException
+     */
     @Override
     public List<HotelBean> retrieveAll(String filter, String order) throws SQLException {
         String sql = "SELECT * FROM StrutturaAlberghiera";
@@ -41,8 +59,11 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         PreparedStatement preparedStatement = null;
         List<HotelBean> hotels = new ArrayList<>();
 
-        if(order != null && !order.equals("")){
-            sql += " ORDER BY " + filter + " " + order;
+        if(filter != null && !filter.equals("")){
+            sql += " ORDER BY " + filter;
+            if (order != null && !order.equals("")) {
+                sql += " " + order;
+            }
         }
 
         try {
@@ -62,11 +83,16 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
     }
 
 
-
+    /**
+     * Salva un hotel all'interno della tabella Struttura Albergiera
+     * @param objectToSave elemento da inserire
+     * @throws SQLException
+     */
     @Override
     public void doSave(HotelBean objectToSave) throws SQLException {
-        String sql = "INSERT INTO StrutturaAlberghiera (id, nome, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono) " +
-                        "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO StrutturaAlberghiera + " +
+                "(id, nome, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono) " +
+                "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -91,6 +117,11 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         }
     }
 
+    /**
+     * Aggiorna un hotel all'interno della tabella StrutturaAlberghiera
+     * @param objectToUpdate elemento da modificare
+     * @throws SQLException
+     */
     @Override
     public void doUpdate(HotelBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StrutturaAlberghiera SET nome = ? " +
@@ -122,6 +153,11 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         }
     }
 
+    /**
+     * Cancella un hotel all'interno della tabella StrutturaAlberghiera
+     * @param objectToDelete elemento da eliminare
+     * @throws SQLException
+     */
     @Override
     public void doDelete(HotelBean objectToDelete) throws SQLException {
         String sql = "DELETE FROM StrutturaAlberghiera WHERE id = ?";
@@ -142,6 +178,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
             }
         }
     }
+
 
     private void mapFromResultSet(List<HotelBean> hotels, ResultSet rs) throws SQLException {
         while (rs.next()) {
