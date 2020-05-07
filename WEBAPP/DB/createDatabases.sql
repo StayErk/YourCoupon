@@ -20,6 +20,7 @@ create table Cliente(
 
 create table StrutturaAlberghiera(
                         id              char(36)        not null primary key,
+                        nome            varchar(20)     not null,
                         indirizzo       varchar(20)     not null,
                         costoNotte      double          not null,
                         stelle          int             not null check (stelle >= 0 AND stelle <= 5),
