@@ -169,4 +169,5 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         }
         return new LuogoBean();
     }
+
 }

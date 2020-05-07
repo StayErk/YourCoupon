@@ -12,7 +12,6 @@ public class LuogoBean {
     private String immagine;
 
     public LuogoBean(){
-
     }
 
     public LuogoBean(UUID id, String nome, String indirizzo, String citta, String descrizione, String immagine) {
