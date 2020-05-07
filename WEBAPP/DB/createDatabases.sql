@@ -37,8 +37,12 @@ create table Pacchetto(
                         id_struttura  char(36)        not null,
                         durata        int             not null,
                         predefinito   boolean         not null default FALSE,
-                        foreign key (id_cliente)      references Cliente (email),
+                        foreign key (id_cliente)      references Cliente (email)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE,
                         foreign key (id_struttura)    references StrutturaAlberghiera (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 
@@ -57,8 +61,12 @@ create table Pacchetto_Ristorante(
                         id_pacchetto    char(36)        not null,
                         id_ristorante   char(36)        not null,
                         primary key (id_pacchetto, id_ristorante),
-                        foreign key (id_pacchetto) references Pacchetto (id),
+                        foreign key (id_pacchetto) references Pacchetto (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE,
                         foreign key (id_ristorante) references StruttureRistorative (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 
@@ -77,14 +85,20 @@ create table VisitaGuidata(
                         costo           double          not null,
                         partecipanti    int             not null,
                         foreign key (id_luogo) references Luogo (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 
 );
 create table Pacchetto_Visita(
                          id_pacchetto   char(36)        not null,
                          id_visita      char(36)        not null,
                          primary key (id_visita, id_pacchetto),
-                         foreign key (id_pacchetto)     references Pacchetto (id),
+                         foreign key (id_pacchetto)     references Pacchetto (id)
+                             ON DELETE CASCADE
+                             ON UPDATE CASCADE,
                          foreign key (id_visita)        references VisitaGuidata (id)
+                             ON DELETE CASCADE
+                             ON UPDATE CASCADE
 );
 
 
@@ -92,14 +106,20 @@ create table Carrello(
                         id_cliente      varchar(30)     not null primary key,
                         totale          double          not null,
                         foreign key     (id_cliente)    references Cliente(email)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 create table Carrello_Pacchetto(
                         id_carrello     varchar(30)     not null,
                         id_pacchetto    char(36)        not null,
                         primary key (id_pacchetto, id_carrello),
-                        foreign key (id_carrello)       references Carrello(id_cliente),
+                        foreign key (id_carrello)       references Carrello(id_cliente)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE,
                         foreign key (id_pacchetto)      references Pacchetto(id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 create table Fattura(
@@ -107,4 +127,6 @@ create table Fattura(
                         id_carrello     varchar(30)     not null,
                         totale          double          not null,
                         foreign key     (id_carrello)   references Carrello(id_cliente)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
