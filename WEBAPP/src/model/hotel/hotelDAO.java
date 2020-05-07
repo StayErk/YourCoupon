@@ -90,8 +90,8 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
      */
     @Override
     public void doSave(HotelBean objectToSave) throws SQLException {
-        String sql = "INSERT INTO StrutturaAlberghiera + " +
-                "(id, nome, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono) " +
+        String sql = "INSERT INTO StrutturaAlberghiera " +
+                "(id, nome, indirizzo, citta, costoNotte, stelle, immagine, email, numeroTelefono) " +
                 "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -100,11 +100,12 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, objectToSave.getNome());
             preparedStatement.setString(2, objectToSave.getIndirizzo());
-            preparedStatement.setDouble(3, objectToSave.getCostoNotte());
-            preparedStatement.setInt(4, objectToSave.getStelle());
-            preparedStatement.setString(5, objectToSave.getImmagine());
-            preparedStatement.setString(6, objectToSave.getEmail());
-            preparedStatement.setString(7, objectToSave.getNumeroTelefono());
+            preparedStatement.setString(3, objectToSave.getCitta());
+            preparedStatement.setDouble(4, objectToSave.getCostoNotte());
+            preparedStatement.setInt(5, objectToSave.getStelle());
+            preparedStatement.setString(6, objectToSave.getImmagine());
+            preparedStatement.setString(7, objectToSave.getEmail());
+            preparedStatement.setString(8, objectToSave.getNumeroTelefono());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -126,6 +127,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
     public void doUpdate(HotelBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StrutturaAlberghiera SET nome = ? " +
                     "indirizzo = ? " +
+                    "citta = ? " +
                     "costoNotte = ? " +
                     "stelle = ? " +
                     "immagine = ? " +
@@ -139,11 +141,12 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, objectToUpdate.getNome());
             preparedStatement.setString(2, objectToUpdate.getIndirizzo());
-            preparedStatement.setDouble(3, objectToUpdate.getCostoNotte());
-            preparedStatement.setInt(4, objectToUpdate.getStelle());
-            preparedStatement.setString(5, objectToUpdate.getImmagine());
-            preparedStatement.setString(6, objectToUpdate.getEmail());
-            preparedStatement.setString(7, objectToUpdate.getNumeroTelefono());
+            preparedStatement.setString(3, objectToUpdate.getCitta());
+            preparedStatement.setDouble(4, objectToUpdate.getCostoNotte());
+            preparedStatement.setInt(5, objectToUpdate.getStelle());
+            preparedStatement.setString(6, objectToUpdate.getImmagine());
+            preparedStatement.setString(7, objectToUpdate.getEmail());
+            preparedStatement.setString(8, objectToUpdate.getNumeroTelefono());
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -186,6 +189,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
+                    rs.getString("citta"),
                     rs.getDouble("costoNotte"),
                     rs.getInt("stelle"),
                     rs.getString("immagine"),
@@ -201,6 +205,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
+                    rs.getString("citta"),
                     rs.getDouble("costoNotte"),
                     rs.getInt("stelle"),
                     rs.getString("immagine"),
