@@ -65,12 +65,39 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
 
     @Override
     public void doSave(HotelBean objectToSave) throws SQLException {
+        String sql = "INSERT INTO StrutturaAlberghiera (id, nome, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono) " +
+                        "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToSave.getNome());
+            preparedStatement.setString(2, objectToSave.getIndirizzo());
+            preparedStatement.setDouble(3, objectToSave.getCostoNotte());
+            preparedStatement.setInt(4, objectToSave.getStelle());
+            preparedStatement.setString(5, objectToSave.getImmagine());
+            preparedStatement.setString(6, objectToSave.getEmail());
+            preparedStatement.setString(7, objectToSave.getNumeroTelefono());
 
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
     public void doUpdate(HotelBean objectToUpdate) throws SQLException {
-
+        String sql = "UPDATE StrutturaAlberghiera SET nome = ? " +
+                    "indirizzo = ? " +
+                    "";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
     }
 
     @Override
