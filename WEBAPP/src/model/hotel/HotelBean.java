@@ -1,11 +1,13 @@
 package model.hotel;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class HotelBean {
     private UUID id;
     private String nome;
     private String indirizzo;
+    private String citta;
     private double costoNotte;
     private int stelle;
     private String immagine;
@@ -15,10 +17,11 @@ public class HotelBean {
     public HotelBean() {
     }
 
-    public HotelBean(UUID id, String nome, String indirizzo, double costoNotte, int stelle, String immagine, String email, String numeroTelefono) {
+    public HotelBean(UUID id, String nome, String indirizzo,  String citta, double costoNotte, int stelle, String immagine, String email, String numeroTelefono) {
         this.id = id;
         this.nome = nome;
         this.indirizzo = indirizzo;
+        this.citta = citta;
         this.costoNotte = costoNotte;
         this.stelle = stelle;
         this.immagine = immagine;
@@ -48,6 +51,14 @@ public class HotelBean {
 
     public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
+    }
+
+    public String getCitta() {
+        return citta;
+    }
+
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public double getCostoNotte() {
@@ -90,6 +101,7 @@ public class HotelBean {
         this.numeroTelefono = numeroTelefono;
     }
 
+
     @Override
     public String toString() {
         return getClass().getName() + "{" +
@@ -102,5 +114,12 @@ public class HotelBean {
                 ", email='" + email + '\'' +
                 ", numeroTelefono='" + numeroTelefono + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        HotelBean hotelBean = (HotelBean) o;
+        return hotelBean.getId().compareTo(this.id) == 0;
     }
 }
