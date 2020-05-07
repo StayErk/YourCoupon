@@ -25,7 +25,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         String sql = "SELECT * FROM StrutturaAlberghiera WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        HotelBean hotel = new HotelBean();
+        HotelBean hotel;
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -33,7 +33,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            mapFromResultSet(hotel, rs);
+            hotel = mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -41,7 +41,7 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
-        return null;
+        return hotel;
     }
 
     /**
@@ -195,9 +195,9 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
         }
     }
 
-    private void mapFromResultSet(HotelBean hotel, ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            hotel = new HotelBean(
+    private HotelBean mapFromResultSet(ResultSet rs) throws SQLException {
+        if (rs.next()) {
+            return new HotelBean(
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
@@ -208,5 +208,6 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
                     rs.getString("numeroTelefono")
             );
         }
+        return new HotelBean();
     }
 }

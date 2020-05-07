@@ -89,4 +89,18 @@ public class HotelBean {
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", costoNotte=" + costoNotte +
+                ", stelle=" + stelle +
+                ", immagine='" + immagine + '\'' +
+                ", email='" + email + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                '}';
+    }
 }
