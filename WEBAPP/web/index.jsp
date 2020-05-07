@@ -11,6 +11,5 @@
     <title>$Title$</title>
   </head>
   <body>
-  Porca madonna sto funzionando
   </body>
 </html>
