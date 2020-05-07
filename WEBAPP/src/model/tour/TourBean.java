@@ -5,7 +5,7 @@ import java.util.UUID;
 public class TourBean {
     private UUID id;
     private UUID id_luogo;
-    private Double costo;
+    private double costo;
     private int partecipanti;
 
     public TourBean(){
