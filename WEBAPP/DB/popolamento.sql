@@ -12,6 +12,7 @@ insert into StrutturaAlberghiera (id, indirizzo, costoNotte, stelle, immagine, e
     
 insert into StrutturaAlberghiera (id, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono)
 	values ('d9d2500f-5312-45a9-ad66-f4553685043c', 'via corte pergamo 33', 251, 4, 'https://bit.ly/2A8VdYT', 'lgeorgins4@last.fm', '040786291');
-    
+
+
 insert into StrutturaAlberghiera (id, indirizzo, costoNotte, stelle, immagine, email, numeroTelefono)
 	values ('344f39a7-066c-4bcf-bfa0-199528a42125', 'via nasto 22', 91, 3, 'https://bit.ly/2SJ7MAE', 'rbartholomew5@freewebs.com', '068099637');
