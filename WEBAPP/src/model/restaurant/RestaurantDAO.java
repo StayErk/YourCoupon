@@ -26,7 +26,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet result = preparedStatement.executeQuery();
 
-            mapFromResultSet(ristorante, result);
+            ristorante = mapFromResultSet(result);
         }
         finally {
             try {
