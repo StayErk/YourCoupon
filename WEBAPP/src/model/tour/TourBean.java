@@ -1,4 +1,4 @@
-package model.tour
+package model.tour;
 
 import java.util.UUID;
 
@@ -22,6 +22,7 @@ public class TourBean {
     public UUID getId() {
         return id;
     }
+
 
     public void setId(UUID id) {
         this.id = id;
