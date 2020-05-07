@@ -15,7 +15,7 @@ insert into StrutturaAlberghiera (id, nome, indirizzo, citta, costoNotte, stelle
 values ('d9d2500f-5312-45a9-ad66-f4553685043c', 'hotel stella', 'via corte pergamo 33', 'Milano', 251, 4, 'https://bit.ly/2A8VdYT', 'lgeorgins4@last.fm', '040786291');
 
 insert into StrutturaAlberghiera (id, nome, indirizzo, citta, costoNotte, stelle, immagine, email, numeroTelefono)
-values ('344f39a7-066c-4bcf-bfa0-199528a42125', 'hotel sabaku', 'via nasto 22', 91, 3, 'Angri','https://bit.ly/2SJ7MAE', 'rbartholomew5@freewebs.com', '068099637');
+values ('344f39a7-066c-4bcf-bfa0-199528a42125', 'hotel sabaku', 'via nasto 22', 'Angri', 91, 3,'https://bit.ly/2SJ7MAE', 'rbartholomew5@freewebs.com', '068099637');
 
 /* Popolamento Test StruttureRistorative */
 insert into StruttureRistorative (id, indirizzo, citta, nome, costo, immagine, numeroTelefono, email)
