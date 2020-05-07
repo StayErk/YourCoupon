@@ -22,6 +22,7 @@ create table StrutturaAlberghiera(
                         id              char(36)        not null primary key,
                         nome            varchar(20)     not null,
                         indirizzo       varchar(20)     not null,
+                        citta           varchar(20)     not null,
                         costoNotte      double          not null,
                         stelle          int             not null check (stelle >= 0 AND stelle <= 5),
                         immagine        varchar(100)    not null,
@@ -44,6 +45,7 @@ create table Pacchetto(
 create table StruttureRistorative(
                         id              char(36)        not null primary key,
                         indirizzo       varchar(20)     not null,
+                        citta           varchar(20)     not null,
                         nome            varchar(20)     not null,
                         costo           double          not null,
                         immagine        varchar(100)    not null,
@@ -64,6 +66,7 @@ create table Luogo(
                         id              char(36)        not null primary key,
                         nome            varchar(15)     not null,
                         indirizzo       varchar(20)     not null,
+                        citta           varchar(20)     not null,
                         descrizione     varchar(500)    not null,
                         immagine        varchar(100)    not null
 );
