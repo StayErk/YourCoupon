@@ -93,11 +93,11 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
 
     @Override
     public void doUpdate(LuogoBean objectToUpdate) throws SQLException {
-        String sql = "UPDATE Luogo SET id = ?" +
-                "nome = ?" +
-                "indirizzo = ?" +
-                "citta = ?" +
-                "descrizione = ?" +
+        String sql = "UPDATE Luogo SET id = ?," +
+                "nome = ?," +
+                "indirizzo = ?," +
+                "citta = ?," +
+                "descrizione = ?," +
                 "immagine = ?";
 
         Connection connection = null;

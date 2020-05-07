@@ -90,8 +90,8 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
 
     @Override
     public void doUpdate(TourBean objectToUpdate) throws SQLException {
-        String sql = "UPDATE VisitaGuidata SET id = ? " +
-                "costo = ?" +
+        String sql = "UPDATE VisitaGuidata SET id = ?," +
+                "costo = ?," +
                 "partecipanti = ?";
 
         Connection connection = null;
