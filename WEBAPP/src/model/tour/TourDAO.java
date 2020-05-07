@@ -26,7 +26,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-           // mapFromResultSet(tour, rs);
+            mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -34,7 +34,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
-        return null;
+        return tour;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
-           // mapFromResultSet(tours, rs);
+            mapFromResultSet(tours, rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -91,16 +91,69 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
     @Override
     public void doUpdate(TourBean objectToUpdate) throws SQLException {
         String sql = "UPDATE VisitaGuidata SET id = ? " +
-                "id_luogo = ? " +
-                "costo = ?";
+                "costo = ?" +
+                "partecipanti = ?";
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToUpdate.getId().toString());
+            preparedStatement.setDouble(2,objectToUpdate.getCosto());
+            preparedStatement.setInt(3,objectToUpdate.getPartecipanti());
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
     public void doDelete(TourBean objectToDelete) throws SQLException {
+        String sql = "DELETE FROM VisitaGuidata WHERE id = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToDelete.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
+    private void mapFromResultSet(List<TourBean> tours, ResultSet rs) throws SQLException{
+        while(rs.next()){
+            tours.add(new TourBean(
+                    UUID.fromString(rs.getString("id")),
+                    UUID.fromString(rs.getString("id")),
+                    rs.getDouble("costo"),
+                    rs.getInt("partecipanti")
+            ));
+        }
+    }
+
+    private TourBean mapFromResultSet(ResultSet rs) throws SQLException{
+        if(rs.next()) {
+            return new TourBean(
+                    UUID.fromString(rs.getString("id")),
+                    UUID.fromString(rs.getString("id")),
+                    rs.getDouble("costo"),
+                    rs.getInt("partecipanti")
+            );
+        }
+        return new TourBean();
+    }
 
 }

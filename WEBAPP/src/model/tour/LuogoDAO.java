@@ -18,7 +18,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         String sql = "SELECT * FROM Luogo WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        LuogoBean hotel = new LuogoBean();
+        LuogoBean luogo = new LuogoBean();
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -26,7 +26,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            mapFromResultSet(hotel, rs);
+            mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -34,7 +34,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
-        return null;
+        return luogo;
     }
 
     @Override
@@ -152,9 +152,9 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         }
     }
 
-    private void mapFromResultSet(LuogoBean luogo, ResultSet rs) throws SQLException {
-        while(rs.next()){
-            luogo = new LuogoBean(
+    private LuogoBean mapFromResultSet(ResultSet rs) throws SQLException {
+        if (rs.next()){
+            return new LuogoBean(
                     UUID.fromString(rs.getString("id")),
                     rs.getString("nome"),
                     rs.getString("indirizzo"),
@@ -162,5 +162,6 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
                     rs.getString("immagine")
             );
         }
+        return new LuogoBean();
     }
 }
