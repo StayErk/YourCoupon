@@ -1,4 +1,6 @@
 package model.hotel;
 
-public class hotelDAO {
+import model.ComponentCRUD;
+
+public class hotelDAO  {
 }
