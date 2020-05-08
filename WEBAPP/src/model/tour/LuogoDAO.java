@@ -70,17 +70,18 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
     @Override
     public void doSave(LuogoBean objectToSave) throws SQLException {
         String sql= "INSERT INTO Luogo (id, nome, indirizzo, citta, descrizione, immagine)" +
-                        "VALUES (UUID(), ?, ?, ?, ?, ?)";
+                        "VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToSave.getNome());
-            preparedStatement.setString(2, objectToSave.getIndirizzo());
-            preparedStatement.setString(3, objectToSave.getCitta());
-            preparedStatement.setString(4, objectToSave.getDescrizione());
-            preparedStatement.setString(5, objectToSave.getImmagine());
+            preparedStatement.setString(1, objectToSave.getId().toString());
+            preparedStatement.setString(2, objectToSave.getNome());
+            preparedStatement.setString(3, objectToSave.getIndirizzo());
+            preparedStatement.setString(4, objectToSave.getCitta());
+            preparedStatement.setString(5, objectToSave.getDescrizione());
+            preparedStatement.setString(6, objectToSave.getImmagine());
 
             preparedStatement.executeUpdate();
             connection.commit();

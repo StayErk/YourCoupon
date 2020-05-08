@@ -44,6 +44,19 @@ public class TourTester {
             e.printStackTrace();
         }
 
+        System.out.println("doDelete");
+        try {
+            System.out.println("cancello il tour con l'id: fc648318-3669-4411-b7f0-0369cc6f92d4");
+            System.out.println(modelDAO.retrieveAll("", "").size());
+            modelDAO.doDelete((TourBean) modelDAO.retrieveAll("", "").get(0));
+            System.out.println("cancellato?");
+            System.out.println(modelDAO.retrieveAll("", "").size());
+            System.out.println("voglio morire");
+        } catch (SQLException e) {
+            System.out.println("SQL EXCEPTION su doDelete");
+            e.printStackTrace();
+        }
+
        System.out.println("doSave");
         try {
             TourBean toInsert = new TourBean(UUID.randomUUID(), UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), 23.5, 6);
@@ -56,31 +69,18 @@ public class TourTester {
             e.printStackTrace();
         }
 
-       /* System.out.println("doDelete");
-        try {
-            System.out.println("cancello il luogo con l'id: c99f7bea-0b29-4344-be9b-4595a930a4a0");
-            System.out.println(modelDAO.retrieveAll("", "").size());
-            modelDAO.doDelete((LuogoBean) modelDAO.retrieveAll("", "").get(0));
-            System.out.println("cancellato?");
-            System.out.println(modelDAO.retrieveAll("", "").size());
-            System.out.println("che culo funziona");
-        } catch (SQLException e) {
-            System.out.println("SQL EXCEPTION su doDelete");
-            e.printStackTrace();
-        }
-
         System.out.println("doUpdate");
         try {
-            LuogoBean toUpdate = modelDAO.retrieveAll("", "").get(0);
+            TourBean toUpdate = modelDAO.retrieveAll("", "").get(0);
             System.out.println("prima dell'update" + toUpdate);
-            toUpdate.setNome("NomeCambiato");
-            toUpdate.setCitta("CittaNuova");
+            toUpdate.setCosto(44.7);
+            toUpdate.setPartecipanti(9);
             modelDAO.doUpdate(toUpdate);
             System.out.println("dopo l'update" + modelDAO.retrieveByKey(toUpdate.getId()));
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su doUpdate");
             e.printStackTrace();
-        }*/
+        }
     }
 }
 
