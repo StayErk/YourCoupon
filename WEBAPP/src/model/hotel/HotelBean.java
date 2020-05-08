@@ -120,6 +120,6 @@ public class HotelBean {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         HotelBean hotelBean = (HotelBean) o;
-        return hotelBean.getId().compareTo(this.id) == 0;
+        return this.id.equals(hotelBean.id);
     }
 }
