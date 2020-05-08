@@ -1,5 +1,6 @@
 package model.tour;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class TourBean {
@@ -49,5 +50,22 @@ public class TourBean {
 
     public void setPartecipanti(int partecipanti) {
         this.partecipanti = partecipanti;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "{" +
+                "id=" + id +
+                ", id_luogo=" + id_luogo +
+                ", costo=" + costo +
+                ", partecipanti=" + partecipanti +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        TourBean tourBean = (TourBean) o;
+        return id.equals(tourBean.id);
     }
 }

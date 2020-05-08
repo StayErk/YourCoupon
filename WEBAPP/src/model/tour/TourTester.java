@@ -4,15 +4,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class LuogoTester {
+public class TourTester {
     public static void main(String args[]) {
-        ArrayList<LuogoBean> lista;
-        LuogoDAO modelDAO = new LuogoDAO();
+        ArrayList<TourBean> lista;
+        TourDAO modelDAO = new TourDAO();
 
         System.out.println("RetriveAll vuoto");
         try {
             lista = new ArrayList<>(modelDAO.retrieveAll("", ""));
-            System.out.println("Lista luoghi dopo retrive: " + lista);
+            System.out.println("Lista tour dopo retrive: " + lista);
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su retriveAll");
             e.printStackTrace();
@@ -20,8 +20,8 @@ public class LuogoTester {
 
         System.out.println("RetriveAll con filter");
         try {
-            lista = new ArrayList<>(modelDAO.retrieveAll("nome", ""));
-            System.out.println("Lista luoghi dopo retrive: " + lista);
+            lista = new ArrayList<>(modelDAO.retrieveAll("costo", ""));
+            System.out.println("Lista tour dopo retrive: " + lista);
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su retriveAll");
             e.printStackTrace();
@@ -29,8 +29,8 @@ public class LuogoTester {
 
         System.out.println("RetriveAll con filter e order");
         try {
-            lista = new ArrayList<>(modelDAO.retrieveAll("nome", "DESC"));
-            System.out.println("Lista luoghi dopo retrive: " + lista);
+            lista = new ArrayList<>(modelDAO.retrieveAll("costo", "DESC"));
+            System.out.println("Lista tour dopo retrive: " + lista);
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su retriveAll");
             e.printStackTrace();
@@ -38,15 +38,15 @@ public class LuogoTester {
 
         System.out.println("retrivebykey");
         try {
-            System.out.println("risultato query: " + modelDAO.retrieveByKey(UUID.fromString("9089b21c-6e76-419f-8059-aa3fdc92f9ba")));
+            System.out.println("risultato query: " + modelDAO.retrieveByKey(UUID.fromString("174ec1ea-4448-4842-a8a1-d46c97079ad4")));
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su retrivebykey");
             e.printStackTrace();
         }
 
-        System.out.println("doSave");
+       System.out.println("doSave");
         try {
-            LuogoBean toInsert = new LuogoBean(UUID.fromString("c99f7bea-0b29-4344-be9b-4595a930a4a0"), "Luogo Test", "Via Test", "MSS", "vabbe balliamo", "https://bit.ly/2A8VdYT");
+            TourBean toInsert = new TourBean(UUID.randomUUID(), UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), 23.5, 6);
             System.out.println(modelDAO.retrieveAll("", "").size());
             modelDAO.doSave(toInsert);
             System.out.println(toInsert + "è stato inserito");
@@ -56,7 +56,7 @@ public class LuogoTester {
             e.printStackTrace();
         }
 
-        System.out.println("doDelete");
+       /* System.out.println("doDelete");
         try {
             System.out.println("cancello il luogo con l'id: c99f7bea-0b29-4344-be9b-4595a930a4a0");
             System.out.println(modelDAO.retrieveAll("", "").size());
@@ -80,6 +80,7 @@ public class LuogoTester {
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su doUpdate");
             e.printStackTrace();
-        }
+        }*/
     }
 }
+
