@@ -45,7 +45,10 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         List<TourBean> tours = new ArrayList<>();
 
         if(filter != null && !filter.equals("")){
-            sql += " ORDER BY " + filter + " " + order;
+            sql += " ORDER BY " + filter;
+            if(order != null && !order.equals("")){
+                sql+= " " + order;
+            }
         }
 
         try {
@@ -90,9 +93,8 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
 
     @Override
     public void doUpdate(TourBean objectToUpdate) throws SQLException {
-        String sql = "UPDATE VisitaGuidata SET id = ?," +
-                "costo = ?," +
-                "partecipanti = ?";
+        String sql = "UPDATE VisitaGuidata SET costo = ?," +
+                "partecipanti = ? " + "WHERE id = ?";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -100,9 +102,9 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToUpdate.getId().toString());
-            preparedStatement.setDouble(2,objectToUpdate.getCosto());
-            preparedStatement.setInt(3,objectToUpdate.getPartecipanti());
+            preparedStatement.setDouble(1,objectToUpdate.getCosto());
+            preparedStatement.setInt(2,objectToUpdate.getPartecipanti());
+            preparedStatement.setString(3, objectToUpdate.getId().toString());
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();

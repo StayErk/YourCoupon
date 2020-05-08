@@ -26,7 +26,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            mapFromResultSet(rs);
+            luogo = mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -45,7 +45,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         List<LuogoBean> luoghi = new ArrayList<>();
 
         if(filter != null && !filter.equals("")){
-            sql += " ORDER BY " + filter + " " + order;
+            sql += " ORDER BY " + filter;
             if(order != null && !order.equals("")){
                 sql+= " " + order;
             }
@@ -100,7 +100,7 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
                 "indirizzo = ?," +
                 "citta = ?," +
                 "descrizione = ?," +
-                "immagine = ?" + "WHERE id = ?" ;
+                "immagine = ? " + "WHERE id = ?" ;
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
