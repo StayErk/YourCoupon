@@ -134,7 +134,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
                 "costo = ?, " +
                 "immagine = ?, " +
                 "numeroTelefono = ?, " +
-                "email = ?";
+                "email = ? " + "WHERE id=?" ;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -148,7 +148,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
             preparedStatement.setString(5, objectToUpdate.getImmagine());
             preparedStatement.setString(6, objectToUpdate.getNumeroTelefono());
             preparedStatement.setString(7, objectToUpdate.getEmail());
-
+            preparedStatement.setString(8, objectToUpdate.getId().toString());
             preparedStatement.executeUpdate();
             connection.commit();
         }
