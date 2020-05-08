@@ -168,7 +168,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
      */
     @Override
     public void doDelete(RestaurantBean objectToDelete) throws SQLException {
-        String sql = "DELETE FROM StruttureRistorative id = ?";
+        String sql = "DELETE FROM StruttureRistorative WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
