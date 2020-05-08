@@ -46,7 +46,7 @@ public class LuogoTester {
 
         System.out.println("doSave");
         try {
-            LuogoBean toInsert = new LuogoBean(UUID.randomUUID(), "Luogo Test", "Via Test", "MSS", "vabbe balliamo", "https://bit.ly/2A8VdYT");
+            LuogoBean toInsert = new LuogoBean(UUID.fromString("c99f7bea-0b29-4344-be9b-4595a930a4a0"), "Luogo Test", "Via Test", "MSS", "vabbe balliamo", "https://bit.ly/2A8VdYT");
             System.out.println(modelDAO.retrieveAll("", "").size());
             modelDAO.doSave(toInsert);
             System.out.println(toInsert + "è stato inserito");
