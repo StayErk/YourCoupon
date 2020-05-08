@@ -13,6 +13,12 @@ import java.util.UUID;
 
 public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
 
+    /**
+     * Restituisce un ristorante dalla tabelle StrutturaRistorativa dato l'id
+     * @param key chiave del ristorante da cercare
+     * @return un RestaurantBean
+     * @throws SQLException
+     */
     @Override
     public RestaurantBean retrieveByKey(UUID key) throws SQLException {
         String sql = "SELECT * FROM StrutturaRistorativa WHERE id = ?";
@@ -39,6 +45,13 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
         return ristorante;
     }
 
+    /**
+     * Restituisce una lista di Ristoranti dalla tabella StrutturaRistorative
+     * @param filter Colonna per cui ordinare i dati
+     * @param order ASC | DESC
+     * @return Lista ordinata di ristoranti
+     * @throws SQLException
+     */
     @Override
     public List<RestaurantBean> retrieveAll(String filter, String order) throws SQLException {
         String sql = "SELECT * FROM StruttureRistorative";
@@ -68,6 +81,11 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
         return ristoranti;
     }
 
+    /**
+     * Salva un ristorante all'interno della tabella StrutturaRistorativa
+     * @param objectToSave elemento da inserire
+     * @throws SQLException
+     */
     @Override
     public void doSave(RestaurantBean objectToSave) throws SQLException {
         String sql = "INSERT INTO StruttureRistorative (id, indirizzo, citta, nome, costo, immagine, numeroTelefono, email) " +
@@ -100,6 +118,11 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
     }
 
 
+    /**
+     * Aggiorna i campi di un determinato ristorante all'interno della tabella StrutturaRistorativa
+     * @param objectToUpdate elemento da modificare
+     * @throws SQLException
+     */
     @Override
     public void doUpdate(RestaurantBean objectToUpdate) throws SQLException {
         String sql = "UPDATE StruttureRistorative SET " +
@@ -136,6 +159,11 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
         }
     }
 
+    /**
+     * Cancella un ristorante all'interno della tabella StruttureRistorative
+     * @param objectToDelete elemento da eliminare
+     * @throws SQLException
+     */
     @Override
     public void doDelete(RestaurantBean objectToDelete) throws SQLException {
         String sql = "DELETE FROM StruttureRistorative id = ?";
