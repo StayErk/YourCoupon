@@ -35,3 +35,42 @@ values ('af34c083-7d59-49aa-98bf-8e7180cb023a', 'via carda 77', 'Vecchio mulino'
 
 insert into StruttureRistorative (id, indirizzo, citta, nome, costo, immagine, numeroTelefono, email)
 values ('272ca703-b314-408b-aa64-f8d5cb2f0b56', 'via fisciano 28', 'Purchiacca di mare', 'Angri', 85, 'https://bit.ly/3ccPeAh', '006225957', 'bscopyn5@canalblog.com');
+
+/* Popolamento Test Luogo */
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('239c2175-308b-4498-8fda-60eb1a93a78f', 'Neyhf', '6 Browning Drive', 'Dingli', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.', 'https://bit.ly/3cfVSpt');
+
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('1df71379-03eb-44fc-907b-3cda79c2d27b', 'Ppcyj', '159 International Point', 'Daduchuan', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 'https://bit.ly/3bgCpDK');
+
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('9089b21c-6e76-419f-8059-aa3fdc92f9ba', 'Logbc', '1566 Lake View Park', 'Longmen', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet u. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 'https://bit.ly/35EQnyg');
+
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('9da76e42-c49b-4ab6-b3fc-ff78fdb42afc', 'Wzwom', '35 Vidon Crossing', 'Dehui', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis. Nulla justo. Sed ante. Vivamus tortor. Duis mattis egestas metus.', 'https://bit.ly/3cfk37B');
+
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('a667d062-e3f4-491f-95d2-2bc560fb3018', 'Vqnjc', '88379 Hoffman Court', 'Bangkalan', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 'https://bit.ly/2A2xSIa');
+
+insert into Luogo (id, nome, indirizzo, citta, descrizione, immagine)
+values ('a33720e2-b51e-44d9-a01a-fc1bd2aaa9f0', 'Rmajc', '26772 Tony Road', 'Igarapé Miri', 'Fusce consequat. Nulla nisl. Nunc nisl.', 'https://bit.ly/3dsnlo4');
+
+/* Popolamento Test Visita Guidata */
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('174ec1ea-4448-4842-a8a1-d46c97079ad4', '239c2175-308b-4498-8fda-60eb1a93a78f', 79.96, 7);
+
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('bd343380-09fa-4a96-8db8-a5f1b40f3ca2', '1df71379-03eb-44fc-907b-3cda79c2d27b', 72.21, 15);
+
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('f88470b8-333f-4c75-ad9b-ed92cb416ca4', '9089b21c-6e76-419f-8059-aa3fdc92f9ba', 68.65, 8);
+
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('3ff10efd-7662-43d5-bded-aa9e037958bc', '9da76e42-c49b-4ab6-b3fc-ff78fdb42afc', 56.67, 6);
+
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('be6835ce-4642-45f2-8c26-bd23393fd0bf', 'a667d062-e3f4-491f-95d2-2bc560fb3018', 48.66, 4);
+
+insert into VisitaGuidata (id, id_luogo, costo, partecipanti)
+values ('9c63821c-1860-4712-8913-4790d3b9eb54', 'a33720e2-b51e-44d9-a01a-fc1bd2aaa9f0', 73.33, 11);
+
