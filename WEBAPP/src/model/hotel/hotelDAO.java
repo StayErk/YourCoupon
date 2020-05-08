@@ -92,20 +92,21 @@ public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
     public void doSave(HotelBean objectToSave) throws SQLException {
         String sql = "INSERT INTO StrutturaAlberghiera " +
                 "(id, nome, indirizzo, citta, costoNotte, stelle, immagine, email, numeroTelefono) " +
-                "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToSave.getNome());
-            preparedStatement.setString(2, objectToSave.getIndirizzo());
-            preparedStatement.setString(3, objectToSave.getCitta());
-            preparedStatement.setDouble(4, objectToSave.getCostoNotte());
-            preparedStatement.setInt(5, objectToSave.getStelle());
-            preparedStatement.setString(6, objectToSave.getImmagine());
-            preparedStatement.setString(7, objectToSave.getEmail());
-            preparedStatement.setString(8, objectToSave.getNumeroTelefono());
+            preparedStatement.setString(1, objectToSave.getId().toString());
+            preparedStatement.setString(2, objectToSave.getNome());
+            preparedStatement.setString(3, objectToSave.getIndirizzo());
+            preparedStatement.setString(4, objectToSave.getCitta());
+            preparedStatement.setDouble(5, objectToSave.getCostoNotte());
+            preparedStatement.setInt(6, objectToSave.getStelle());
+            preparedStatement.setString(7, objectToSave.getImmagine());
+            preparedStatement.setString(8, objectToSave.getEmail());
+            preparedStatement.setString(9, objectToSave.getNumeroTelefono());
 
             preparedStatement.executeUpdate();
             connection.commit();

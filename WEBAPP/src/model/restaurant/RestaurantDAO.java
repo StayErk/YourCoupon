@@ -91,21 +91,21 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
     @Override
     public void doSave(RestaurantBean objectToSave) throws SQLException {
         String sql = "INSERT INTO StruttureRistorative (id, indirizzo, citta, nome, costo, immagine, numeroTelefono, email) " +
-                    "VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setString(1, objectToSave.getIndirizzo());
-            preparedStatement.setString(2, objectToSave.getCitta());
-            preparedStatement.setString(3, objectToSave.getNome());
-            preparedStatement.setDouble(4, objectToSave.getCosto());
-            preparedStatement.setString(5, objectToSave.getImmagine());
-            preparedStatement.setString(6, objectToSave.getNumeroTelefono());
-            preparedStatement.setString(7, objectToSave.getEmail());
+            preparedStatement.setString(1, objectToSave.getId().toString());
+            preparedStatement.setString(2, objectToSave.getIndirizzo());
+            preparedStatement.setString(3, objectToSave.getCitta());
+            preparedStatement.setString(4, objectToSave.getNome());
+            preparedStatement.setDouble(5, objectToSave.getCosto());
+            preparedStatement.setString(6, objectToSave.getImmagine());
+            preparedStatement.setString(7, objectToSave.getNumeroTelefono());
+            preparedStatement.setString(8, objectToSave.getEmail());
 
             preparedStatement.executeUpdate();
             connection.commit();

@@ -24,10 +24,9 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, key.toString());
-            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 
-           tour = mapFromResultSet(rs);
+            mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -81,7 +80,6 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             preparedStatement.setDouble(2,objectToSave.getCosto());
             preparedStatement.setInt(3, objectToSave.getPartecipanti());
 
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
             connection.commit();
         } finally {
@@ -141,7 +139,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         while(rs.next()){
             tours.add(new TourBean(
                     UUID.fromString(rs.getString("id")),
-                    UUID.fromString(rs.getString("id_luogo")),
+                    UUID.fromString(rs.getString("id")),
                     rs.getDouble("costo"),
                     rs.getInt("partecipanti")
             ));
@@ -152,7 +150,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         if(rs.next()) {
             return new TourBean(
                     UUID.fromString(rs.getString("id")),
-                    UUID.fromString(rs.getString("id_luogo")),
+                    UUID.fromString(rs.getString("id")),
                     rs.getDouble("costo"),
                     rs.getInt("partecipanti")
             );
