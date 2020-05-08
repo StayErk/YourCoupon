@@ -44,6 +44,18 @@ public class TourTester {
             e.printStackTrace();
         }
 
+       System.out.println("doSave");
+        try {
+            TourBean toInsert = new TourBean(UUID.randomUUID(), UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), 23.5, 6);
+            System.out.println(modelDAO.retrieveAll("", "").size());
+            modelDAO.doSave(toInsert);
+            System.out.println(toInsert + "è stato inserito");
+            System.out.println(modelDAO.retrieveAll("", "").size());
+        } catch (SQLException e) {
+            System.out.println("SQL EXCEPTION su doSave");
+            e.printStackTrace();
+        }
+
         System.out.println("doDelete");
         try {
             System.out.println("cancello il tour con l'id: fc648318-3669-4411-b7f0-0369cc6f92d4");
@@ -54,18 +66,6 @@ public class TourTester {
             System.out.println("voglio morire");
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION su doDelete");
-            e.printStackTrace();
-        }
-
-       System.out.println("doSave");
-        try {
-            TourBean toInsert = new TourBean(UUID.randomUUID(), UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), 23.5, 6);
-            System.out.println(modelDAO.retrieveAll("", "").size());
-            modelDAO.doSave(toInsert);
-            System.out.println(toInsert + "è stato inserito");
-            System.out.println(modelDAO.retrieveAll("", "").size());
-        } catch (SQLException e) {
-            System.out.println("SQL EXCEPTION su doSave");
             e.printStackTrace();
         }
 

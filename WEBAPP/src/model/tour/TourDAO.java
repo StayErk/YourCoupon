@@ -26,7 +26,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             preparedStatement.setString(1, key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            mapFromResultSet(rs);
+           tour =  mapFromResultSet(rs);
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -95,7 +95,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
     @Override
     public void doUpdate(TourBean objectToUpdate) throws SQLException {
         String sql = "UPDATE VisitaGuidata SET costo = ?, " +
-                "partecipanti = ? " + "WHERE id = ?;";
+                "partecipanti = ? " + "WHERE id = ?";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -107,7 +107,6 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
             preparedStatement.setInt(2,objectToUpdate.getPartecipanti());
             preparedStatement.setString(3, objectToUpdate.getId().toString());
 
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
             connection.commit();
         } finally {
