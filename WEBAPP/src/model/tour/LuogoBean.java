@@ -1,5 +1,6 @@
 package model.tour;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class LuogoBean {
@@ -66,4 +67,24 @@ public class LuogoBean {
     public String getCitta() { return citta; }
 
     public void setCitta(String citta) { this.citta = citta; }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", citta='" + citta + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", immagine='" + immagine + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        LuogoBean luogoBean = (LuogoBean) o;
+        return id.equals(luogoBean.id);
+    }
+
 }

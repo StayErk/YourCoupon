@@ -44,8 +44,11 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         PreparedStatement preparedStatement = null;
         List<LuogoBean> luoghi = new ArrayList<>();
 
-        if(order != null && !order.equals("")){
+        if(filter != null && !filter.equals("")){
             sql += " ORDER BY " + filter + " " + order;
+            if(order != null && !order.equals("")){
+                sql+= " " + order;
+            }
         }
 
         try {
@@ -93,12 +96,11 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
 
     @Override
     public void doUpdate(LuogoBean objectToUpdate) throws SQLException {
-        String sql = "UPDATE Luogo SET id = ?," +
-                "nome = ?," +
+        String sql = "UPDATE Luogo SET nome = ?," +
                 "indirizzo = ?," +
                 "citta = ?," +
                 "descrizione = ?," +
-                "immagine = ?";
+                "immagine = ?" + "WHERE id = ?" ;
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -106,12 +108,15 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToUpdate.getId().toString());
-            preparedStatement.setString(2, objectToUpdate.getNome());
-            preparedStatement.setString(3, objectToUpdate.getIndirizzo());
-            preparedStatement.setString(4, objectToUpdate.getCitta());
-            preparedStatement.setString(5, objectToUpdate.getDescrizione());
-            preparedStatement.setString(6, objectToUpdate.getImmagine());
+            preparedStatement.setString(1, objectToUpdate.getNome());
+            preparedStatement.setString(2, objectToUpdate.getIndirizzo());
+            preparedStatement.setString(3, objectToUpdate.getCitta());
+            preparedStatement.setString(4, objectToUpdate.getDescrizione());
+            preparedStatement.setString(5, objectToUpdate.getImmagine());
+            preparedStatement.setString(6, objectToUpdate.getId().toString());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
@@ -131,8 +136,10 @@ public class LuogoDAO implements ComponentCRUD<LuogoBean, UUID> {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, objectToDelete.getId().toString());
+
             preparedStatement.executeUpdate();
             connection.commit();
+
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();

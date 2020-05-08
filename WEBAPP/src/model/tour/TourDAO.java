@@ -44,7 +44,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         PreparedStatement preparedStatement = null;
         List<TourBean> tours = new ArrayList<>();
 
-        if(order != null && !order.equals("")){
+        if(filter != null && !filter.equals("")){
             sql += " ORDER BY " + filter + " " + order;
         }
 
