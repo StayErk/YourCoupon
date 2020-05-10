@@ -245,9 +245,9 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             connection.commit();
         } finally {
             try {
-
+                if(preparedStatement != null) preparedStatement.close();
             } finally {
-
+                DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
     }
