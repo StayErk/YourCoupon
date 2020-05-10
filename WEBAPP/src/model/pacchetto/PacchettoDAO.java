@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PropertyPermission;
 import java.util.UUID;
 
 public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
@@ -169,7 +170,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
      * @param bean Pacchetto a cui aggiungere il ristorante
      * @param rBean Ristorante da aggiungere al paccchetto
      */
-    public void addRestaurant(PacchettoBean bean, RestaurantBean rBean) {
+    public void addRestaurant(PacchettoBean bean, RestaurantBean rBean) throws  SQLException{
         String sql = "INSERT INTO Pacchetto_Ristorante (id_pacchetto, id_ristorante) " +
                 "VALUES (?, ?)";
 
@@ -180,6 +181,33 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
                 " WHERE id = ?"; //id pacchetto
 
         Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, rBean.getId().toString());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+            preparedStatement = connection.prepareStatement(updatePrice);
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, rBean.getId().toString());
+            preparedStatement.setString(3, bean.getId().toString());
+            preparedStatement.setString(4, bean.getId().toString());
+            preparedStatement.setString(5, bean.getId().toString());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
 
     }
 
