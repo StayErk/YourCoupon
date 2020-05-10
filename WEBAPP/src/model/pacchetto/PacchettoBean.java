@@ -9,17 +9,19 @@ public class PacchettoBean {
     private UUID id_struttura;
     private int durata;
     private boolean predefinito;
+    private int persone;
 
     public PacchettoBean() {
     }
 
-    public PacchettoBean(UUID id, double costo, String id_cliente, UUID id_struttura, int durata, boolean predefinito) {
+    public PacchettoBean(UUID id, double costo, String id_cliente, UUID id_struttura, int durata, boolean predefinito, int persone) {
         this.id = id;
         this.costo = costo;
         this.id_cliente = id_cliente;
         this.id_struttura = id_struttura;
         this.durata = durata;
         this.predefinito = predefinito;
+        this.persone = persone;
     }
 
     public UUID getId() {
@@ -68,6 +70,14 @@ public class PacchettoBean {
 
     public void setPredefinito(boolean predefinito) {
         this.predefinito = predefinito;
+    }
+
+    public int getPersone() {
+        return persone;
+    }
+
+    public void setPersone(int persone) {
+        this.persone = persone;
     }
 
     @Override
