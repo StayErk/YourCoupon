@@ -12,8 +12,20 @@ public class ClienteBean {
     private byte[] password;
     private String immagine;
 
+    // costruttore vuoto
     public ClienteBean() {}
 
+    // costruttore con pass già codificata
+    public ClienteBean(String nome, String cognome, int puntiViaggio, String email, byte[] pass, String immagine) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.puntiViaggio = puntiViaggio;
+        this.email = email;
+        this.immagine = immagine;
+        password = pass.clone();
+    }
+
+    // costruttore con pass Stringa da codificare
     public ClienteBean(String nome, String cognome, int puntiViaggio, String email, String pass, String immagine) {
         this.nome = nome;
         this.cognome = cognome;
