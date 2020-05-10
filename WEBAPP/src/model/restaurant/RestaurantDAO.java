@@ -61,8 +61,9 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
 
         if(filter != null && !filter.equals("")){
             sql += " ORDER BY " + filter;
-            if(order != null && !order.equals(""))
+            if(order != null && !order.equals("")) {
                 sql += " " + order;
+            }
         }
 
         try {
