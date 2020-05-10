@@ -13,7 +13,7 @@ create table Cliente(
                         cognome         varchar(15)     not null,
                         puntiViaggio    int             not null default 0,
                         email           varchar(30)     not null unique primary key,
-                        password        char(64)        not null,    /* SHA256 encripted */
+                        password        binary(32)      not null,    /* SHA256 encripted */
                         immagine        varchar(100)
 );
 
