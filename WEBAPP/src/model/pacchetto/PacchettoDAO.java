@@ -177,7 +177,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
         String updatePrice = "UPDATE Pacchetto SET " +
                 "costo = ((SELECT costo from pacchetto where id = ?) + " + //id pacchetto
                 "((SELECT costo from StrutturaRistorativa WHERE id = ?)" + //rBean.getID
-                "* (SELECT durata FROM pacchetto where id=?) * (SELECT persone FROM pacchetto WHERE id=?)))" + //id pacchetto id_pacchetto
+                "* (SELECT persone FROM pacchetto WHERE id=?)))" + //id pacchetto id_pacchetto
                 " WHERE id = ?"; //id pacchetto
 
         Connection connection = null;
@@ -190,14 +190,13 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             preparedStatement.setString(2, rBean.getId().toString());
 
             preparedStatement.executeUpdate();
-            connection.commit();
+
 
             preparedStatement = connection.prepareStatement(updatePrice);
             preparedStatement.setString(1, bean.getId().toString());
             preparedStatement.setString(2, rBean.getId().toString());
             preparedStatement.setString(3, bean.getId().toString());
             preparedStatement.setString(4, bean.getId().toString());
-            preparedStatement.setString(5, bean.getId().toString());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -217,7 +216,41 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
      * @param tBean  Tour da aggiungere al paccchetto
      * @throws SQLException
      */
-    public void addTour(PacchettoBean bean, TourBean tBean) throws  SQLException{}
+    public void addTour(PacchettoBean bean, TourBean tBean) throws  SQLException{
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "INSERT INTO Pacchetto_Visita (id_pacchetto, id_visita) " +
+                "(?, ? )"; //bean.getID() tBean.getId()
+
+        String updatePrice = "UPDATE Pacchetto SET" +
+                " cost0 = ((SELECT costo FROM Pacchetto WHERE id = ?) + " + //bean.getID()
+                "(SELECT costo FROM VisitaGuidata WHERE id = ?) " + //tBean.getId()
+                "* (SELECT persone FROM Pacchetto WHERE id= ? )) WHERE  id = ?"; //bean.getID()
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, tBean.getId().toString());
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement(updatePrice);
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, tBean.getId().toString());
+            preparedStatement.setString(3, bean.getId().toString());
+            preparedStatement.setString(4, bean.getId().toString());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+        } finally {
+            try {
+
+            } finally {
+
+            }
+        }
+    }
 
     private PacchettoBean mapFromResultSet(ResultSet rs) throws SQLException {
         if (rs.next()) {
