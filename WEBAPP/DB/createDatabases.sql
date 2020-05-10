@@ -37,6 +37,7 @@ create table Pacchetto(
                         id_struttura  char(36)        not null,
                         durata        int             not null,
                         predefinito   boolean         not null default FALSE,
+                        persone       int             not null default '1',
                         foreign key (id_cliente)      references Cliente (email)
                             ON DELETE CASCADE
                             ON UPDATE CASCADE,
