@@ -83,4 +83,18 @@ public class RestaurantBean {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "RestaurantBean{" +
+                "id=" + id +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", citta='" + citta + '\'' +
+                ", nome='" + nome + '\'' +
+                ", costo=" + costo +
+                ", immagine='" + immagine + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
