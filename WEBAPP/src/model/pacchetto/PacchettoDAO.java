@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PropertyPermission;
 import java.util.UUID;
 
 public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
