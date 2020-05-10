@@ -1,0 +1,39 @@
+.max-size {
+    height: 100%;
+    width: 100%;
+}
+
+.header-form {
+    background-image: url("https://images.unsplash.com/photo-1551672746-89991811c186?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 55vh;
+}
+
+.header-form--body {
+    backdrop-filter: blur(5px) !important;
+    height: 100%;
+    position: relative;
+}
+
+.header-form--title {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 4rem !important;
+}
+
+.header-form--form {
+    background-color: rgba(100,100,100,0.44);
+    backdrop-filter: blur(5px) !important;
+    position: absolute;
+    bottom: 30px;
+}
+
+
