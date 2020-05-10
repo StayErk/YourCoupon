@@ -3,6 +3,7 @@ package model.pacchetto;
 import datasource.DriverManagerConnectionPool;
 import model.ComponentCRUD;
 import model.restaurant.RestaurantBean;
+import model.tour.TourBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -210,6 +211,13 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
 
     }
 
+    /**
+     * Aggiunge un Tour ad un pacchetto aggiornandone il costo
+     * @param bean Pacchetto a cui aggiungere il tour
+     * @param tBean  Tour da aggiungere al paccchetto
+     * @throws SQLException
+     */
+    public void addTour(PacchettoBean bean, TourBean tBean) throws  SQLException{}
 
     private PacchettoBean mapFromResultSet(ResultSet rs) throws SQLException {
         if (rs.next()) {
