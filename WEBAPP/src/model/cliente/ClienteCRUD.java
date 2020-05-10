@@ -93,7 +93,32 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
 
     @Override
     public void doSave(ClienteBean objectToSave) throws SQLException {
+        String sql = "INSERT INTO StrutturaAlberghiera " +
+                "(nome, cognome, puntiViaggio, email, password, immagine) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToSave.getNome());
+            preparedStatement.setString(2, objectToSave.getCognome());
+            preparedStatement.setInt(3, objectToSave.getPuntiViaggio());
+            preparedStatement.setString(4, objectToSave.getEmail());
+            preparedStatement.setBytes(5, objectToSave.getPassword());
+            preparedStatement.setString(6, objectToSave.getImmagine());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        }
+        finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
