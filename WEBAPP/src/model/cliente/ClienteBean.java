@@ -64,7 +64,6 @@ public class ClienteBean {
         catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
     }
 
 
