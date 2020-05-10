@@ -21,7 +21,7 @@ public class RestaurantDAO implements ComponentCRUD<RestaurantBean, UUID> {
      */
     @Override
     public RestaurantBean retrieveByKey(UUID key) throws SQLException {
-        String sql = "SELECT * FROM StrutturaRistorativa WHERE id = ?";
+        String sql = "SELECT * FROM StruttureRistorative WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         RestaurantBean ristorante = new RestaurantBean();
