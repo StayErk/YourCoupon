@@ -1,5 +1,6 @@
 package model.cliente;
 
+
 import datasource.DriverManagerConnectionPool;
 import model.ComponentCRUD;
 import model.hotel.HotelBean;
@@ -12,12 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
-/**
- * Questa classe implementa tutte le operazioni CRUD relative alla tabella
- * Struttura Alberghiera
- */
-public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
+public class ClienteDAO implements ComponentCRUD<ClienteBean, String>{
 
     /**
      * Restituisce un singolo Cliente data una chiave
@@ -33,9 +29,9 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
         ClienteBean cliente;
 
         try {
-         connection = DriverManagerConnectionPool.getConnection();
-         preparedStatement = connection.prepareStatement(sql);
-         preparedStatement.setString(1, key);
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, key);
             ResultSet rs = preparedStatement.executeQuery();
 
             cliente = mapFromResultSet(rs);
@@ -152,7 +148,8 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
         finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
-            } finally {
+            }
+            finally {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
@@ -175,7 +172,8 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
         finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
-            }finally {
+            }
+            finally {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
