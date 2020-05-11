@@ -10,7 +10,7 @@
 
 
 <section class="section-bg">
-    <div class="container header-form">
+    <div class="container header-form d-flex align-items-center">
         <div class="row header-form--body">
             <div class="col-12 p-3">
                 <div class="row">
@@ -30,10 +30,10 @@
                                     </select>
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <input type="number" class="form-control max-size" placeholder="Persone">
+                                    <input type="number" class="form-control max-size" min="1" placeholder="Persone">
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <input type="text" class="form-control max-size" placeholder="Prezzo massimo">
+                                    <input type="number" class="form-control max-size" min="1" placeholder="Durata">
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3 text-center">
                                     <button class="btn btn-primary" type="submit">Cerca</button>
