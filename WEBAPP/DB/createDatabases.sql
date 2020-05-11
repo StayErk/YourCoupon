@@ -14,6 +14,7 @@ create table Cliente(
                         puntiViaggio    int             not null default 0,
                         email           varchar(30)     not null unique primary key,
                         password        binary(32)      not null,    /* SHA256 encripted */
+                        admin           boolean         not null default FALSE
                         immagine        varchar(100)
 );
 
@@ -33,7 +34,7 @@ create table StrutturaAlberghiera(
 create table Pacchetto(
                         id            char(36)        not null primary key,
                         costo         double          not null,
-                        id_cliente    varchar(30),
+                        id_cliente    varchar(30)     not null,
                         id_struttura  char(36)        not null,
                         durata        int             not null,
                         predefinito   boolean         not null default FALSE,
