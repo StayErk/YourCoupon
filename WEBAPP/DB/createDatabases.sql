@@ -128,6 +128,6 @@ create table Fattura(
                         id_carrello     varchar(30)     not null,
                         totale          double          not null,
                         foreign key     (id_carrello)   references Carrello(id_cliente)
-                            ON DELETE CASCADE
+                            ON DELETE SET NULL
                             ON UPDATE CASCADE
 );
