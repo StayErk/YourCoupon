@@ -155,27 +155,6 @@ public class ClienteDAO implements ComponentCRUD<ClienteBean, String>{
         }
     }
 
-    public void dropTable() throws SQLException {
-        String sql = "DROP TABLE Cliente";
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.executeUpdate();
-            connection.commit();
-        }
-        finally {
-            try {
-                if (preparedStatement != null) preparedStatement.close();
-            }
-            finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-    }
-
     @Override
     public void doDelete(ClienteBean objectToDelete) throws SQLException {
         String sql = "DELETE FROM Cliente WHERE email = ?";
