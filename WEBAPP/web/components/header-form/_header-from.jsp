@@ -23,7 +23,7 @@
                         <form class="mx-auto my-auto">
                             <div class="form-row">
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <select class="max-size">
+                                    <select class="max-size form-control">
                                         <option value="nil" selected>Scegli città</option>
                                         <option value="roma">Roma</option>
                                         <option value="firenze">Firenze</option>
