@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>YourCoupon Homepage</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="components/header-form/header-form.css">
+    <link rel="stylesheet" href="components/kinder-cards/kinder-cards.css">
   </head>
   <body>
     <!-- Navbar -->
@@ -25,6 +26,9 @@
             <h1 class="text-center text-primary">I Pacchetti scelti da noi</h1>
           </div>
         </div>
+      </div>
+      <div class="container mb-3">
+        <%@include file="components/kinder-cards/_kinder-cards.jsp"%>
       </div>
     </main>
     <!-- Footer w/ info -->
