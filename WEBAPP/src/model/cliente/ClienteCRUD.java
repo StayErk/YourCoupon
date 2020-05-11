@@ -157,7 +157,8 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
 
     @Override
     public void doDelete(ClienteBean objectToDelete) throws SQLException {
-
+        String sql = "DELETE FROM Cliente WHERE email = ?; " +
+                "DELETE FROM Pacchetto WHERE id";
     }
 
     private ClienteBean mapFromResultSet(ResultSet rs) throws SQLException {
