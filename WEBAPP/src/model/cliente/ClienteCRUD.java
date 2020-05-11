@@ -94,8 +94,8 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
     @Override
     public void doSave(ClienteBean objectToSave) throws SQLException {
         String sql = "INSERT INTO Cliente " +
-                "(nome, cognome, puntiViaggio, email, password, immagine) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "(nome, cognome, puntiViaggio, email, password, admin, immagine) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -107,7 +107,8 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
             preparedStatement.setInt(3, objectToSave.getPuntiViaggio());
             preparedStatement.setString(4, objectToSave.getEmail());
             preparedStatement.setBytes(5, objectToSave.getPassword());
-            preparedStatement.setString(6, objectToSave.getImmagine());
+            preparedStatement.setBoolean(6, objectToSave.isAdmin());
+            preparedStatement.setString(7, objectToSave.getImmagine());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -128,6 +129,7 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
                 "cognome = ?, " +
                 "puntiViaggio = ?, " +
                 "password = ?, " + //password già codificata
+                "admin = ?, " +
                 "immagine = ? " +
                 "WHERE email = ?";
         Connection connection = null;
@@ -140,8 +142,9 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
             preparedStatement.setString(2, objectToUpdate.getCognome());
             preparedStatement.setInt(3, objectToUpdate.getPuntiViaggio());
             preparedStatement.setBytes(4, objectToUpdate.getPassword());
-            preparedStatement.setString(5, objectToUpdate.getImmagine());
-            preparedStatement.setString(6, objectToUpdate.getEmail());
+            preparedStatement.setBoolean(5, objectToUpdate.isAdmin());
+            preparedStatement.setString(6, objectToUpdate.getImmagine());
+            preparedStatement.setString(7, objectToUpdate.getEmail());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -157,8 +160,25 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
 
     @Override
     public void doDelete(ClienteBean objectToDelete) throws SQLException {
-        String sql = "DELETE FROM Cliente WHERE email = ?; " +
-                "DELETE FROM Pacchetto WHERE id";
+        String sql = "DELETE FROM Cliente WHERE email = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToDelete.getEmail());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        }
+        finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            }finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     private ClienteBean mapFromResultSet(ResultSet rs) throws SQLException {
@@ -169,6 +189,7 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
                     rs.getInt("puntiViaggio"),
                     rs.getString("email"),
                     rs.getBytes("password"),
+                    rs.getBoolean("admin"),
                     rs.getString("immagine")
             );
         }
@@ -183,6 +204,7 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
                     rs.getInt("puntiViaggio"),
                     rs.getString("email"),
                     rs.getBytes("password"),
+                    rs.getBoolean("admin"),
                     rs.getString("immagine")
             ));
         }
