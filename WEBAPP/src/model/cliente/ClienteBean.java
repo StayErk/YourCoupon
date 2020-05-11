@@ -3,6 +3,7 @@ package model.cliente;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class ClienteBean {
     private String nome;
@@ -28,7 +29,7 @@ public class ClienteBean {
     }
 
     // costruttore con pass Stringa da codificare
-    public ClienteBean(String nome, String cognome, int puntiViaggio, String email, String pass, String immagine) {
+    public ClienteBean(String nome, String cognome, int puntiViaggio, String email, String pass, boolean admin, String immagine) {
         this.nome = nome;
         this.cognome = cognome;
         this.puntiViaggio = puntiViaggio;
@@ -85,5 +86,16 @@ public class ClienteBean {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "ClienteBean{" +
+                "nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", puntiViaggio=" + puntiViaggio +
+                ", email='" + email + '\'' +
+                ", password=" + Arrays.toString(password) +
+                ", admin=" + admin +
+                ", immagine='" + immagine + '\'' +
+                '}';
+    }
 }
