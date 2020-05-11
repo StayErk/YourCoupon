@@ -9,17 +9,17 @@
 <!-- header con form per la ricerca di pacchetti di default -->
 
 
-<section class="header-form">
-    <div class="container ">
+<section class="section-bg">
+    <div class="container header-form">
         <div class="row header-form--body">
             <div class="col-12 p-3">
                 <div class="row">
-                    <div class="col-12 header-form--title mb-3 mt-5">
-                        <h1 class="text-center">Trova la vacanza perfetta per te</h1>
+                    <div class="col-12 header-form--title mb-5 ">
+                        <h1 class="text-center text-light display-3">Trova la vacanza perfetta per te</h1>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 rounded header-form--form p-5">
+                    <div class="col-12 rounded header-form--form p-4">
                         <form class="mx-auto my-auto">
                             <div class="form-row">
                                 <div class="col-12 my-3 my-md-0 col-md-3">
