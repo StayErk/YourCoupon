@@ -61,7 +61,7 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
      */
     @Override
     public List<ClienteBean> retrieveAll(String filter, String order) throws SQLException {
-        String sql = "SELECT * FROM CLIENTE";
+        String sql = "SELECT * FROM Cliente";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         List<ClienteBean> clienti = new ArrayList<>();
@@ -93,7 +93,7 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
 
     @Override
     public void doSave(ClienteBean objectToSave) throws SQLException {
-        String sql = "INSERT INTO StrutturaAlberghiera " +
+        String sql = "INSERT INTO Cliente " +
                 "(nome, cognome, puntiViaggio, email, password, immagine) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = null;
@@ -123,7 +123,36 @@ public class ClienteCRUD implements ComponentCRUD<ClienteBean, String> {
 
     @Override
     public void doUpdate(ClienteBean objectToUpdate) throws SQLException {
+        String sql = "UPDATE Cliente SET " +
+                "nome = ?, " +
+                "cognome = ?, " +
+                "puntiViaggio = ?, " +
+                "password = ?, " + //password già codificata
+                "immagine = ? " +
+                "WHERE email = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToUpdate.getNome());
+            preparedStatement.setString(2, objectToUpdate.getCognome());
+            preparedStatement.setInt(3, objectToUpdate.getPuntiViaggio());
+            preparedStatement.setBytes(4, objectToUpdate.getPassword());
+            preparedStatement.setString(5, objectToUpdate.getImmagine());
+            preparedStatement.setString(6, objectToUpdate.getEmail());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        }
+        finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
