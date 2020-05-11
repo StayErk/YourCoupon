@@ -115,7 +115,7 @@ create table Carrello_Pacchetto(
                         id_carrello     varchar(30)     not null,
                         id_pacchetto    char(36)        not null,
                         primary key (id_pacchetto, id_carrello),
-                        foreign key (id_carrello)       references Carrello(id_cliente)
+                        foreign key (id_carrello)       references Carrello(id_carrello)
                             ON DELETE CASCADE
                             ON UPDATE CASCADE,
                         foreign key (id_pacchetto)      references Pacchetto(id)
@@ -127,7 +127,7 @@ create table Fattura(
                         id              char(36)        not null primary key,
                         id_carrello     varchar(30)     not null,
                         totale          double          not null,
-                        foreign key     (id_carrello)   references Carrello(id_cliente)
-                            ON DELETE SET NULL
+                        foreign key     (id_carrello)   references Carrello(id_carrello)
+                            ON DELETE CASCADE
                             ON UPDATE CASCADE
 );
