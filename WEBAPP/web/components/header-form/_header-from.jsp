@@ -11,7 +11,7 @@
 
 <section class="section-bg">
     <div class="container header-form d-flex align-items-center">
-        <div class="row header-form--body">
+        <div class="row header-form--body w-100">
             <div class="col-12 p-3">
                 <div class="row">
                     <div class="col-12 header-form--title mb-5 ">
