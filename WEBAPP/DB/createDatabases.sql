@@ -104,9 +104,9 @@ create table Pacchetto_Visita(
 
 
 create table Carrello(
-                        id_cliente      varchar(30)     not null primary key,
+                        id_carrello      varchar(30)     not null primary key,
                         totale          double          not null,
-                        foreign key     (id_cliente)    references Cliente(email)
+                        foreign key     (id_carrello)    references Cliente(email)
                             ON DELETE CASCADE
                             ON UPDATE CASCADE
 );
