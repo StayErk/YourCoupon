@@ -14,7 +14,7 @@ create table Cliente(
                         puntiViaggio    int             not null default 0,
                         email           varchar(30)     not null unique primary key,
                         password        binary(32)      not null,    /* SHA256 encripted */
-                        admin           boolean         not null default FALSE
+                        admin           boolean         not null default FALSE,
                         immagine        varchar(100)
 );
 
