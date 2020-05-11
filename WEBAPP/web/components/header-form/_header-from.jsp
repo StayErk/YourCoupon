@@ -12,30 +12,36 @@
 <section class="header-form">
     <div class="container ">
         <div class="row header-form--body">
-            <div class="col-12 header-form--title">
-                <h1 class="text-center">Trova la vacanza perfetta per te</h1>
-            </div>
-            <div class="col-12 rounded header-form--form p-5">
-                <form class="mx-auto my-auto">
-                    <div class="form-row">
-                        <div class="col-12 col-md-3">
-                            <select class="max-size">
-                                <option value="nil" selected>Scegli città</option>
-                                <option value="roma">Roma</option>
-                                <option value="firenze">Firenze</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <input type="number" class="form-control max-size" placeholder="Persone">
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <input type="text" class="form-control max-size" placeholder="Prezzo massimo">
-                        </div>
-                        <div class="col-12 col-md-3 text-center">
-                            <button class="btn btn-primary" type="submit">Cerca</button>
-                        </div>
+            <div class="col-12 p-3">
+                <div class="row">
+                    <div class="col-12 header-form--title mb-3 mt-5">
+                        <h1 class="text-center">Trova la vacanza perfetta per te</h1>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col-12 rounded header-form--form p-5">
+                        <form class="mx-auto my-auto">
+                            <div class="form-row">
+                                <div class="col-12 my-3 my-md-0 col-md-3">
+                                    <select class="max-size">
+                                        <option value="nil" selected>Scegli città</option>
+                                        <option value="roma">Roma</option>
+                                        <option value="firenze">Firenze</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 my-3 my-md-0 col-md-3">
+                                    <input type="number" class="form-control max-size" placeholder="Persone">
+                                </div>
+                                <div class="col-12 my-3 my-md-0 col-md-3">
+                                    <input type="text" class="form-control max-size" placeholder="Prezzo massimo">
+                                </div>
+                                <div class="col-12 my-3 my-md-0 col-md-3 text-center">
+                                    <button class="btn btn-primary" type="submit">Cerca</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
