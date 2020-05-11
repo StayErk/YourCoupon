@@ -10,18 +10,20 @@ public class ClienteBean {
     private int puntiViaggio;
     private String email;
     private byte[] password;
+    private boolean admin;
     private String immagine;
 
     // costruttore vuoto
     public ClienteBean() {}
 
     // costruttore con pass già codificata
-    public ClienteBean(String nome, String cognome, int puntiViaggio, String email, byte[] pass, String immagine) {
+    public ClienteBean(String nome, String cognome, int puntiViaggio, String email, byte[] pass, boolean admin, String immagine) {
         this.nome = nome;
         this.cognome = cognome;
         this.puntiViaggio = puntiViaggio;
         this.email = email;
         this.immagine = immagine;
+        this.admin = admin;
         password = pass.clone();
     }
 
@@ -31,6 +33,7 @@ public class ClienteBean {
         this.cognome = cognome;
         this.puntiViaggio = puntiViaggio;
         this.email = email;
+        this.admin = admin;
         this.immagine = immagine;
 
         try {
@@ -59,6 +62,10 @@ public class ClienteBean {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public boolean isAdmin() { return admin; }
+
+    public void setAdmin(boolean admin) { this.admin = admin; }
 
     public String getImmagine() { return immagine; }
 
