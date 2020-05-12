@@ -34,7 +34,7 @@
         </nav>
         <div id="content">
             <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-4 rounded item-shadow">
-                <div class="container-fluid">
+                <div class="container">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
@@ -49,48 +49,50 @@
 
                 </div>
             </nav>
-
-            <div class="row row-cols-1 row-cols-md-3 mt-0">
-                <div class="col mb-4">
-                    <div class="card border-primary mb-3 h-100 " style="max-width: 18rem;">
-                        <div class="card-header">Fatture &amp; Guadagno</div>
-                        <div class="card-body text-primary">
-                            <h5 class="card-title">Guadagnati <span class="text-success">500€</span> </h5>
-                            <p class="card-text">Per un totale di <strong>20</strong> fatture</p>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3 mt-0">
+                    <div class="col mb-4">
+                        <div class="card border-primary mb-3 h-100 " style="max-width: 18rem;">
+                            <div class="card-header">Fatture &amp; Guadagno</div>
+                            <div class="card-body text-primary">
+                                <h5 class="card-title">Guadagnati <span class="text-success">500€</span> </h5>
+                                <p class="card-text">Per un totale di <strong>20</strong> fatture</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col mb-4">
-                    <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
-                        <div class="card-header">Strutture Alberghiere</div>
-                        <div class="card-body text-primary">
-                            <h5 class="card-title">L'Hotel più scelto è <span class="text-success">Hotel Roma</span> </h5>
-                            <p class="card-text">Vi sono <strong>20</strong> Hotel</p>
-                            <a href="#" class="btn btn-outline-info">Gestisci Hotel</a>
+                    <div class="col mb-4">
+                        <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
+                            <div class="card-header">Strutture Alberghiere</div>
+                            <div class="card-body text-primary">
+                                <h5 class="card-title">L'Hotel più scelto è <span class="text-success">Hotel Roma</span> </h5>
+                                <p class="card-text">Vi sono <strong>20</strong> Hotel</p>
+                                <a href="#" class="btn btn-outline-info">Gestisci Hotel</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col mb-4">
-                    <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
-                        <div class="card-header">Strutture Ristorative</div>
-                        <div class="card-body text-primary">
-                            <h5 class="card-title">Il Ristorante più scelto è <span class="text-success">Da Ciccio</span> </h5>
-                            <p class="card-text">Vi sono <strong>20</strong> Ristoranti</p>
-                            <a href="#" class="btn btn-outline-info">Gestisci Ristoranti</a>
+                    <div class="col mb-4">
+                        <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
+                            <div class="card-header">Strutture Ristorative</div>
+                            <div class="card-body text-primary">
+                                <h5 class="card-title">Il Ristorante più scelto è <span class="text-success">Da Ciccio</span> </h5>
+                                <p class="card-text">Vi sono <strong>20</strong> Ristoranti</p>
+                                <a href="#" class="btn btn-outline-info">Gestisci Ristoranti</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col mb-4">
-                    <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
-                        <div class="card-header">Tour</div>
-                        <div class="card-body text-primary">
-                            <h5 class="card-title">Il Tour più scelto è <span class="text-success">Colosseo</span> </h5>
-                            <p class="card-text">Vi sono <strong>30</strong> Tour</p>
-                            <a href="#" class="btn btn-outline-info">Gestisci Tour</a>
+                    <div class="col mb-4">
+                        <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
+                            <div class="card-header">Tour</div>
+                            <div class="card-body text-primary">
+                                <h5 class="card-title">Il Tour più scelto è <span class="text-success">Colosseo</span> </h5>
+                                <p class="card-text">Vi sono <strong>30</strong> Tour</p>
+                                <a href="#" class="btn btn-outline-info">Gestisci Tour</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
