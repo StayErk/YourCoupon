@@ -58,7 +58,7 @@
                             <a class="nav-link text-light" href="#">Registrazione Nuovo Utente</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Pannello Admin</a>
+                            <a class="nav-link text-light" href="<%=response.encodeURL("admin/")%>">Pannello Admin</a>
                         </li>
                     </ul>
                 </nav>
