@@ -286,8 +286,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
     public void removeTour(PacchettoBean bean, TourBean tBean) throws  SQLException{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE FROM Pacchetto_Visita (id_pacchetto, id_visita) " +
-                "VALUES (?, ?)"; //bean.getID() tBean.getId()
+        String sql = "DELETE FROM Pacchetto_Visita WHERE id_pacchetto = ? AND id_visita = ?"; //bean.getID() tBean.getId()
 
         String updatePrice = "UPDATE Pacchetto SET" +
                 " costo = costo - " +
