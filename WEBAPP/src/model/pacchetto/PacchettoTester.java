@@ -6,6 +6,8 @@ import model.hotel.HotelBean;
 import model.hotel.hotelDAO;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
+import model.tour.TourBean;
+import model.tour.TourDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,10 +19,12 @@ public class PacchettoTester {
         PacchettoDAO pacchettoDAO = new PacchettoDAO();
         ClienteDAO clienteDAO = new ClienteDAO();
         RestaurantDAO restaurantDAO = new RestaurantDAO();
+        TourDAO tourDAO = new TourDAO();
         hotelDAO hotelDAO = new hotelDAO();
         HotelBean hotelBean = null;
         ClienteBean clienteBean = null;
         RestaurantBean restaurantBean = null;
+        TourBean tourBean = null;
 
         System.out.println("Creazione Cliente");
         try {
@@ -117,6 +121,34 @@ public class PacchettoTester {
             e.printStackTrace();
         }
 
-        System.out.println("Aggiunta ");
+        System.out.println("Recupero Tour dal DB");
+        try {
+            tourBean = tourDAO.retrieveAll("", "").get(0);
+        } catch (SQLException e) {
+            System.out.println("Restrieve su tour fallita");
+        }
+
+        System.out.println("Aggiunta Tour al pacchetto");
+        try {
+            pacchettoBean = pacchettoDAO.retrieveByKey(UUID.fromString("9c6ba964-2afd-4921-804e-3dd55808f774"));
+            pacchettoDAO.addTour(pacchettoBean, tourBean);
+            System.out.println("Add Tour riuscita");
+        } catch (SQLException e ) {
+            System.out.println("addTour riuscita");
+            e.printStackTrace();
+        }
+
+        try {
+            pacchettoBean = pacchettoDAO.retrieveByKey(UUID.fromString("9c6ba964-2afd-4921-804e-3dd55808f774"));
+            System.out.println("Nuovo costo aspettato 875, ottenuto " + pacchettoBean.getCosto());
+        } catch (SQLException e) {
+            System.out.println("SQ: Exception su retrieveByKey pacchetto");
+            e.printStackTrace();
+        }
+
+        System.out.println("doDelete su pacchetto");
+        try {
+
+        }
     }
 }

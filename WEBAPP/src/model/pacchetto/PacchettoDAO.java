@@ -218,12 +218,12 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO Pacchetto_Visita (id_pacchetto, id_visita) " +
-                "(?, ? )"; //bean.getID() tBean.getId()
+                "VALUES (?, ?)"; //bean.getID() tBean.getId()
 
         String updatePrice = "UPDATE Pacchetto SET" +
-                " cost0 = ((SELECT costo FROM Pacchetto WHERE id = ?) + " + //bean.getID()
-                "(SELECT costo FROM VisitaGuidata WHERE id = ?) " + //tBean.getId()
-                "* (SELECT persone FROM Pacchetto WHERE id= ? )) WHERE  id = ?"; //bean.getID()
+                " costo = costo + " +
+                "((SELECT costo FROM VisitaGuidata WHERE id = ?) " + //tBean.getId()
+                "* persone) WHERE  id = ?"; //bean.getID()
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
@@ -234,10 +234,8 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             preparedStatement.executeUpdate();
 
             preparedStatement = connection.prepareStatement(updatePrice);
-            preparedStatement.setString(1, bean.getId().toString());
-            preparedStatement.setString(2, tBean.getId().toString());
-            preparedStatement.setString(3, bean.getId().toString());
-            preparedStatement.setString(4, bean.getId().toString());
+            preparedStatement.setString(1, tBean.getId().toString());
+            preparedStatement.setString(2, bean.getId().toString());
             preparedStatement.executeUpdate();
 
             connection.commit();
