@@ -208,6 +208,42 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
 
     }
 
+    public void removeRestaurant(PacchettoBean bean, RestaurantBean rBean) throws  SQLException{
+        String sql = "DELETE FROM Pacchetto_Ristorante (id_pacchetto, id_ristorante) " +
+                "VALUES (?, ?)";
+        String updatePrice = "UPDATE Pacchetto SET " +
+                "costo = costo  - " +
+                "((SELECT costo from StruttureRistorative WHERE id = ?)" + //rBean.getID
+                "* persone )" +
+                " WHERE id = ?"; //id pacchetto
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, rBean.getId().toString());
+
+            preparedStatement.executeUpdate();
+
+
+            preparedStatement = connection.prepareStatement(updatePrice);
+            preparedStatement.setString(1, rBean.getId().toString());
+            preparedStatement.setString(2, bean.getId().toString());
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
     /**
      * Aggiunge un Tour ad un pacchetto aggiornandone il costo
      * @param bean Pacchetto a cui aggiungere il tour
