@@ -209,7 +209,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
     }
 
     public void removeRestaurant(PacchettoBean bean, RestaurantBean rBean) throws  SQLException{
-        String sql = "DELETE FROM Pacchetto_Ristorante WHERE id_pacchetto = ?,  id_ristorante = ? ";
+        String sql = "DELETE FROM Pacchetto_Ristorante WHERE id_pacchetto = ? AND id_ristorante = ? ";
         String updatePrice = "UPDATE Pacchetto SET " +
                 "costo = costo  - " +
                 "((SELECT costo from StruttureRistorative WHERE id = ?)" + //rBean.getID
