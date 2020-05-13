@@ -283,6 +283,40 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
         }
     }
 
+    public void removeTour(PacchettoBean bean, TourBean tBean) throws  SQLException{
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "DELETE FROM Pacchetto_Visita (id_pacchetto, id_visita) " +
+                "VALUES (?, ?)"; //bean.getID() tBean.getId()
+
+        String updatePrice = "UPDATE Pacchetto SET" +
+                " costo = costo - " +
+                "((SELECT costo FROM VisitaGuidata WHERE id = ?) " + //tBean.getId()
+                "* persone) WHERE  id = ?"; //bean.getID()
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, bean.getId().toString());
+            preparedStatement.setString(2, tBean.getId().toString());
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement(updatePrice);
+            preparedStatement.setString(1, tBean.getId().toString());
+            preparedStatement.setString(2, bean.getId().toString());
+            preparedStatement.executeUpdate();
+
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
     private PacchettoBean mapFromResultSet(ResultSet rs) throws SQLException {
         if (rs.next()) {
             return new PacchettoBean(
