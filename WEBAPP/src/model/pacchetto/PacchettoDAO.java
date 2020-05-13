@@ -17,7 +17,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
 
     @Override
     public PacchettoBean retrieveByKey(UUID key) throws SQLException {
-        String sql = "SELECT * FROM PAcchetto WHERE id=?";
+        String sql = "SELECT * FROM Pacchetto WHERE id=?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         PacchettoBean bean;
@@ -40,7 +40,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
 
     @Override
     public List<PacchettoBean> retrieveAll(String filter, String order) throws SQLException {
-        String sql = "SELECT * FROM pacchetto";
+        String sql = "SELECT * FROM Pacchetto";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         List<PacchettoBean> beans = new ArrayList<>();
@@ -69,7 +69,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
     public void doSave(PacchettoBean objectToSave) throws SQLException {
         String sql = "INSERT INTO Pacchetto (id, costo, id_cliente, id_struttura, durata, predefinito, persone) VALUES " +
                 "(?, " + //id pacchetto
-                "((SELECT costo_notte FROM StrutturaAlberghiera where id =  ?) * ? * ?), " + //id_struttura, durata, persone
+                "((SELECT costoNotte FROM StrutturaAlberghiera where id =  ?) * ? * ?), " + //id_struttura, durata, persone
                 " ?, " + //id_cliente
                 " ?,  " + //id_struttura
                 " ?, " + //durata
@@ -107,9 +107,9 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
     @Override
     public void doUpdate(PacchettoBean objectToUpdate) throws SQLException {
         String priceUpdate = " costo = " +
-                "((SELECT costo FROM Pacchetto where id = ?) " + //id_pacchetto
-                "/ (SELECT durata FROM Pacchetto where id = ?) " + //id_pacchetto
-                "/ (SELECT persone FROM Pacchetto where id = ?)) * ? * ?";//id_pacchetto, objectToUpdate.getPersone, objectToUpdate.getDurata
+                "((costo " +
+                "/ durata " +
+                "/ persone) * ? * ?),";// objectToUpdate.getPersone, objectToUpdate.getDurata
 
         String sql = "UPDATE Pacchetto " +
                 " SET " +
@@ -123,14 +123,14 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
          try {
              connection = DriverManagerConnectionPool.getConnection();
              preparedStatement = connection.prepareStatement(sql);
-             preparedStatement.setString(1, objectToUpdate.getId().toString());
-             preparedStatement.setString(2, objectToUpdate.getId().toString());
-             preparedStatement.setString(3, objectToUpdate.getId().toString());
+
+
+
+             preparedStatement.setInt(1, objectToUpdate.getPersone());
+             preparedStatement.setInt(2, objectToUpdate.getDurata());
+             preparedStatement.setInt(3, objectToUpdate.getDurata());
              preparedStatement.setInt(4, objectToUpdate.getPersone());
-             preparedStatement.setInt(5, objectToUpdate.getDurata());
-             preparedStatement.setInt(6, objectToUpdate.getDurata());
-             preparedStatement.setInt(7, objectToUpdate.getPersone());
-             preparedStatement.setString(8, objectToUpdate.getId().toString());
+             preparedStatement.setString(5, objectToUpdate.getId().toString());
 
              preparedStatement.executeUpdate();
              connection.commit();
@@ -175,9 +175,9 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
                 "VALUES (?, ?)";
 
         String updatePrice = "UPDATE Pacchetto SET " +
-                "costo = ((SELECT costo from pacchetto where id = ?) + " + //id pacchetto
-                "((SELECT costo from StrutturaRistorativa WHERE id = ?)" + //rBean.getID
-                "* (SELECT persone FROM pacchetto WHERE id=?)))" + //id pacchetto id_pacchetto
+                "costo = costo  + " +
+                "((SELECT costo from StruttureRistorative WHERE id = ?)" + //rBean.getID
+                "* persone )" +
                 " WHERE id = ?"; //id pacchetto
 
         Connection connection = null;
@@ -193,10 +193,8 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
 
 
             preparedStatement = connection.prepareStatement(updatePrice);
-            preparedStatement.setString(1, bean.getId().toString());
-            preparedStatement.setString(2, rBean.getId().toString());
-            preparedStatement.setString(3, bean.getId().toString());
-            preparedStatement.setString(4, bean.getId().toString());
+            preparedStatement.setString(1, rBean.getId().toString());
+            preparedStatement.setString(2, bean.getId().toString());
 
             preparedStatement.executeUpdate();
             connection.commit();
