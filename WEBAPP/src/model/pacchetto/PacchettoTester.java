@@ -146,9 +146,32 @@ public class PacchettoTester {
             e.printStackTrace();
         }
 
+
+        try {
+            System.out.println("Remove Restaurants");
+            pacchettoDAO.removeRestaurant(pacchettoBean, restaurantBean);
+            System.out.println("Remove Restaurant riuscita");
+        } catch (SQLException e) {
+            System.out.println("removeRestaurant non funziona");
+            e.printStackTrace();
+        }
+
+        try {
+            pacchettoBean = pacchettoDAO.retrieveByKey(UUID.fromString("9c6ba964-2afd-4921-804e-3dd55808f774"));
+            System.out.println("Nuovo costo aspettato 705.92, ottenuto " + pacchettoBean.getCosto());
+        } catch (SQLException e) {
+            System.out.println("SQ: Exception su retrieveByKey pacchetto");
+            e.printStackTrace();
+        }
+
+
         System.out.println("doDelete su pacchetto");
         try {
-
+            pacchettoDAO.doDelete(pacchettoBean);
+            System.out.println("doDelete Riuscita");
+        } catch (SQLException e){
+            System.out.println("doDelete non funziona");
+            e.printStackTrace();
         }
     }
 }
