@@ -84,7 +84,7 @@ public class ClienteTester {
             e.printStackTrace();
         }
 
-        System.out.println("\nCancelliamo tutti i clienti");
+        /*System.out.println("\nCancelliamo tutti i clienti");
         try {
             while(clienteDAO.retrieveAll("", "").size() > 0){
                 System.out.println(clienteDAO.retrieveAll("", "").size());
@@ -94,6 +94,6 @@ public class ClienteTester {
         catch (SQLException e) {
             System.out.println("SQL EXCEPTION su cancellazione");
             e.printStackTrace();
-        }
+        }*/
     }
 }

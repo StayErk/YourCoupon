@@ -28,7 +28,7 @@ public class PacchettoTester {
 
         System.out.println("Creazione Cliente");
         try {
-            clienteBean = clienteDAO.retrieveByKey("email@unisa.it");
+            clienteBean = clienteDAO.retrieveByKey("email@unisa.it1");
             System.out.println("selezionato cliente: " + clienteBean);
         } catch (SQLException e){
             System.out.println("SQL Exception nella creazione del cliente");
@@ -182,14 +182,14 @@ public class PacchettoTester {
         }
 
 
-        System.out.println("doDelete su pacchetto");
+       /* System.out.println("doDelete su pacchetto");
         try {
             pacchettoDAO.doDelete(pacchettoBean);
             System.out.println("doDelete Riuscita");
         } catch (SQLException e){
             System.out.println("doDelete non funziona");
             e.printStackTrace();
-        }
+        }*/
 
 
     }
