@@ -13,7 +13,7 @@ import java.util.PropertyPermission;
 public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
     @Override
     public CarrelloBean retrieveByKey(String key) throws SQLException {
-        String sql ="SELECT * FROM Carrello WHERE id=?";
+        String sql ="SELECT * FROM Carrello WHERE id_carrello=?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         CarrelloBean carrello;
@@ -42,7 +42,12 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         List<CarrelloBean> carrelloBeans = new ArrayList<>();
-
+        if(filter != null && !filter.equals("")){
+            sql += " " + filter;
+            if(order != null && !order.equals("")) {
+                sql += " " + order;
+            }
+        }
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
