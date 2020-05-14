@@ -5,11 +5,10 @@ import model.ComponentCRUD;
 import model.cliente.ClienteBean;
 import model.pacchetto.PacchettoBean;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.PropertyPermission;
 
 public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
     @Override
@@ -39,12 +38,48 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
 
     @Override
     public List<CarrelloBean> retrieveAll(String filter, String order) throws SQLException {
-        return null;
+        String sql = "SELECT * FROM Carrello";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        List<CarrelloBean> carrelloBeans = new ArrayList<>();
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            mapFromResultSet(carrelloBeans, rs);
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return carrelloBeans;
     }
+
+
 
     @Override
     public void doSave(CarrelloBean objectToSave) throws SQLException {
+        String sql = "INSERT INTO Carrello (id_carrello, totale) VALUES (?, 0)";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, objectToSave.getId());
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     @Override
@@ -125,5 +160,12 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
             );
         }
         return new CarrelloBean();
+    }
+
+    private void mapFromResultSet(List<CarrelloBean> carrelloBeans, ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            carrelloBeans.add(new CarrelloBean(rs.getString("id_carrello"),
+                    rs.getDouble("totale")));
+        }
     }
 }
