@@ -13,7 +13,7 @@ import java.util.List;
 public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
     @Override
     public FatturaBean retrieveByKey(String key) throws SQLException {
-       String sql = "SELECT * FROM Fattura WHERE id=?";
+       String sql = "SELECT * FROM Fattura WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         FatturaBean fattura;

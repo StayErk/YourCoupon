@@ -132,13 +132,6 @@ public class FatturaTester {
             e.printStackTrace();
         }
 
-        System.out.println("\nTest RetrieveAll Fattura");
-        try {
-            System.out.println(fatturaDAO.retrieveByKey("g.cardaropoli99@gmail.com"));
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        System.out.println("\nTest RetrieveByKey Fattura da FARE.....");
     }
 }
