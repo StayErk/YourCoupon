@@ -3,7 +3,7 @@ package model.pacchetto;
 import model.cliente.ClienteBean;
 import model.cliente.ClienteDAO;
 import model.hotel.HotelBean;
-import model.hotel.hotelDAO;
+import model.hotel.HotelDAO;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
 import model.tour.TourBean;
@@ -20,7 +20,7 @@ public class PacchettoTester {
         ClienteDAO clienteDAO = new ClienteDAO();
         RestaurantDAO restaurantDAO = new RestaurantDAO();
         TourDAO tourDAO = new TourDAO();
-        hotelDAO hotelDAO = new hotelDAO();
+        HotelDAO hotelDAO = new HotelDAO();
         HotelBean hotelBean = null;
         ClienteBean clienteBean = null;
         RestaurantBean restaurantBean = null;
