@@ -57,13 +57,64 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
 
     }
 
-    public void addPacchetto(CarrelloBean carrello, PacchettoBean pacchetto){
+    public void addPacchetto(CarrelloBean carrello, PacchettoBean pacchetto) throws SQLException{
 
         String sql = "insert into Carrello_Pacchetto (id_carrello, id_pacchetto) values (?, ?)"; //id_carrello, id_pacchetto
-        String sql2 = "update Carrello set totale = totale + (select costo from Pacchetto where id = (select id_pacchetto from Carrello_Pacchetto AS cp where cp.id_carrello = id_carrello)) where id_carrello = '?'"; //id_carrello
+        String sql2 = "update Carrello set totale = totale + (select costo from Pacchetto where id = (select id_pacchetto from Carrello_Pacchetto AS cp where cp.id_carrello = id_carrello)) where id_carrello = ?"; //id_carrello
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+
+        try{
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carrello.getId());
+            preparedStatement.setString(2, pacchetto.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+            preparedStatement = connection.prepareStatement(sql2);
+            preparedStatement.setString(1, carrello.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
+    public void removePacchetto(CarrelloBean carrello, PacchettoBean pacchetto) throws SQLException{
+
+        String sql = "delete from Carrello_Pacchetto where id_carrello = ? and id_pacchetto = ?"; //id_carrello, id_pacchetto
+        String sql2 = "update Carrello set totale = totale - (select costo from Pacchetto where id = (select id_pacchetto from Carrello_Pacchetto AS cp where cp.id_carrello = id_carrello)) where id_carrello = ?"; //id_carrello
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try{
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql2);
+            preparedStatement.setString(1, carrello.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carrello.getId());
+            preparedStatement.setString(2, pacchetto.getId().toString());
+            preparedStatement.executeUpdate();
+            connection.commit();
+
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            }
+            finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
     }
 
     private CarrelloBean mapFromResultSet(ResultSet rs) throws SQLException {
