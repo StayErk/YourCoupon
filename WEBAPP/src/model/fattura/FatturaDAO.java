@@ -18,10 +18,11 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
         PreparedStatement preparedStatement = null;
         FatturaBean fattura;
 
+
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,key);
+            preparedStatement.setString(1 , key);
             ResultSet rs = preparedStatement.executeQuery();
 
             fattura = mapFromResultSet(rs);
