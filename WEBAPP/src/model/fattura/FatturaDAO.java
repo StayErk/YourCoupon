@@ -130,3 +130,4 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
         }
     }
 }
+
