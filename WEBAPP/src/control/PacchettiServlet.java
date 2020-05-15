@@ -23,7 +23,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         PacchettoDAO modelDAO = new PacchettoDAO();
         HotelDAO hotelDAO = new HotelDAO();
         String action = request.getParameter("action");
-        System.out.println(action);
         switch (action){
             case "retrieve":
                 try {
