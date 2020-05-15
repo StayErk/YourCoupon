@@ -37,17 +37,19 @@
         <% if(pacchetti != null) { %>
             <% for(UUID p: pacchetti.keySet()){ %>
                 <% PacchettoBean pacchettoBean = (PacchettoBean) pacchetti.get(p).get(0); HotelBean hotelBean = (HotelBean) pacchetti.get(p).get(1); %>
-                    <%if(pacchettoBean != null && hotelBean != null && pacchettoBean.isPredefinito()) {%>
-                    <div class="col-4 mb-3">
-                        <div class="card">
-                            <img src="<%=hotelBean.getImmagine()%>" class="card-img-top img-fluid h-50" alt="<%=hotelBean.getNome()%>">
-                            <div class="card-body">
-                                <h4 class="card-title text-primary">Pacchetto "<em><%=hotelBean.getCitta()%></em>"</h4>
-                                <h3>Soggiorno in struttura: <%=hotelBean.getNome()%></h3>
-                                <p class="card-text"><%=pacchettoBean.getCosto()%></p>
+                    <%if(pacchettoBean != null && hotelBean != null){%>
+                        <% if(pacchettoBean.isPredefinito()) { %>
+                        <div class="col-4 mb-3">
+                            <div class="card">
+                                <img src="<%=hotelBean.getImmagine()%>" class="card-img-top img-fluid h-50" alt="<%=hotelBean.getNome()%>">
+                                <div class="card-body">
+                                    <h4 class="card-title text-primary">Pacchetto "<em><%=hotelBean.getCitta()%></em>"</h4>
+                                    <h3>Soggiorno in struttura: <%=hotelBean.getNome()%></h3>
+                                    <p class="card-text"><%=pacchettoBean.getCosto()%></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <%}%>
                 <%}%>
             <% } %>
         <%} else {%>
