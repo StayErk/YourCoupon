@@ -12,7 +12,7 @@ import java.util.UUID;
  * Questa classe implementa tutte le operazioni CRUD relative alla tabella
  * Struttura Alberghiera
  */
-public class hotelDAO implements ComponentCRUD<HotelBean, UUID> {
+public class HotelDAO implements ComponentCRUD<HotelBean, UUID> {
 
     /**
      * Restituisce un singolo Hotel data una chiave

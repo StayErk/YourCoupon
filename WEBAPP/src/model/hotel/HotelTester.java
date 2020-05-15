@@ -7,7 +7,7 @@ import java.util.UUID;
 public class HotelTester {
     public static void main (String args[]) {
         ArrayList<HotelBean> lista;
-        hotelDAO modelDAO = new hotelDAO();
+        HotelDAO modelDAO = new HotelDAO();
 
         System.out.println("RetrieveALL vuoto");
         try {
