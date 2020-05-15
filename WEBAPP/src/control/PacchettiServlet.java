@@ -34,7 +34,8 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                         componenti.add(p);
                         componenti.add(hotelDAO.retrieveByKey(p.getId_struttura()));
 
-                        hashPacchetti.put(p.getId(),componenti);
+                        hashPacchetti.put(p.getId(),componenti.clone());
+                        System.out.println(componenti);
                         componenti.clear();
                     }
 
