@@ -1,14 +1,15 @@
 package model.fattura;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class FatturaBean {
 
-    private String id;
+    private UUID id;
     private String id_carrello;
     private double totale;
 
-    public FatturaBean(String id, String id_carrello, double totale) {
+    public FatturaBean(UUID id, String id_carrello, double totale) {
         this.id = id;
         this.id_carrello = id_carrello;
         this.totale = totale;
@@ -17,11 +18,11 @@ public class FatturaBean {
     public FatturaBean() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -28,7 +28,7 @@ public class FatturaTester {
         RestaurantBean restaurantToSave = new RestaurantBean(UUID.randomUUID(), "via stella 11", "Roma", "Mo te sdrumo", 14.99, "https://bit.ly/2AwF2VD", "089825770", "pipp8@hotmail.it");
         HotelBean hotelToSave = new HotelBean(UUID.randomUUID(), "Hotel Rosa", "via superga 9", "Roma", 50, 4, "https://bit.ly/2T6p7Ui", "hrosa@libero.it", "081903472");
         PacchettoBean pacchettoToSave = new PacchettoBean(UUID.randomUUID(), 0, clienteToSave.getEmail(), hotelToSave.getId(), 7, false, 4);
-
+        FatturaBean beanToRetrieve = null;
         //DAO usati
         ClienteDAO clienteDAO = new ClienteDAO();
         LuogoDAO luogoDAO = new LuogoDAO();
@@ -40,7 +40,7 @@ public class FatturaTester {
         FatturaDAO fatturaDAO = new FatturaDAO();
 
 
-        System.out.println("Salvo Cliente");
+        /*System.out.println("Salvo Cliente");
         try {
             clienteDAO.doSave(clienteToSave);
         }
@@ -119,12 +119,12 @@ public class FatturaTester {
         catch (SQLException e) {
             System.out.println("Errore aggiunta pacchetto a carrello");
             e.printStackTrace();
-        }
+        } */
 
 
         System.out.println("\nCreazione fattura");
         try {
-            FatturaBean fatturaToSave = new FatturaBean("g.cardaropoli99@gmail.com", carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getId(), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getTotale());
+            FatturaBean fatturaToSave = new FatturaBean(UUID.fromString("0dfe09a8-c575-485c-8332-4a1e330f993d"), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getId(), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getTotale());
             fatturaDAO.doSave(fatturaToSave);
         }
         catch (SQLException e) {
@@ -132,6 +132,27 @@ public class FatturaTester {
             e.printStackTrace();
         }
 
-        System.out.println("\nTest RetrieveByKey Fattura da FARE.....");
+
+        System.out.println("\nTest RetrieveByKey");
+        try {
+            beanToRetrieve = fatturaDAO.retrieveByKey(UUID.fromString("0dfe09a8-c575-485c-8332-4a1e330f993d"));
+            System.out.println("Bean recuperato dal DB: " + beanToRetrieve);
+        } catch (SQLException e) {
+            System.out.println("RetrieveByKey della fattura non funziona");
+        }
+
+        System.out.println("\n RetrieveAll");
+        try {
+            System.out.println("Size retrieve all: " + fatturaDAO.retrieveAll("", "").size());
+        } catch (SQLException e){
+            System.out.println("Retrieve All non funziona");
+        }
+
+        System.out.print("\n doDelete Fattura");
+        try {
+            fatturaDAO.doDelete(beanToRetrieve);
+        } catch (SQLException e ) {
+            System.out.println("DoDelete della fattura non funziona");
+        }
     }
 }

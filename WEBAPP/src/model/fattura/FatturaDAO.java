@@ -9,10 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
+public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
     @Override
-    public FatturaBean retrieveByKey(String key) throws SQLException {
+    public FatturaBean retrieveByKey(UUID key) throws SQLException {
        String sql = "SELECT * FROM Fattura WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -22,7 +23,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1 , key);
+            preparedStatement.setString(1 , key.toString());
             ResultSet rs = preparedStatement.executeQuery();
 
             fattura = mapFromResultSet(rs);
@@ -69,7 +70,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToSave.getId());
+            preparedStatement.setString(1, objectToSave.getId().toString());
             preparedStatement.setString(2, objectToSave.getId_carrello());
             preparedStatement.setDouble(3, objectToSave.getTotale());
             preparedStatement.executeUpdate();
@@ -97,7 +98,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, objectToDelete.getId());
+            preparedStatement.setString(1, objectToDelete.getId().toString());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -114,8 +115,9 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
 
     private FatturaBean mapFromResultSet(ResultSet rs) throws SQLException{
         if(rs.next()){
+            System.out.println("Entrato in mapFromResultSet Singolo");
             return new FatturaBean(
-              rs.getString("id"),
+              UUID.fromString(rs.getString("id")),
               rs.getString("id_carrello"),
               rs.getDouble("totale")
             );
@@ -125,7 +127,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, String> {
 
     private void mapFromResultSet(List<FatturaBean> fatture, ResultSet rs) throws SQLException{
         while(rs.next()){
-            fatture.add(new FatturaBean(rs.getString("id"),
+            fatture.add(new FatturaBean(UUID.fromString(rs.getString("id")),
                     rs.getString("id_carrello"),
                     rs.getDouble("totale")));
         }
