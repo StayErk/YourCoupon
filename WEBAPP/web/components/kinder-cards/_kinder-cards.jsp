@@ -27,6 +27,8 @@
     if(pacchetti == null && errore == null) {
         response.sendRedirect(response.encodeURL("PacchettiServlet?action=retrieve"));
     }
+    PacchettoBean pacchettoBean = new PacchettoBean();
+    HotelBean hotelBean = new HotelBean();
 
 
 
@@ -36,7 +38,7 @@
     <div class="row">
         <% if(pacchetti != null) { %>
             <% for(UUID p: pacchetti.keySet()){ %>
-                <% PacchettoBean pacchettoBean = (PacchettoBean) pacchetti.get(p).get(0); HotelBean hotelBean = (HotelBean) pacchetti.get(p).get(1); %>
+                <% pacchettoBean = (PacchettoBean) pacchetti.get(p).get(0); hotelBean = (HotelBean) pacchetti.get(p).get(1); %>
                     <%if(pacchettoBean != null && hotelBean != null){%>
                         <% if(pacchettoBean.isPredefinito()) { %>
                         <div class="col-4 mb-3">
