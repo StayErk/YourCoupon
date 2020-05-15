@@ -45,7 +45,7 @@
                             <div class="card">
                                 <img src="<%=hotelBean.getImmagine()%>" class="card-img-top img-fluid h-50" alt="<%=hotelBean.getNome()%>">
                                 <div class="card-body">
-                                    <h4 class="card-title text-primary">Pacchetto "<em><%=hotelBean.getCitta()%></em>"</h4>
+                                    <h4 class="card-title text-primary">Pacchetto: "<em><%=hotelBean.getCitta()%></em>"</h4>
                                     <h3 style="font-family: 'Montserrat', sans-serif">Soggiorno in struttura: "<em><%=hotelBean.getNome()%></em>"</h3>
                                     <p class="card-text"><%=pacchettoBean.getCosto()%>€</p>
                                 </div>
