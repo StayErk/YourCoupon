@@ -40,7 +40,7 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     }
 
                     request.setAttribute("pacchetti", hashPacchetti);
-                    System.out.println(modelDAO.retrieveAll("", ""));
+                    System.out.println(hashPacchetti);
                 } catch (SQLException e) {
                     request.setAttribute("errore", e.toString());
                 }
