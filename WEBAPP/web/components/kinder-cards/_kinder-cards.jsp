@@ -50,12 +50,11 @@
                             </div>
                         </div>
                         <%}%>
-                <%}%>
+                    <%}%>
+                <% } %>
+            <%} else {%>
+                <h1>pacchetti null</h1>
             <% } %>
-        <%} else {%>
-            <h1>pacchetti null</h1>
-
-        <% } %>
     </div>
 </div>
 

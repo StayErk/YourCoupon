@@ -2,9 +2,10 @@ package model.pacchetto;
 
 import model.Bean;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class PacchettoBean implements Bean {
+public class PacchettoBean implements Bean, Serializable {
     private UUID id;
     private double costo;
     private String id_cliente;

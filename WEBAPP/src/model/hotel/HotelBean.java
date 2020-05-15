@@ -2,10 +2,11 @@ package model.hotel;
 
 import model.Bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class HotelBean implements Bean {
+public class HotelBean implements Bean, Serializable {
     private UUID id;
     private String nome;
     private String indirizzo;
