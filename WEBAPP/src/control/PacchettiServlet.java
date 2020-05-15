@@ -1,5 +1,6 @@
 package control;
 
+import model.Bean;
 import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
@@ -26,22 +27,16 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         switch (action){
             case "retrieve":
                 try {
-                    HashMap<UUID, ArrayList<String>> hashPacchetti = new HashMap<>();
-                    ArrayList<String> info = new ArrayList<>();
+                    HashMap<UUID, ArrayList<Bean>> hashPacchetti = new HashMap<>();
+                    ArrayList<Bean> componenti = new ArrayList<>();
                     ArrayList<PacchettoBean> pacchetti = new ArrayList<>(modelDAO.retrieveAll("",""));
                     for(PacchettoBean p: pacchetti){
 
-                        info.add(p.isPredefinito() + "");
-                        info.add(p.getCosto() + "");
-                        info.add(p.getDurata() + "");
-                        info.add(p.getPersone() + "");
-                        info.add(hotelDAO.retrieveByKey((p.getId_struttura())).getNome());
-                        info.add(hotelDAO.retrieveByKey((p.getId_struttura())).getCitta());
-                        info.add(hotelDAO.retrieveByKey((p.getId_struttura())).getStelle() + "");
-                        info.add(hotelDAO.retrieveByKey((p.getId_struttura())).getImmagine());
+                        componenti.add(p);
+                        componenti.add(hotelDAO.retrieveByKey(p.getId_struttura()));
 
-                        hashPacchetti.put(p.getId(),info);
-                        info.clear();
+                        hashPacchetti.put(p.getId(),componenti);
+                        componenti.clear();
                     }
 
                     request.setAttribute("pacchetti", hashPacchetti);

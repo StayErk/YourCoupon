@@ -1,9 +1,11 @@
 package model.hotel;
 
+import model.Bean;
+
 import java.util.Objects;
 import java.util.UUID;
 
-public class HotelBean {
+public class HotelBean implements Bean {
     private UUID id;
     private String nome;
     private String indirizzo;

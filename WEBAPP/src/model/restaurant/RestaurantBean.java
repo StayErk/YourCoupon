@@ -1,8 +1,10 @@
 package model.restaurant;
 
+import model.Bean;
+
 import java.util.UUID;
 
-public class RestaurantBean {
+public class RestaurantBean implements Bean {
 
     private UUID id;
     private String indirizzo;

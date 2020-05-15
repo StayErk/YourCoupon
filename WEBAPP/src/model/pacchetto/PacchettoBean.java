@@ -1,8 +1,10 @@
 package model.pacchetto;
 
+import model.Bean;
+
 import java.util.UUID;
 
-public class PacchettoBean {
+public class PacchettoBean implements Bean {
     private UUID id;
     private double costo;
     private String id_cliente;

@@ -1,9 +1,11 @@
 package model.tour;
 
+import model.Bean;
+
 import java.util.Objects;
 import java.util.UUID;
 
-public class TourBean {
+public class TourBean implements Bean {
     private UUID id;
     private UUID id_luogo;
     private double costo;
