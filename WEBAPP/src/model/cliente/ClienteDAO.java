@@ -3,6 +3,8 @@ package model.cliente;
 
 import datasource.DriverManagerConnectionPool;
 import model.ComponentCRUD;
+import model.carrello.CarrelloBean;
+import model.carrello.CarrelloDAO;
 import model.hotel.HotelBean;
 
 import java.sql.Connection;
@@ -89,6 +91,7 @@ public class ClienteDAO implements ComponentCRUD<ClienteBean, String>{
 
     @Override
     public void doSave(ClienteBean objectToSave) throws SQLException {
+        CarrelloDAO modelDAO = new CarrelloDAO();
         String sql = "INSERT INTO Cliente " +
                 "(nome, cognome, puntiViaggio, email, password, admin, immagine) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -108,6 +111,8 @@ public class ClienteDAO implements ComponentCRUD<ClienteBean, String>{
 
             preparedStatement.executeUpdate();
             connection.commit();
+            CarrelloBean carrelloBean = new CarrelloBean(objectToSave.getEmail(), 0);
+            modelDAO.doSave(carrelloBean);
         }
         finally {
             try {

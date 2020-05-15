@@ -125,7 +125,7 @@ create table Carrello_Pacchetto(
 );
 
 create table Fattura(
-                        id              char(36)        not null primary key,
+                        id              varchar(36)     not null primary key,
                         id_carrello     varchar(30)     not null,
                         totale          double          not null,
                         foreign key     (id_carrello)   references Carrello(id_carrello)
