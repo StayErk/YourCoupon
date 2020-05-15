@@ -15,13 +15,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    /*ArrayList<LuogoBean> luoghi = new ArrayList<LuogoBean>();
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));
-    luoghi.add((new LuogoBean(UUID.fromString("239c2175-308b-4498-8fda-60eb1a93a78f"), "Neyhf", "6 Browning Drive", "Dingli", "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.Vivamus vel nulla eget eros elementum pellentesque.", "https://bit.ly/3cfVSpt")));*/
     HashMap<UUID, ArrayList<Bean>> pacchetti = (HashMap<UUID, ArrayList<Bean>>) request.getAttribute("pacchetti");
     Object errore =  request.getAttribute("errore");
     if(pacchetti == null && errore == null) {

@@ -40,15 +40,15 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     }
 
                     request.setAttribute("pacchetti", hashPacchetti);
-                    System.out.println(hashPacchetti);
+                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                    requestDispatcher.forward(request, response);
                 } catch (SQLException e) {
                     request.setAttribute("errore", e.toString());
                 }
                 break;
         }
 
-        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-        requestDispatcher.forward(request, response);
+
 
     }
 }
