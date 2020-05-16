@@ -34,8 +34,8 @@
                 <% pacchettoBean = (PacchettoBean) pacchetti.get(p).get(0); hotelBean = (HotelBean) pacchetti.get(p).get(1); %>
                     <%if(pacchettoBean != null && hotelBean != null){%>
                         <% if(pacchettoBean.isPredefinito()) { %>
-                        <div class="col-4 mb-3">
-                            <div class="card">
+                        <div class="col-lg-4  col-md-6  col-12 mb-3">
+                            <div class="card shadow">
                                 <img src="<%=hotelBean.getImmagine()%>" class="card-img-top img-fluid h-50" alt="<%=hotelBean.getNome()%>">
                                 <div class="card-body">
                                     <h4 class="card-title text-primary">Pacchetto: "<em><%=hotelBean.getCitta()%></em>"</h4>

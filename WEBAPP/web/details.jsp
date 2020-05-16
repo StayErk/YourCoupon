@@ -38,7 +38,7 @@
         <main>
             <div class="container mt-5 mb-5">
                 <div class="row align-items-center">
-                    <div class="col-4">
+                    <div class="col-12 col-md-4 order-2 order-md-1">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card mx-auto text-white bg-info mb-3" style="max-width: 18rem;">
@@ -54,7 +54,7 @@
                                             <%for(UUID id : extraTourLuoghi.keySet()) { %>
                                             <% TourBean tourBean = (TourBean) extraTourLuoghi.get(id).get(0);
                                                 LuogoBean luogoBean = (LuogoBean) extraTourLuoghi.get(id).get(1); %>
-                                                        <p class="card-text">Un tour al <%=luogoBean.getNome()%> a <%=luogoBean.getCitta()%> dal valoShire di <strong><%=tourBean.getCosto()%>€ a persona</strong> </p>
+                                                        <p class="card-text">Un tour al <%=luogoBean.getNome()%> a <%=luogoBean.getCitta()%> dal valore di <strong><%=tourBean.getCosto()%>€ a persona</strong> </p>
                                             <%}%>
                                         <%}%>
                                     </div>
@@ -62,17 +62,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-12 col-md-8 order-1 order-md-2">
                         <div class="row">
                             <div class="col-12">
                                 <h1 class="text-success text-center">Dettagli Coupon</h1>
                             </div>
                         </div>
-                        <div class="row align-items-center m-2 p-0">
-                            <div class="col-6 d-flex">
-                                <img src="<%=hotelBean.getImmagine()%>" alt="L'Hotel <%=hotelBean.getNome()%>" class=" p-0 d-inline-block ml-auto w-75 h-75">
+                        <div class="row align-items-center m-2 p-0 ">
+                            <div class="col-12 col-md-6 d-flex">
+                                <img src="<%=hotelBean.getImmagine()%>" alt="L'Hotel <%=hotelBean.getNome()%>" class=" p-0 d-inline-block ml-auto shadow img-fluid mb-2 mb-md-0">
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6 text-center text-lg-left">
                                 <p>Coupon tutto compreso per <strong class="text-success"><%=pacchettoBean.getPersone()%> persone</strong> </p>
                                 <p>Della durata di <strong class="text-success"><%=pacchettoBean.getDurata()%> giorni a <%=hotelBean.getCitta()%>!</strong></p>
                                 <p>A soli: <strong class="text-success"><%=pacchettoBean.getCosto()%>€</strong></p>
