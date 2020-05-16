@@ -28,22 +28,44 @@
     <%@include file="components/navbar/_navbar.jsp"%>
     <% if((beans) != null) {%>
         <% HotelBean hotelBean= (HotelBean) beans.get(1); PacchettoBean pacchettoBean= (PacchettoBean) beans.get(0); %>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-3">
+        <main>
+            <div class="container mt-5 mb-5">
+                <div class="row align-items-center">
+                    <div class="col-4">
                         <div class="row">
                             <div class="col-12">
-                                <h5>Contenuto del pacchetto:</h5>
-                                <p>Soggiorno in hotel: <strong><%=hotelBean.getNome()%></strong> <%=hotelBean.getCostoNotte()%>>€/notte</p>
-                                <p>Pranzo/Cena per <%=pacchettoBean.getPersone()%> persone da </p>
+                                <div class="card mx-auto text-white bg-info mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">Contenuto del pacchetto:</div>
+                                    <div class="card-body">
+                                        <p class="card-text">Soggiorno in hotel: <strong><%=hotelBean.getNome()%></strong> <%=hotelBean.getCostoNotte()%>€/notte</p>
+                                        <p class="card-text">Pranzo/Cena per <%=pacchettoBean.getPersone()%> persone da </p>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-9">
-
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="text-success text-center">Dettagli Coupon</h1>
+                            </div>
+                        </div>
+                        <div class="row align-items-center m-2 p-0">
+                            <div class="col-6 d-flex">
+                                <img src="<%=hotelBean.getImmagine()%>" alt="L'Hotel <%=hotelBean.getNome()%>" class=" p-0 d-inline-block ml-auto w-75 h-75">
+                            </div>
+                            <div class="col-6">
+                                <p>Coupon tutto compreso per <strong class="text-success"><%=pacchettoBean.getPersone()%> persone</strong> </p>
+                                <p>Della durata di <strong class="text-success"><%=pacchettoBean.getDurata()%> giorni a <%=hotelBean.getCitta()%>!</strong></p>
+                                <p>A soli: <strong class="text-success"><%=pacchettoBean.getCosto()%>€</strong></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </main>
     <%}%>
 
     <!--Footer-->
