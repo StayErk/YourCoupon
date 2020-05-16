@@ -41,6 +41,7 @@
                                     <h4 class="card-title text-primary">Pacchetto: "<em><%=hotelBean.getCitta()%></em>"</h4>
                                     <h5 style="font-family: 'Montserrat', sans-serif">Soggiorno in struttura: "<em><%=hotelBean.getNome()%></em>"</h5>
                                     <p class="card-text"><%=pacchettoBean.getCosto()%>€</p>
+                                    <a class="btn btn-primary" href="<%=response.encodeURL("PacchettiServlet?action=bykey&key="+pacchettoBean.getId())%>">Dettagli</a>
                                 </div>
                             </div>
                         </div>
