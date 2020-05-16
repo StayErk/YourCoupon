@@ -4,6 +4,10 @@ import model.Bean;
 import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
+import model.restaurant.RestaurantBean;
+import model.tour.LuogoBean;
+import model.tour.LuogoDAO;
+import model.tour.TourBean;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
@@ -55,16 +59,45 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                 if(key != null && !key.equals("")){
                     try {
                         ArrayList<Bean> beans = new ArrayList<>();
+                        ArrayList<RestaurantBean> extraRestaurants = new ArrayList<>();
+                        ArrayList<TourBean> extraTour = new ArrayList<>();
+                        ArrayList<Bean> componenti = new ArrayList<>();
+                        HashMap<UUID, ArrayList<Bean>> extraTourLuoghi = new HashMap<>();
+                        LuogoDAO luogoDAO = new LuogoDAO();
+
+                        //Recupero il pacchetto e la struttura alberghiera relativa a tale pacchetto
                         PacchettoBean pacchettoBean = modelDAO.retrieveByKey(UUID.fromString(key));
                         beans.add(pacchettoBean);
                         beans.add(hotelDAO.retrieveByKey(pacchettoBean.getId_struttura()));
                         request.setAttribute("arraybeans", beans);
-                        System.out.println("RETRIEVE BY KEY: " + beans);
+
+                        //Recupero i possibili extra ristorativi
+                        extraRestaurants = modelDAO.retrieveExtraRistoranti(UUID.fromString(key));
+                        request.setAttribute("extraristoranti", extraRestaurants);
+                        System.out.println(extraRestaurants);
+
+                        //Recupero i possibili extra tour
+                        extraTour = modelDAO.retrieveExtraTour(UUID.fromString(key));
+                        for(TourBean tourBean : extraTour){
+                            componenti.add(tourBean);
+                            componenti.add(luogoDAO.retrieveByKey(tourBean.getId_luogo()));
+                            extraTourLuoghi.put(tourBean.getId_luogo(), (ArrayList<Bean>) componenti.clone());
+                            componenti.clear();
+                        }
+
+                        request.setAttribute("extratourluoghi", extraTourLuoghi);
+                        System.out.println(extraTour);
+
+
+
+
                         RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/details.jsp");
                         requestDispatcher.forward(request, response);
 
+
                     } catch (SQLException e) {
-                        System.out.println("Errore retrieve");
+                        System.out.println("Errore byKey");
+                        e.printStackTrace();
                         request.setAttribute("errore", e.toString());
                     }
                 }
