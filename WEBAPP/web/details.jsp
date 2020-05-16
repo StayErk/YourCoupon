@@ -54,7 +54,7 @@
                                             <%for(UUID id : extraTourLuoghi.keySet()) { %>
                                             <% TourBean tourBean = (TourBean) extraTourLuoghi.get(id).get(0);
                                                 LuogoBean luogoBean = (LuogoBean) extraTourLuoghi.get(id).get(1); %>
-                                                        <p class="card-text">Un tour al <%=luogoBean.getNome()%> a <%=luogoBean.getCitta()%> dal valore di <strong><%=tourBean.getCosto()%>€ a persona</strong> </p>
+                                                        <p class="card-text">Un tour al <%=luogoBean.getNome()%> a <%=luogoBean.getCitta()%> dal valoShire di <strong><%=tourBean.getCosto()%>€ a persona</strong> </p>
                                             <%}%>
                                         <%}%>
                                     </div>
