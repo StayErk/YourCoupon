@@ -3,12 +3,11 @@ package model.pacchetto;
 import datasource.DriverManagerConnectionPool;
 import model.ComponentCRUD;
 import model.restaurant.RestaurantBean;
+import model.restaurant.RestaurantDAO;
 import model.tour.TourBean;
+import model.tour.TourDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -314,6 +313,73 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
+    }
+
+    /**
+     * Questo metodo recupera tutti i possibli ristoranti legati ad un singolo pacchetto
+     * @param key chiave del pacchetto
+     * @return una lista vuota se il pacchetto non ha ristoranti legati, una lista piena altrimenti
+     * @throws SQLException
+     */
+    public ArrayList<RestaurantBean> retrieveExtraRistoranti(UUID key) throws SQLException{
+        RestaurantDAO dao = new RestaurantDAO();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<RestaurantBean> toReturn = new ArrayList<>();
+        ArrayList<UUID> ids = new ArrayList<>();
+        String sql = "SELECT id_ristorante FROM Pacchetto_Ristorante WHERE id_pacchetto = ?";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, key.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                ids.add(UUID.fromString(resultSet.getString("id_ristorante")));
+            }
+            for(UUID id : ids) {
+                toReturn.add(dao.retrieveByKey(id));
+            }
+        } finally {
+            try {
+                if(preparedStatement != null ) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return  toReturn;
+    }
+
+    public ArrayList<TourBean> retrieveExtraTour(UUID key) throws SQLException{
+        ArrayList<TourBean> toReturn = new ArrayList<>();
+        TourDAO dao = new TourDAO();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<UUID> ids = new ArrayList<>();
+
+        String sql = "SELECT id_visita FROM Pacchetto_Visita WHERE id_pacchetto = ?";
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, key.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                ids.add(UUID.fromString(resultSet.getString("id_visita")));
+            }
+            for(UUID id : ids) {
+                toReturn.add(dao.retrieveByKey(id));
+            }
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+
+        return toReturn;
     }
 
     private PacchettoBean mapFromResultSet(ResultSet rs) throws SQLException {
