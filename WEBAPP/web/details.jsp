@@ -28,7 +28,22 @@
     <%@include file="components/navbar/_navbar.jsp"%>
     <% if((beans) != null) {%>
         <% HotelBean hotelBean= (HotelBean) beans.get(1); PacchettoBean pacchettoBean= (PacchettoBean) beans.get(0); %>
-                <h1>Pacchetto: <%=hotelBean.getCitta()%></h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Contenuto del pacchetto:</h5>
+                                <p>Soggiorno in hotel: <strong><%=hotelBean.getNome()%></strong> <%=hotelBean.getCostoNotte()%>>€/notte</p>
+                                <p>Pranzo/Cena per <%=pacchettoBean.getPersone()%> persone da </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+
+                    </div>
+                </div>
+            </div>
     <%}%>
 
     <!--Footer-->

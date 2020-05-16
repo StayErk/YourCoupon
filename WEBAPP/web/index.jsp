@@ -9,6 +9,7 @@
 <html>
   <head>
     <title>YourCoupon Homepage</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="components/header-form/header-form.css">
     <link rel="stylesheet" href="components/kinder-cards/kinder-cards.css">
