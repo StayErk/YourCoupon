@@ -3,7 +3,12 @@
 <%@ page import="java.util.UUID" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Bean" %>
-<%@ page import="model.hotel.HotelBean" %><%--
+<%@ page import="model.hotel.HotelBean" %>
+<%@ page import="model.restaurant.RestaurantBean" %>
+<%@ page import="model.tour.TourBean" %>
+<%@ page import="model.tour.TourDAO" %>
+<%@ page import="model.tour.LuogoBean" %>
+<%@ page import="model.tour.LuogoDAO" %><%--
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 5/16/20
@@ -13,8 +18,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<Bean> beans =(ArrayList<Bean>) request.getAttribute("arraybeans");
+    ArrayList<RestaurantBean> extraRestaurants = (ArrayList<RestaurantBean>) request.getAttribute("extraristoranti");
+    HashMap<UUID, ArrayList<Bean>> extraTourLuoghi = (HashMap<UUID, ArrayList<Bean>>) request.getAttribute("extratourluoghi");
     String error = (String) request.getAttribute("error");
-    if(beans == null && error == null){
+    if(beans == null && error == null && (extraRestaurants == null || extraTourLuoghi == null)){
         response.sendRedirect(response.encodeURL("PacchettiServlet?action=bykey&key="+request.getParameter("key")));
     }
 %>
@@ -38,11 +45,20 @@
                                     <div class="card-header">Contenuto del pacchetto:</div>
                                     <div class="card-body">
                                         <p class="card-text">Soggiorno in hotel: <strong><%=hotelBean.getNome()%></strong> <%=hotelBean.getCostoNotte()%>€/notte</p>
-                                        <p class="card-text">Pranzo/Cena per <%=pacchettoBean.getPersone()%> persone da </p>
+                                        <% if(extraRestaurants != null) {%>
+                                            <%for(RestaurantBean bean : extraRestaurants) { %>
+                                                <p class="card-text">Pranzo o Cena da <strong><%=bean.getNome()%></strong> dal valore di <strong><%=bean.getCosto()%>€ a persona</strong></p>
+                                            <%}%>
+                                        <%}%>
+                                        <% if(extraTourLuoghi != null) {%>
+                                            <%for(UUID id : extraTourLuoghi.keySet()) { %>
+                                            <% TourBean tourBean = (TourBean) extraTourLuoghi.get(id).get(0);
+                                                LuogoBean luogoBean = (LuogoBean) extraTourLuoghi.get(id).get(1); %>
+                                                        <p class="card-text">Un tour al <%=luogoBean.getNome()%> a <%=luogoBean.getCitta()%> dal valore di <strong><%=tourBean.getCosto()%>€ a persona</strong> </p>
+                                            <%}%>
+                                        <%}%>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
