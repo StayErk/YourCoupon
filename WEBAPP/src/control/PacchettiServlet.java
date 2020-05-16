@@ -46,6 +46,22 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     request.setAttribute("errore", e.toString());
                 }
                 break;
+            case "bykey":
+                String key = request.getParameter("key");
+                if(key != null && !key.equals("")){
+                    try {
+                        ArrayList<Bean> beans = new ArrayList<>();
+                        PacchettoBean pacchettoBean = modelDAO.retrieveByKey(UUID.fromString(key));
+                        beans.add(pacchettoBean);
+                        beans.add(hotelDAO.retrieveByKey(pacchettoBean.getId_struttura()));
+                        request.setAttribute("beans", beans);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/details.jsp");
+                        requestDispatcher.forward(request, response);
+                    } catch (SQLException e) {
+                        request.setAttribute("errore", e.toString());
+                    }
+                }
+                break;
         }
 
 
