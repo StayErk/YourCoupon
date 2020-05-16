@@ -1,6 +1,7 @@
 package model.tour;
 
 import datasource.DriverManagerConnectionPool;
+import model.Bean;
 import model.ComponentCRUD;
 
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class TourDAO implements ComponentCRUD<TourBean, UUID> {
         String sql = "SELECT * FROM VisitaGuidata WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        TourBean tour = new TourBean();
+        TourBean tour;
 
         try {
             connection = DriverManagerConnectionPool.getConnection();

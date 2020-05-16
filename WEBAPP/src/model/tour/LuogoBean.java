@@ -5,7 +5,7 @@ import model.Bean;
 import java.util.Objects;
 import java.util.UUID;
 
-public class LuogoBean implements Bean {
+public class LuogoBean implements Bean, Cloneable {
 
     private UUID id;
     private String nome;
