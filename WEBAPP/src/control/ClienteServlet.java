@@ -3,6 +3,7 @@ package control;
 import model.cliente.ClienteBean;
 import model.cliente.ClienteDAO;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,9 @@ public class ClienteServlet extends HttpServlet {
                     ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
                     modelDAO.doSave(bean);
                     System.out.println("saved " + bean);
+                    request.setAttribute("registrato", modelDAO.retrieveByKey(email));
+                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                    requestDispatcher.forward(request, response);
 
                 } catch (SQLException e){
                     e.printStackTrace();

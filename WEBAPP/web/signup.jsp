@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.cliente.ClienteBean" %><%--
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 5/17/20
@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ClienteBean registered = (ClienteBean) request.getAttribute("registrato");
+%>
 <html>
 <head>
     <title>Sign Up page</title>
@@ -16,31 +19,60 @@
     <%@include file="components/navbar/_navbar.jsp"%>
     <!-- Main Content -->
     <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-6 bg-light shadow rounded p-5">
-                <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
-                <form method="post" action="ClienteServlet">
-                    <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input class="form-control" type="text" id="nome" name="nome" required>
-                        <input type="hidden" value="signup" name="action">
-                    </div>
-                    <div class="form-group">
-                        <label for="cognome">Cognome</label>
-                        <input class="form-control" type="text" id="cognome" name="cognome" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn-primary btn">Registrati!</button>
-                </form>
+            <div class="row justify-content-center">
+                <div class="col-6 bg-light shadow rounded p-5">
+                    <% if(registered == null) {%>
+                    <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
+                    <form method="post" action="ClienteServlet">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input class="form-control" type="text" id="nome" name="nome" required>
+                            <input type="hidden" value="signup" name="action">
+                        </div>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input class="form-control" type="text" id="cognome" name="cognome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn-primary btn">Registrati!</button>
+                    </form>
+                    <%} else {%>
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrazione completata</span></h1>
+                                <h3 class="text-center" style="font-family: 'Montserrat', sans-serif">Grazie per esserti registrato <%=registered.getNome()%>!</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>Ecco un resoconto dei tuoi dati:</p>
+                                <ul class="list-unstyled ml-2 mr-2">
+                                    <li>nome: <strong class="text-success"><%=registered.getNome()%></strong></li>
+                                    <li>cognome: <strong class="text-success"><%=registered.getCognome()%></strong> </li>
+                                    <li>email: <strong class="text-success"><%=registered.getEmail()%></strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="#" class="btn btn-success w-100">Log-In</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="index.jsp" class="btn btn-outline-info w-100">Torna Alla Home</a>
+                            </div>
+                        </div>
+
+                    <%}%>
+
+                </div>
             </div>
-        </div>
 
     </div>
     <!-- Footer -->

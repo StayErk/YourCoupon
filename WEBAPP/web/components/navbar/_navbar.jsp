@@ -42,10 +42,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link text-success" href="#">Log-In <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-success" href="./signup.jsp">Log-In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign-In</a>
+                    <a class="nav-link" href="./signup.jsp">Sign-Up</a>
                 </li>
             </ul>
         </div>
