@@ -19,10 +19,11 @@
         <div class="row justify-content-center">
             <div class="col-6 bg-light shadow rounded p-5">
                 <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
-                <form>
+                <form method="post" action="ClienteServlet">
                     <div class="form-group">
                         <label for="nome">Nome</label>
                         <input class="form-control" type="text" id="nome" name="nome" required>
+                        <input type="hidden" value="signup" name="action">
                     </div>
                     <div class="form-group">
                         <label for="cognome">Cognome</label>
