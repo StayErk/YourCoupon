@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.cliente.ClienteBean" %><%--
   Created by IntelliJ IDEA.
   User: edrio
   Date: 11/05/2020
@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ClienteBean bean = (ClienteBean) session.getAttribute("user");
+
+%>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="index.jsp">YourCoupon</a>
@@ -29,24 +33,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Visite Guidate</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item ">
-                    <a class="nav-link text-success" href="./signup.jsp">Log-In</a>
+                <% if(bean == null) {%>
+                    <li class="nav-item ">
+                        <a class="nav-link text-success" href="./login.jsp">Log-In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./signup.jsp">Sign-Up</a>
+                    </li>
+                <%} else {%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="small text-muted">Benvenuto, </span> <span class="text-success"><%=bean.getNome()%></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Il mio profilo</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./signup.jsp">Sign-Up</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Carrello</a>
+                    </li>
+                <%}%>
             </ul>
         </div>
     </nav>
