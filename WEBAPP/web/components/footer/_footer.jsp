@@ -23,7 +23,7 @@
                             <a class="nav-link text-light" href="ComponentsPackServlet?component=hotel">Hotel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="ComponentsPackServlet?component=ritoranti">Ristoranti</a>
+                            <a class="nav-link text-light" href="ComponentsPackServlet?component=ristoranti">Ristoranti</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="ComponentsPackServlet?component=tour">Visite Guidate</a>
