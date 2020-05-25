@@ -7,6 +7,7 @@ import model.pacchetto.PacchettoBean;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
 import model.tour.LuogoBean;
+import model.tour.LuogoDAO;
 import model.tour.TourBean;
 import model.tour.TourDAO;
 
@@ -27,6 +28,7 @@ public class ComponentsPackServlet extends HttpServlet {
     static HotelDAO hotelDAO = new HotelDAO();
     static RestaurantDAO restaurantDAO = new RestaurantDAO();
     static TourDAO tourDAO = new TourDAO();
+    static LuogoDAO luogoDAO = new LuogoDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String componentPack = request.getParameter("component");
@@ -70,14 +72,13 @@ public class ComponentsPackServlet extends HttpServlet {
                 case "tour":
                     try {
                         HashMap<UUID, ArrayList<Bean>> hashTour = new HashMap<>();
-                        ArrayList<Bean> luoghi = new ArrayList<>();
+                        ArrayList<Bean> beans = new ArrayList<>();
                         ArrayList<TourBean> tour = new ArrayList<>(tourDAO.retrieveAll("",""));
                         for(TourBean t : tour){
-                            luoghi.add(t);
-                            luoghi.add(tourDAO.retrieveByKey(t.getId_luogo()));
-                            hashTour.put(t.getId(), (ArrayList<Bean>) luoghi.clone());
-                            System.out.println(luoghi);
-                            luoghi.clear();
+                            beans.add(t);
+                            beans.add(luogoDAO.retrieveByKey(t.getId_luogo()));
+                            hashTour.put(t.getId(), (ArrayList<Bean>) beans.clone());
+                            beans.clear();
                         }
 
                         request.setAttribute("componentPack", hashTour);
