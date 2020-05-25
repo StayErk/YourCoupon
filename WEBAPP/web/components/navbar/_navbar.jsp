@@ -25,7 +25,7 @@
                     <a class="btn btn-outline-success" href="#">Crea il Tuo Pacchetto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ComponentsPackServlet?component=hotel">Hotel</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="ComponentsPackServlet?component=ristoranti">Ristoranti</a>

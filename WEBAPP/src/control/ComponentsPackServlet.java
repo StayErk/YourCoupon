@@ -38,7 +38,9 @@ public class ComponentsPackServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = null;
         String componentPack = request.getParameter("component");
+        System.out.println(componentPack);
         //Se l'utente ha modificato il parametro component, verrà demandato alla home
         if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti"))) {
             response.sendRedirect("./index.jsp");
@@ -49,7 +51,9 @@ public class ComponentsPackServlet extends HttpServlet {
                     try {
                         ArrayList<HotelBean> hotel = new ArrayList<>(hotelDAO.retrieveAll("", ""));
                         request.setAttribute("componentPack", hotel);
-                        request.setAttribute("type", "Hotel");
+                        request.setAttribute("type", "hotel");
+                        System.out.println(hotel);
+                        requestDispatcher = this.getServletContext().getRequestDispatcher("/hotel.jsp");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetrieveAll Hotel");
@@ -61,7 +65,8 @@ public class ComponentsPackServlet extends HttpServlet {
                     try {
                         ArrayList<RestaurantBean> ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
                         request.setAttribute("componentPack", ristoranti);
-                        request.setAttribute("type", "Ristoranti");
+                        request.setAttribute("type", "ristoranti");
+                        requestDispatcher = this.getServletContext().getRequestDispatcher("ristoranti.jsp");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetriveAll Ristoranti");
@@ -82,7 +87,8 @@ public class ComponentsPackServlet extends HttpServlet {
                         }
 
                         request.setAttribute("componentPack", hashTour);
-                        request.setAttribute("type", "Tour");
+                        request.setAttribute("type", "tour");
+                        requestDispatcher = this.getServletContext().getRequestDispatcher("tour.jsp");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetrieveAll Tour");
@@ -91,8 +97,6 @@ public class ComponentsPackServlet extends HttpServlet {
 
                     break;
             }
-
-            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/ComponentsPack.jsp"); //ComponentsPack.jsp si occuperà della visualizzazione
             requestDispatcher.forward(request, response);
         }
     }
