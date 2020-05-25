@@ -1,9 +1,12 @@
 package control;
 
+import model.Bean;
 import model.hotel.HotelBean;
 import model.hotel.HotelDAO;
+import model.pacchetto.PacchettoBean;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
+import model.tour.LuogoBean;
 import model.tour.TourBean;
 import model.tour.TourDAO;
 
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 @WebServlet("/ComponentsPackServlet")
 public class ComponentsPackServlet extends HttpServlet {
@@ -32,51 +37,64 @@ public class ComponentsPackServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String componentPack = request.getParameter("component");
+        //Se l'utente ha modificato il parametro component, verrà demandato alla home
+        if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti"))) {
+            response.sendRedirect("./index.jsp");
+        } else {
+            //Andiamo a prelevare dal DB gli hotel, ristoranti o tour
+            switch (componentPack) {
+                case "hotel":
+                    try {
+                        ArrayList<HotelBean> hotel = new ArrayList<>(hotelDAO.retrieveAll("", ""));
+                        request.setAttribute("componentPack", hotel);
+                        request.setAttribute("type", "Hotel");
+                    } catch (SQLException e) {
+                        request.setAttribute("error", e.toString());
+                        System.out.println("Errore RetrieveAll Hotel");
+                        e.printStackTrace();
+                    }
+                    break;
 
-        //Andiamo a prelevare dal DB gli hotel, ristoranti o hotel
-        switch (componentPack){
-            case "hotel":
-                try {
-                    ArrayList<HotelBean> hotel = new ArrayList<>(hotelDAO.retrieveAll("",""));
-                    request.setAttribute("componentPack", hotel);
-                }
-                catch (SQLException e) {
-                    request.setAttribute("error", e.toString());
-                    System.out.println("Errore RetrieveAll Hotel");
-                    e.printStackTrace();
-                }
-                break;
+                case "ristoranti":
+                    try {
+                        ArrayList<RestaurantBean> ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
+                        request.setAttribute("componentPack", ristoranti);
+                        request.setAttribute("type", "Ristoranti");
+                    } catch (SQLException e) {
+                        request.setAttribute("error", e.toString());
+                        System.out.println("Errore RetriveAll Ristoranti");
+                        e.printStackTrace();
+                    }
+                    break;
 
-            case "ristoranti":
-                try {
-                    ArrayList<RestaurantBean> ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("",""));
-                    request.setAttribute("componentPack", ristoranti);
-                }
-                catch (SQLException e) {
-                    request.setAttribute("error", e.toString());
-                    System.out.println("Errore RetriveAll Ristoranti");
-                    e.printStackTrace();
-                }
-                break;
+                case "tour":
+                    try {
+                        HashMap<UUID, ArrayList<Bean>> hashTour = new HashMap<>();
+                        ArrayList<Bean> luoghi = new ArrayList<>();
+                        ArrayList<TourBean> tour = new ArrayList<>(tourDAO.retrieveAll("",""));
+                        for(TourBean t : tour){
 
-            case "tour":
-                try {
-                    ArrayList<TourBean> tour = new ArrayList<>(tourDAO.retrieveAll("",""));
-                    request.setAttribute("componentPack", tour);
-                }
-                catch (SQLException e) {
-                    request.setAttribute("error", e.toString());
-                    System.out.println("Errore RetrieveAll Tour");
-                    e.printStackTrace();
-                }
+                            luoghi.add(t);
+                            luoghi.add(tourDAO.retrieveByKey(t.getId_luogo()));
+                            hashTour.put(t.getId(), (ArrayList<Bean>) luoghi.clone());
+                            System.out.println(luoghi);
+                            luoghi.clear();
+                        }
+                        System.out.println(hashTour);
 
-                break;
-            default:
-                request.setAttribute("invalidComponent", true); //Nel caso l'utente modifichi l'url, inserendo un component che non esiste
-                break;
+                        request.setAttribute("pacchetti", hashTour);
+                        request.setAttribute("type", "Tour");
+                    } catch (SQLException e) {
+                        request.setAttribute("error", e.toString());
+                        System.out.println("Errore RetrieveAll Tour");
+                        e.printStackTrace();
+                    }
+
+                    break;
+            }
+
+            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/ComponentsPack.jsp"); //ComponentsPack.jsp si occuperà della visualizzazione
+            requestDispatcher.forward(request, response);
         }
-
-        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/ComponentsPack.jsp"); //ComponentsPack.jsp si occuperà della visualizzazione
-        requestDispatcher.forward(request, response);
     }
 }

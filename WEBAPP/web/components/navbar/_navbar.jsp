@@ -25,13 +25,13 @@
                     <a class="btn btn-outline-success" href="#">Crea il Tuo Pacchetto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hotel</a>
+                    <a class="nav-link" href="ComponentsPackServlet?component=hotel">Hotel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ristoranti</a>
+                    <a class="nav-link" href="ComponentsPackServlet?component=ristoranti">Ristoranti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Visite Guidate</a>
+                    <a class="nav-link" href="ComponentsPackServlet?component=tour">Visite Guidate</a>
                 </li>
 
             </ul>
