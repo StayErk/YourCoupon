@@ -5,7 +5,6 @@ import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
 import model.restaurant.RestaurantBean;
-import model.tour.LuogoBean;
 import model.tour.LuogoDAO;
 import model.tour.TourBean;
 
