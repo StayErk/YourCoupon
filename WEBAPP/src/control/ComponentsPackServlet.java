@@ -1,7 +1,7 @@
 package control;
 
 import model.hotel.HotelBean;
-import model.hotel.hotelDAO;
+import model.hotel.HotelDAO;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
 import model.tour.TourBean;
