@@ -20,13 +20,13 @@
                             <a class="nav-link text-light" href="#">Crea il tuo pacchetto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Hotel</a>
+                            <a class="nav-link text-light" href="ComponentsPackServlet?component=hotel">Hotel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Ristoranti</a>
+                            <a class="nav-link text-light" href="ComponentsPackServlet?component=ritoranti">Ristoranti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Visite Guidate</a>
+                            <a class="nav-link text-light" href="ComponentsPackServlet?component=tour">Visite Guidate</a>
                         </li>
                     </ul>
                 </nav>
@@ -36,10 +36,10 @@
                 <nav>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Giuseppe Cardaropoli</a>
+                            <a class="nav-link text-light" href="https://it.pornhub.com/">Giuseppe Cardaropoli</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Andrea Ercolino</a>
+                            <a class="nav-link text-light" href="https://www.youtube.com/user/PositanoYoung">Andrea Ercolino</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="https://www.instagram.com/x.mariachiara/">Maria Chiara Nasto</a>
