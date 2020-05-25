@@ -65,7 +65,7 @@
                                 <a href="#" class="btn btn-success w-100">Log-In</a>
                             </div>
                             <div class="col-6">
-                                <a href="index.jsp" class="btn btn-outline-info w-100">Torna Alla Home</a>
+                                <a href="./index.jsp" class="btn btn-outline-info w-100">Torna Alla Home</a>
                             </div>
                         </div>
 

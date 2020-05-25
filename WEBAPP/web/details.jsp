@@ -46,8 +46,8 @@
                                     <div class="card-body">
                                         <p class="card-text">Soggiorno in hotel: <strong><%=hotelBean.getNome()%></strong> <%=hotelBean.getCostoNotte()%>€/notte</p>
                                         <% if(extraRestaurants != null) {%>
-                                            <%for(RestaurantBean bean : extraRestaurants) { %>
-                                                <p class="card-text">Pranzo o Cena da <strong><%=bean.getNome()%></strong> dal valore di <strong><%=bean.getCosto()%>€ a persona</strong></p>
+                                            <%for(RestaurantBean rbean : extraRestaurants) { %>
+                                                <p class="card-text">Pranzo o Cena da <strong><%=rbean.getNome()%></strong> dal valore di <strong><%=rbean.getCosto()%>€ a persona</strong></p>
                                             <%}%>
                                         <%}%>
                                         <% if(extraTourLuoghi != null) {%>
