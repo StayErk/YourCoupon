@@ -73,16 +73,14 @@ public class ComponentsPackServlet extends HttpServlet {
                         ArrayList<Bean> luoghi = new ArrayList<>();
                         ArrayList<TourBean> tour = new ArrayList<>(tourDAO.retrieveAll("",""));
                         for(TourBean t : tour){
-
                             luoghi.add(t);
                             luoghi.add(tourDAO.retrieveByKey(t.getId_luogo()));
                             hashTour.put(t.getId(), (ArrayList<Bean>) luoghi.clone());
                             System.out.println(luoghi);
                             luoghi.clear();
                         }
-                        System.out.println(hashTour);
 
-                        request.setAttribute("pacchetti", hashTour);
+                        request.setAttribute("componentPack", hashTour);
                         request.setAttribute("type", "Tour");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
