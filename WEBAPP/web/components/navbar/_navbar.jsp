@@ -28,10 +28,10 @@
                     <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ComponentsPackServlet?component=ristoranti">Ristoranti</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=ristoranti")%>">Ristoranti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ComponentsPackServlet?component=tour">Visite Guidate</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=tour")%>">Visite Guidate</a>
                 </li>
 
             </ul>

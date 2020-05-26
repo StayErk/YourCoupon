@@ -66,7 +66,7 @@ public class ComponentsPackServlet extends HttpServlet {
                         ArrayList<RestaurantBean> ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
                         request.setAttribute("componentPack", ristoranti);
                         request.setAttribute("type", "ristoranti");
-                        requestDispatcher = this.getServletContext().getRequestDispatcher("ristoranti.jsp");
+                        requestDispatcher = this.getServletContext().getRequestDispatcher("/restaurant.jsp");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetriveAll Ristoranti");
@@ -88,7 +88,7 @@ public class ComponentsPackServlet extends HttpServlet {
 
                         request.setAttribute("componentPack", hashTour);
                         request.setAttribute("type", "tour");
-                        requestDispatcher = this.getServletContext().getRequestDispatcher("tour.jsp");
+                        requestDispatcher = this.getServletContext().getRequestDispatcher("/tour.jsp");
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetrieveAll Tour");

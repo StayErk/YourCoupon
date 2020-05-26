@@ -1,19 +1,14 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="model.Bean" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.UUID" %>
-<%@ page import="model.tour.TourBean" %>
-<%@ page import="model.tour.LuogoBean" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: peppe
-  Date: 25/05/2020
-  Time: 09:40
+  Date: 26/05/2020
+  Time: 08:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Lista Hotel</title>
+    <title>Lista Tour</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
