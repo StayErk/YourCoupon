@@ -15,6 +15,8 @@
 <head>
     <title>Lista Hotel</title>
     <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./components/catalogbean/catalogbeans.css">
 </head>
 <body>
     <!-- Navbar -->

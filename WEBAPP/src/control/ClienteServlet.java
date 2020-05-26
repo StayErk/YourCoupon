@@ -71,7 +71,7 @@ public class ClienteServlet extends HttpServlet {
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
                             requestDispatcher.forward(request, response);
                         } else {
-                            request.setAttribute("errore-login", false);
+                            request.setAttribute("errore-login", true);
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
                             requestDispatcher.forward(request, response);
                         }
