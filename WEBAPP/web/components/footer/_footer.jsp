@@ -20,13 +20,13 @@
                             <a class="nav-link text-light" href="#">Crea il tuo pacchetto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="ComponentsPackServlet?component=hotel">Hotel</a>
+                            <a class="nav-link text-light" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="ComponentsPackServlet?component=ristoranti">Ristoranti</a>
+                            <a class="nav-link text-light" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="ComponentsPackServlet?component=tour">Visite Guidate</a>
+                            <a class="nav-link text-light" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
                         </li>
                     </ul>
                 </nav>
