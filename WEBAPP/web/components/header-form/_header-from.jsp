@@ -20,7 +20,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 rounded header-form--form p-4">
-                        <form class="mx-auto my-auto">
+                        <form class="mx-auto my-auto" onsubmit="return false" id="search">
                             <div class="form-row">
                                 <div class="col-12 my-3 my-md-0 col-md-3">
                                     <select class="max-size form-control">
@@ -30,13 +30,13 @@
                                     </select>
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <input type="number" class="form-control max-size" min="1" placeholder="Persone">
+                                    <input type="number" class="form-control max-size" name="persone" min="1" placeholder="Persone">
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
                                     <input type="number" class="form-control max-size" min="1" placeholder="Durata">
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3 text-center">
-                                    <button class="btn btn-primary" type="submit">Cerca</button>
+                                    <button class="btn btn-primary" type="submit" id="cerca-btn">Cerca</button>
                                 </div>
                             </div>
                         </form>

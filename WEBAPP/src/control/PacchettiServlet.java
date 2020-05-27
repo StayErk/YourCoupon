@@ -1,5 +1,6 @@
 package control;
 
+import com.google.gson.Gson;
 import model.Bean;
 import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
@@ -30,8 +31,12 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         switch (action){
             case "retrieve":
                 try {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
                     HashMap<UUID, ArrayList<Bean>> hashPacchetti = new HashMap<>();
                     ArrayList<Bean> componenti = new ArrayList<>();
+                    String persone = request.getParameter("persone");
+                    System.out.println(persone);
                     ArrayList<PacchettoBean> pacchetti = new ArrayList<>(modelDAO.retrieveAll("",""));
                     for(PacchettoBean p: pacchetti){
 
@@ -42,9 +47,11 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                         componenti.clear();
                     }
 
-                    request.setAttribute("pacchetti", hashPacchetti);
-
-
+                    Gson gson = new Gson();
+                    String hashmap = gson.toJson(hashPacchetti);
+                    response.setStatus(200);
+                    System.out.println("JSON: " + hashmap);
+                    response.getWriter().write(hashmap);
 
                 } catch (SQLException e) {
                     request.setAttribute("errore", e.toString());
@@ -105,8 +112,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
 
                 break;
         }
-        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-        requestDispatcher.forward(request, response);
 
     }
 }
