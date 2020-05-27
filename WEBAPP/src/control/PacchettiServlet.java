@@ -11,6 +11,7 @@ import model.tour.TourBean;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     Gson gson = new Gson();
                     String hashmap = gson.toJson(hashPacchetti);
                     response.setStatus(200);
+                    
                     System.out.println("JSON: " + hashmap);
                     response.getWriter().write(hashmap);
 

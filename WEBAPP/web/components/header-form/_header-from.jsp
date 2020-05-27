@@ -22,6 +22,7 @@
                     <div class="col-12 rounded header-form--form p-4">
                         <form class="mx-auto my-auto" onsubmit="return false" id="search">
                             <div class="form-row">
+
                                 <div class="col-12 my-3 my-md-0 col-md-3">
                                     <select class="max-size form-control">
                                         <option value="nil" selected>Scegli città</option>
@@ -39,6 +40,7 @@
                                     <button class="btn btn-primary" type="submit" id="cerca-btn">Cerca</button>
                                 </div>
                             </div>
+                            <input type="hidden" value="<%=request.getSession().getId()%>">
                         </form>
                     </div>
                 </div>
@@ -46,3 +48,4 @@
         </div>
     </div>
 </section>
+

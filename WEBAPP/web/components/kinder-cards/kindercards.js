@@ -1,22 +1,22 @@
 const deck = document.getElementById('deck');
 const btn = document.getElementById('provabtn');
 const btn2 = document.getElementById('cerca-btn');
+const form = document.getElementById('search');
+const sessionId = form[4].value;
 
 btn2.addEventListener('click', () => {
-    console.log('click')
-    const form = document.getElementById('search');
-    console.log(form)
-    const durata = form[2].value;
-    console.log(durata)
+
+
     let xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("GET", `PacchettiServlet?action=retrieve`, false);
+    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, false);
     xmlHttpRequest.send();
+    console.log('cosa sei: ' + sessionId)
     if(xmlHttpRequest.status == 200) {
         let data = JSON.parse(xmlHttpRequest.responseText);
         let hashes = [];
         createObjects(data, hashes)
         let filtered = hashes.filter((hash) => {
-            return hash.durata <= form[2].value && hash.citta === form[1].value && hash.persone <= form[1].value
+            return hash.durata <= form[2].value && hash.citta === form[0].value && hash.persone <= form[1].value
         })
         deck.children = '';
         createCard(filtered)
@@ -26,10 +26,12 @@ btn2.addEventListener('click', () => {
 
 window.onload = () => {
     let xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("GET", `PacchettiServlet?action=retrieve`, true);
+    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, true);
     xmlHttpRequest.send();
+
     xmlHttpRequest.onreadystatechange = function () {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            console.log(xmlHttpRequest.getAllResponseHeaders())
             let data = JSON.parse(xmlHttpRequest.responseText);
             let hashes = [];
             createObjects(data, hashes)
@@ -66,7 +68,7 @@ function createCard(hashes) {
         cardBtn.classList.add('btn');
         cardBtn.classList.add('btn-primary')
         cardBtn.innerText = 'Dettagli'
-        cardBtn.href = `PacchettiServlet?action=bykey&key=${hash.id_pacchetto}`
+        cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
         cardBody.appendChild(cardBtn)
         deck.appendChild(card);
     })
