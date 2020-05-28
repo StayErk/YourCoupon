@@ -14,7 +14,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="card-deck" id="deck">
+<div class="card-columns" id="deck">
 </div>
 
 

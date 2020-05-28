@@ -1,5 +1,6 @@
 package control;
 
+import com.google.gson.Gson;
 import model.Bean;
 import model.hotel.HotelBean;
 import model.hotel.HotelDAO;
@@ -49,11 +50,21 @@ public class ComponentsPackServlet extends HttpServlet {
             switch (componentPack) {
                 case "hotel":
                     try {
-                        ArrayList<HotelBean> hotel = new ArrayList<>(hotelDAO.retrieveAll("", ""));
-                        request.setAttribute("componentPack", hotel);
-                        request.setAttribute("type", "hotel");
-                        System.out.println(hotel);
-                        requestDispatcher = this.getServletContext().getRequestDispatcher("/hotel.jsp");
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        String filter = request.getParameter("filter");
+                        String order = request.getParameter("order");
+                        ArrayList<HotelBean> hotel = new ArrayList<>();
+                        if(filter != null && order != null) {
+                            hotel = new ArrayList<>(hotelDAO.retrieveAll(filter, order));
+                        } else {
+                            hotel = new ArrayList<>(hotelDAO.retrieveAll("", ""));
+                        }
+                       Gson gson = new Gson();
+                       String hoteldaritornare = gson.toJson(hotel);
+                       response.setStatus(200);
+
+                       response.getWriter().write(hoteldaritornare);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetrieveAll Hotel");
@@ -63,10 +74,22 @@ public class ComponentsPackServlet extends HttpServlet {
 
                 case "ristoranti":
                     try {
-                        ArrayList<RestaurantBean> ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
-                        request.setAttribute("componentPack", ristoranti);
-                        request.setAttribute("type", "ristoranti");
-                        requestDispatcher = this.getServletContext().getRequestDispatcher("/restaurant.jsp");
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        String filter = request.getParameter("filter");
+                        String order = request.getParameter("order");
+                        ArrayList<RestaurantBean> ristoranti = new ArrayList<>();
+                        if(filter != null && order != null) {
+                           ristoranti = new ArrayList<>(restaurantDAO.retrieveAll(filter, order));
+                            System.out.println(filter + order);
+                        } else {
+                            ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
+                        }
+
+                        Gson gson = new Gson();
+                        String ristorantidaRitornare = gson.toJson(ristoranti);
+                        response.setStatus(200);
+                        response.getWriter().write(ristorantidaRitornare);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetriveAll Ristoranti");
@@ -76,19 +99,33 @@ public class ComponentsPackServlet extends HttpServlet {
 
                 case "tour":
                     try {
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
                         HashMap<UUID, ArrayList<Bean>> hashTour = new HashMap<>();
                         ArrayList<Bean> beans = new ArrayList<>();
-                        ArrayList<TourBean> tour = new ArrayList<>(tourDAO.retrieveAll("",""));
+                        String filter = request.getParameter("filter");
+                        String order = request.getParameter("order");
+                        ArrayList<TourBean> tour = new ArrayList<>();
+                        if(filter != null && order != null) {
+                           tour = new ArrayList<>(tourDAO.retrieveAll(filter,order));
+                           System.out.println(filter + order);
+                        } else {
+                          tour = new ArrayList<>(tourDAO.retrieveAll("",""));
+                        }
                         for(TourBean t : tour){
                             beans.add(t);
                             beans.add(luogoDAO.retrieveByKey(t.getId_luogo()));
                             hashTour.put(t.getId(), (ArrayList<Bean>) beans.clone());
                             beans.clear();
                         }
+                        Gson gson = new Gson();
+                        String hashmap = gson.toJson(hashTour);
+                        response.setStatus(200);
 
-                        request.setAttribute("componentPack", hashTour);
-                        request.setAttribute("type", "tour");
-                        requestDispatcher = this.getServletContext().getRequestDispatcher("/tour.jsp");
+                        System.out.println("JSON: " + hashmap);
+                        response.getWriter().write(hashmap);
+
+
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
                         System.out.println("Errore RetrieveAll Tour");
@@ -97,7 +134,6 @@ public class ComponentsPackServlet extends HttpServlet {
 
                     break;
             }
-            requestDispatcher.forward(request, response);
         }
     }
 }
