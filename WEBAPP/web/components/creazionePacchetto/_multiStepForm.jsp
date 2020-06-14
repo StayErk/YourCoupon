@@ -68,11 +68,37 @@
     </div>
 	<div id="sf4" class="frm p-3">
         <fieldset>
-            <legend class="text-success">Step 4</legend>
+            <legend class="text-success">Scegli Tour</legend>
+            <div class="form-group" >
+                <div class="card-columns" id="tourFormGroup"></div>
+            </div>
             <div class="form-group">
                 <div class="col-12">
                     <button class="btn btn-secondary back4" type="button">Previus</button>
-                    <button class="btn btn-primary open4" type="button">Submit</button>
+                    <button class="btn btn-primary open4" type="button">Non Inserire Tour</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div id="sf5" class="frm p-3">
+        <fieldset>
+            <legend class="text-success">Riepilogo</legend>
+            <div class="form-group">
+                <table class="table">
+                    <thead>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Prezzo unitario</th>
+                        <th scope="col">Quantita</th>
+                    </thead>
+                    <tbody  id="riepilogo">
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <div class="col-12">
+                    <button class="btn btn-secondary back5" type="button">Previus</button>
+                    <button class="btn btn-primary open5" type="button">Aggiungi al carrello</button>
                 </div>
             </div>
         </fieldset>

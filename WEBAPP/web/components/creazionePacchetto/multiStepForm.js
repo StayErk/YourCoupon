@@ -31,8 +31,16 @@ jQuery().ready(function () {
         if(v) {
             $(".frm").hide("fast");
             $("#sf4").show("slow");
+            showTour(cittaScelta)
         }
     });
+    $(".open4").click(function () {
+        if(v) {
+            $(".frm").hide("fast");
+            $("#sf5").show("slow");
+            showRiepilogo();
+        }
+    })
     $(".back2").click(function () {
         if(v) {
             $(".frm").hide("fast");
@@ -51,7 +59,13 @@ jQuery().ready(function () {
             $("#sf3").show("slow");
         }
     });
-    $(".open4").click(function () {
+    $(".back5").click(function () {
+        if(v) {
+            $(".frm").hide("fast");
+            $("#sf4").show("slow");
+        }
+    });
+    $(".open5").click(function () {
         if(v) {
             return false;
         }
@@ -90,6 +104,57 @@ const showRestaurants = (citta) => {
     })
 }
 
+const showTour = (citta) => {
+    $.getJSON(`ComponentsPackServlet;jsessionid=${sessionID}?component=tour`, function (data, status) {
+        if(status === 'success') {
+            let array = [];
+            createArrayOfHash(data, array);
+            console.log(array)
+            let filtered = array.filter((element) => {
+                return element.citta.toLowerCase() == citta;
+            })
+            console.log(filtered)
+            createCardFromHash(array)
+            $(".sceltaMultipla").click(function () {
+                package.tours.push(JSON.parse(this.value))
+                console.log(package.tours);
+                $(".open4").text(`${package.tours.length} Tour vanno bene`)
+            })
+        }
+    })
+}
+const showRiepilogo = () => {
+    const tableRow = document.createElement("tr")
+    $("#riepilogo").append(tableRow)
+    const tabledata1 = document.createElement("td");
+    tabledata1.innerText = "Hotel";
+    const tabledata2 = document.createElement("td");
+    tabledata2.innerText = package.hotel.nome;
+    const tabledata3 = document.createElement("td");
+    tabledata3.innerText = package.hotel.costoNotte;
+    const tabledata4 = document.createElement("td");
+    tabledata4.innerText = 1;
+    tableRow.appendChild(tabledata1);
+    tableRow.appendChild(tabledata2);
+    tableRow.appendChild(tabledata3);
+    tableRow.appendChild(tabledata4);
+    const tableRowRestaurant = document.createElement('tr');
+    $("#riepilogo").append(tableRowRestaurant);
+    package.restaurants.forEach((restaurant) => {
+        const tabledataRestaurant1 = document.createElement("td");
+        tabledataRestaurant1.innerText = "Ristorante";
+        const tabledataRestaurant2 = document.createElement("td");
+        tabledataRestaurant2.innerText = restaurant.nome;
+        const tabledataRestaurant3 = document.createElement("td");
+        tabledataRestaurant3.innerText = restaurant.costo;
+        const tabledataRestaurant4 = document.createElement("td");
+        tabledataRestaurant4.innerText = "Ristorante";
+        tableRowRestaurant.appendChild(tabledataRestaurant1);
+        tableRowRestaurant.appendChild(tabledataRestaurant2);
+        tableRowRestaurant.appendChild(tabledataRestaurant3);
+        tableRowRestaurant.appendChild(tabledataRestaurant4);
+    })
+}
 const createArrayOfHash = (data, hashes) => {
     for (let propt in data) {
         let hash = {
@@ -167,7 +232,6 @@ const createRestaurantCard = (data) => {
         cardText2.classList.add('card-text')
         cardText2.innerText = `per soli ${ristorante.costo} euro a persona`
         cardBody.appendChild(cardText2)
-        const option = document.createElement('option');
         const cardButton = document.createElement('button')
         cardButton.classList.add("btn", "btn-primary", "sceltaMultipla");
         cardButton.value = JSON.stringify(ristorante);
@@ -176,5 +240,45 @@ const createRestaurantCard = (data) => {
         cardBody.appendChild(cardText2)
         cardBody.appendChild(cardButton)
 
+    })
+}
+
+const createCardFromHash = (hashes) => {
+    $("#tourFormGroup").text("")
+    hashes.forEach((hash) => {
+        const card = document.createElement('div')
+        card.classList.add('card')
+        const cardHeader = document.createElement('h5');
+        cardHeader.classList.add('card-header')
+        cardHeader.innerText = hash.citta
+        card.appendChild(cardHeader)
+        $("#tourFormGroup").append(card)
+        const cardImg = document.createElement('img')
+        cardImg.classList.add('card-img-top')
+        cardImg.src = hash.immagine
+        cardImg.alt = `immagine di ${hash.nome_luogo}`
+        card.appendChild(cardImg)
+        const cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+        card.appendChild(cardBody)
+        const cardTitle = document.createElement('h5')
+        cardTitle.classList.add('card-title')
+        cardTitle.innerText = `Visita guidata a ${hash.nome_luogo}`
+        cardBody.appendChild(cardTitle)
+        const cardText1 = document.createElement('p')
+        const cardText2 = document.createElement('p')
+        cardText1.classList.add('card-text')
+        cardText2.classList.add('card-text')
+        cardText1.innerText = `${hash.descrizione.substr(0,hash.descrizione.length/3)}...`
+        cardBody.appendChild(cardText1)
+        cardText2.innerText = `per soli: ${hash.costo} euro a persona`
+        cardBody.appendChild(cardText2)
+        const cardButton = document.createElement('button')
+        cardButton.classList.add("btn", "btn-primary", "sceltaMultipla");
+        cardButton.value = JSON.stringify(hash);
+        cardButton.innerText = "Aggiungi"
+        cardButton.type = "button"
+        cardBody.appendChild(cardText2)
+        cardBody.appendChild(cardButton)
     })
 }

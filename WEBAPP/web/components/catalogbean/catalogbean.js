@@ -30,8 +30,6 @@ window.onload = () => {
 
 const createCardFromHash = (hashes) => {
     pancake.innerHTML = '';
-
-
     hashes.forEach((hash) => {
         const card = document.createElement('div')
         card.classList.add('card')
@@ -67,9 +65,6 @@ const createCardFromHash = (hashes) => {
             cittaInserite.push(hash.citta);
             citta.appendChild(option)
         }
-
-
-
     })
 }
 
