@@ -29,6 +29,7 @@
 <head>
     <title>Dettagli pacchetto</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="components/creazionePacchetto/multiStepForm.css">
 </head>
 <body>
     <!--Navbar-->
