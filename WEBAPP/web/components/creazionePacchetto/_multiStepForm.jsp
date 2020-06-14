@@ -40,7 +40,7 @@
     </div>
 	<div id="sf2" class="frm p-3">
         <fieldset >
-            <legend class="text-success">Step 2</legend>
+            <legend class="text-success">Scegli Hotel</legend>
             <div class="form-group" >
                 <div class="card-columns" id="hotelFormGroup"></div>
             </div>
@@ -54,11 +54,14 @@
     </div>
 	<div id="sf3" class="frm p-3">
         <fieldset>
-            <legend class="text-success">Step 3</legend>
+            <legend class="text-success">Scegli Ristorante</legend>
+            <div class="form-group">
+                <div class="card-columns" id="restaurantFormGroup"></div>
+            </div>
             <div class="form-group">
                 <div class="col-12">
                     <button class="btn btn-secondary back3" type="button">Previus</button>
-                    <button class="btn btn-primary open3" type="button">Next</button>
+                    <button class="btn btn-primary open3" type="button">Non Inserire Ristorante</button>
                 </div>
             </div>
         </fieldset>
