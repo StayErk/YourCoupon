@@ -12,7 +12,13 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <%@include file="components/creazionePacchetto/_multiStepForm.jsp"%>
+    <%@include file="components/navbar/_navbar.jsp"%>
+    <div class=" row  justify-content-center mt-5 mb-5">
+        <div class="col-6">
+            <%@include file="components/creazionePacchetto/_multiStepForm.jsp"%>
+        </div>
+    </div>
+    <%@include file="components/footer/_footer.jsp"%>
 
 
 
