@@ -1,8 +1,12 @@
 package model.pacchetto;
 
+import model.Bean;
+import model.hotel.HotelBean;
+
+import java.io.Serializable;
 import java.util.UUID;
 
-public class PacchettoBean {
+public class PacchettoBean implements Bean, Serializable, Cloneable {
     private UUID id;
     private double costo;
     private String id_cliente;
@@ -90,5 +94,15 @@ public class PacchettoBean {
                 ", durata=" + durata +
                 ", predefinito=" + predefinito +
                 '}';
+    }
+
+    public PacchettoBean clone() {
+        try {
+            PacchettoBean cloned = (PacchettoBean) super.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

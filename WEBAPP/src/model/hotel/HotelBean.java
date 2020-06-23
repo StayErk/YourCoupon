@@ -1,9 +1,12 @@
 package model.hotel;
 
+import model.Bean;
+
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class HotelBean {
+public class HotelBean implements Bean, Serializable, Cloneable {
     private UUID id;
     private String nome;
     private String indirizzo;
@@ -121,5 +124,15 @@ public class HotelBean {
         if (o == null || getClass() != o.getClass()) return false;
         HotelBean hotelBean = (HotelBean) o;
         return this.id.equals(hotelBean.id);
+    }
+
+    @Override
+    public HotelBean clone(){
+        try {
+            HotelBean cloned = (HotelBean) super.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e){
+            return null;
+        }
     }
 }
