@@ -22,7 +22,7 @@
                     <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success" href="#">Crea il Tuo Pacchetto</a>
+                    <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>

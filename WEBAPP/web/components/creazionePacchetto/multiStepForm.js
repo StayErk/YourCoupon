@@ -1,7 +1,8 @@
 let sessionID = $("#sessionid").value;
 
-
 let package = {
+    durata:0,
+    persone:0,
     hotel: {},
     restaurants: [],
     tours: [],
@@ -11,12 +12,17 @@ let package = {
 jQuery().ready(function () {
     let v = $("#form")
     let cittaScelta = document.getElementById('citta').value
-
+    let durataInput = document.getElementById('durata');
+    let personeInput = document.getElementById('persone');
     $(".open1").click(function () {
         if(v) {
-            $(".frm").hide("fast");
-            $("#sf2").show("slow");
-            showHotel(cittaScelta);
+            if(durataInput.value != '' && personeInput.value != '') {
+                $(".frm").hide("fast");
+                $("#sf2").show("slow");
+                showHotel(cittaScelta);
+                package.durata = durataInput.value;
+                package.persone = personeInput.value;
+            }
         }
     });
     $(".open2").prop('disabled', true).click(function () {
@@ -73,6 +79,7 @@ jQuery().ready(function () {
 
 })
 
+
 const showHotel = (citta) => {
     $.getJSON(`ComponentsPackServlet;jsessionid=${sessionID}?component=hotel`, function (data, status) {
         if(status === 'success') {
@@ -124,6 +131,8 @@ const showTour = (citta) => {
     })
 }
 const showRiepilogo = () => {
+    let costoTotale = 0;
+    $("#riepilogo").html("");
     const tableRow = document.createElement("tr")
     $("#riepilogo").append(tableRow)
     const tabledata1 = document.createElement("td");
@@ -132,28 +141,42 @@ const showRiepilogo = () => {
     tabledata2.innerText = package.hotel.nome;
     const tabledata3 = document.createElement("td");
     tabledata3.innerText = package.hotel.costoNotte;
-    const tabledata4 = document.createElement("td");
-    tabledata4.innerText = 1;
     tableRow.appendChild(tabledata1);
     tableRow.appendChild(tabledata2);
     tableRow.appendChild(tabledata3);
-    tableRow.appendChild(tabledata4);
-    const tableRowRestaurant = document.createElement('tr');
-    $("#riepilogo").append(tableRowRestaurant);
+    costoTotale = package.hotel.costoNotte * package.durata * package.persone;
+
     package.restaurants.forEach((restaurant) => {
+        const tableRowRestaurant = document.createElement('tr');
+        $("#riepilogo").append(tableRowRestaurant);
         const tabledataRestaurant1 = document.createElement("td");
         tabledataRestaurant1.innerText = "Ristorante";
         const tabledataRestaurant2 = document.createElement("td");
         tabledataRestaurant2.innerText = restaurant.nome;
         const tabledataRestaurant3 = document.createElement("td");
         tabledataRestaurant3.innerText = restaurant.costo;
-        const tabledataRestaurant4 = document.createElement("td");
-        tabledataRestaurant4.innerText = "Ristorante";
         tableRowRestaurant.appendChild(tabledataRestaurant1);
         tableRowRestaurant.appendChild(tabledataRestaurant2);
         tableRowRestaurant.appendChild(tabledataRestaurant3);
-        tableRowRestaurant.appendChild(tabledataRestaurant4);
+        costoTotale += restaurant.costo * package.persone;
     })
+
+    package.tours.forEach((tours) => {
+        const tableRowTour = document.createElement('tr');
+        $("#riepilogo").append(tableRowTour);
+        const tabledataTour1 = document.createElement("td");
+        tabledataTour1.innerText = "Tour";
+        const tabledataTour2 = document.createElement("td");
+        tabledataTour2.innerText = `Visita a ${tours.nome_luogo}`;
+        const tabledataTour3 = document.createElement("td");
+        tabledataTour3.innerText = tours.costo;
+        tableRowTour.appendChild(tabledataTour1);
+        tableRowTour.appendChild(tabledataTour2);
+        tableRowTour.appendChild(tabledataTour3);
+        costoTotale += tours.costo * package.persone;
+    })
+    let paragrafoRep = `Il costo totale di questo wonderbox per ${package.persone == 1 ? 'Una persona' : package.persone + ' persone' }, dalla durata di ${package.durata} notti costa ${costoTotale}`
+    $("#paragrafoRep").text(paragrafoRep);
 }
 const createArrayOfHash = (data, hashes) => {
     for (let propt in data) {
