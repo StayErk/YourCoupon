@@ -70,6 +70,11 @@ function createCard(hashes) {
         cardBtn.innerText = 'Dettagli'
         cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
         cardBody.appendChild(cardBtn)
+        const aggiungiAlCArrello = document.createElement('a');
+        aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
+        aggiungiAlCArrello.href = ``
+        aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
+        cardBody.appendChild(aggiungiAlCArrello);
         deck.appendChild(card);
     })
 }
@@ -95,4 +100,22 @@ function createObjects(data, hashes) {
         }
         hashes.push(hash);
     }
+}
+
+
+function addCart() {
+
+    let xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function () {
+        if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            console.log(xmlHttpRequest.getAllResponseHeaders())
+            let data = JSON.parse(xmlHttpRequest.responseText);
+            let hashes = [];
+            createObjects(data, hashes)
+            createCard(hashes);
+        }
+    }
+
+    xmlHttpRequest.open("GET", "", true);
+    xmlHttpRequest.send();
 }

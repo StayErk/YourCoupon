@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PropertyPermission;
+import java.util.UUID;
 
 public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
     @Override
@@ -152,6 +153,31 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
                 if(preparedStatement != null) preparedStatement.close();
             }
             finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
+    public ArrayList<UUID> vediCarrello (CarrelloBean carrello) throws SQLException {
+        ArrayList<UUID> pacchetti = new ArrayList<>();
+        String sql = "SELECT id_pacchetto FROM Carrello_Pacchetto WHERE id_carrello = ?";
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try{
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, carrello.getId());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                pacchetti.add((UUID.fromString(rs.getString("id_pacchetto"))));
+            }
+            return pacchetti;
+        } finally {
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+            } finally {
                 DriverManagerConnectionPool.releaseConnection(connection);
             }
         }
