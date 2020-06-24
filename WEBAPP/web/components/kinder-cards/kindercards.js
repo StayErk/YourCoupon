@@ -8,10 +8,10 @@ btn2.addEventListener('click', () => {
 
 
     let xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, false);
+    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, true);
     xmlHttpRequest.send();
     console.log('cosa sei: ' + sessionId)
-    if(xmlHttpRequest.status == 200) {
+    if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
         let data = JSON.parse(xmlHttpRequest.responseText);
         let hashes = [];
         createObjects(data, hashes)

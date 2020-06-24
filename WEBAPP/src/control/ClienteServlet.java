@@ -48,6 +48,9 @@ public class ClienteServlet extends HttpServlet {
                 try {
                     String email = request.getParameter("email");
                     String pass = request.getParameter("password");
+                    if(email == null || pass == null) {
+                        badInput(request, response, "non-esistente");
+                    }
                     ClienteBean bean = null;
                     System.out.println(email + "\n" + pass);
                     HttpSession session = request.getSession(true);
@@ -55,7 +58,6 @@ public class ClienteServlet extends HttpServlet {
                     try {
                         MessageDigest digest = MessageDigest.getInstance("SHA-256");
                         byte[] hash = digest.digest(pass.getBytes("UTF-8"));
-
                         password = hash.clone();
                     } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                         e.printStackTrace();
@@ -63,17 +65,18 @@ public class ClienteServlet extends HttpServlet {
 
                     bean = modelDAO.retrieveByKey(email);
                     if(bean != null){
-                        System.out.println(bean.getPassword().equals(password) + "\n" + bean.getPassword() + "\t" + password);
-                        String s = new String(password, StandardCharsets.UTF_8);
-                        String s1 = new String(bean.getPassword(), StandardCharsets.UTF_8);
-                        if (s1.equals(s)) {
-                            session.setAttribute("user", bean);
-                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-                            requestDispatcher.forward(request, response);
+                        if(bean.getPassword() != null || bean.getEmail() != null) {
+                            String s = new String(password, StandardCharsets.UTF_8);
+                            String s1 = new String(bean.getPassword(), StandardCharsets.UTF_8);
+                            if (s1.equals(s)) {
+                                session.setAttribute("user", bean);
+                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                                requestDispatcher.forward(request, response);
+                            } else {
+                                badInput(request, response, "errore-login");
+                            }
                         } else {
-                            request.setAttribute("errore-login", true);
-                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
-                            requestDispatcher.forward(request, response);
+                            badInput(request, response, "non-esistente");
                         }
                     }
                 } catch (SQLException e) {
@@ -81,6 +84,12 @@ public class ClienteServlet extends HttpServlet {
                 }
                 break;
         }
+    }
+
+    private void badInput(HttpServletRequest request, HttpServletResponse response, String s2) throws ServletException, IOException {
+        request.setAttribute(s2, true);
+        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

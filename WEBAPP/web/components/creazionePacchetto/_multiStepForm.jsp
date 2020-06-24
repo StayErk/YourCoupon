@@ -14,13 +14,13 @@
             <div class="form-group">
                 <label for="durata" class="col-lg-4 control-label">Durata pacchetto</label>
                 <div class="col-lg-12">
-                    <input type="number" name="durata" id="durata" min="1" placeholder="durata in giorni" class="form-control">
+                    <input type="number" name="durata" id="durata" min="1" placeholder="durata in giorni" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="persone" class="col-lg-4 control-label">Numero Persone</label>
                 <div class="col-lg-12">
-                    <input type="number" name="persone" id="persone" min="1" placeholder="Partecipanti" class="form-control">
+                    <input type="number" name="persone" id="persone" min="1" placeholder="Partecipanti" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
@@ -89,11 +89,11 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Prezzo unitario</th>
-                        <th scope="col">Quantita</th>
                     </thead>
                     <tbody  id="riepilogo">
                     </tbody>
                 </table>
+                <p id="paragrafoRep"></p>
             </div>
             <div class="form-group">
                 <div class="col-12">
