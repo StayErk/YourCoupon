@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">a:
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </head>
 <body>
 <!-- Navbar -->
@@ -47,35 +47,20 @@
                     <h1 class="display-4 text-success"><span class="small text-secondary">Il Carrello</span></h1>
                 </div>
                 <div class="col-12 mt-3">
-                    <div class="row  align-items-top">
-                        <div class="col-12 col-lg-3">
-                            <!--Immagine pacchetto -->
-                            <img class="img-fluid w-100 d-block mx-auto" alt="paccheto1" src="https://via.placeholder.com/200">
-                        </div>
-                        <div class="col-12 col-lg-3">
-                            <!-- Dettaglio pacchetto -->
-                            <p>Dettagli pacchetto: </p>
-                            <ul class="list-unstyled">
-                                <li>Persone: 2</li>
-                                <li>Durata: 3 giorni</li>
-                                <li>Soggiorno a: Hotel Roma</li>
-                                <li>200,50€</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4">
-                            <p>Extra:</p>
-                            <ul class="list-unstyled">
-                                <li>Ristorante: la purchiacchia di Mare</li>
-                                <li>Visita guidata: Colosseo</li>
-                                <li>Visita Guidata: Pantheon</li>
-                            </ul>
-                        </div>
-                        <div class="col-12 col-lg-2">
-                            <!-- bottoni: elimina e modifica -->
-                            <button class="d-block btn btn-warning mt-auto mb-3 w-100">Modifica</button>
-                            <button class="d-block  btn btn-danger w-100 mb-auto">Elimina</button>
-                        </div>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Data Creazione</th>
+                                <th>Città di destinazione</th>
+                                <th>Durata</th>
+                                <th>Numero persone</th>
+                                <th>Totale pacchetto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
