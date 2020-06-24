@@ -17,10 +17,10 @@
         <div class="row justify-content-center">
             <div class="col-6 bg-light shadow rounded p-5">
                 <h1 class="text-center text-success display-4"><span class="small text-black-50">Login</span><br>YourCoupon</h1>
-                <form method="post" action="ClienteServlet">
-                    <% if(request.getAttribute("errore-login") != null && (Boolean) request.getAttribute("errore-login") == true) { %>
+                <form method="post" action="ClienteServlet" id="loginForm">
+                    <% if((request.getAttribute("errore-login") != null && (Boolean) request.getAttribute("errore-login") == true) || (request.getAttribute("non-esistente") != null && (Boolean) request.getAttribute("non-esistente") == true)) { %>
                         <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
-                            Password o Email errate
+                            Password o Email errate, oppure prova a <a href="<%=response.encodeURL("./signup.jsp")%>">Registrarti</a>
                         </span>
                     <%}%>
                     <div class="form-group">

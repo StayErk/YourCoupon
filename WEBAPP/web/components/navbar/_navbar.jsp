@@ -38,10 +38,10 @@
             <ul class="navbar-nav ml-auto">
                 <% if(bean == null) {%>
                     <li class="nav-item ">
-                        <a class="nav-link text-success" href="./login.jsp">Log-In</a>
+                        <a class="nav-link text-success" href="<%=response.encodeURL("./login.jsp")%>">Log-In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./signup.jsp">Sign-Up</a>
+                        <a class="nav-link" href="<%=response.encodeURL("./signup.jsp")%>">Sign-Up</a>
                     </li>
                 <%} else {%>
                 <li class="nav-item dropdown">

@@ -23,7 +23,7 @@
                 <div class="col-6 bg-light shadow rounded p-5">
                     <% if(registered == null) {%>
                     <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
-                    <form method="post" action="ClienteServlet">
+                    <form method="post" action="ClienteServlet" id="signUpForm">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" required>
