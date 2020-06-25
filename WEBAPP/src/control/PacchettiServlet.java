@@ -55,22 +55,26 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         toInsert.setId_cliente(idCliente);
         toInsert.setId_struttura(pacchettoRaw.getHotel().getId());
         toInsert.setPredefinito(predefinito);
-
+        System.out.println("Prima di ristoranti");
         try {
             pacchettoDAO.doSave(toInsert);
             for(RestaurantBean restaurant : pacchettoRaw.getRistoranti()) {
                 pacchettoDAO.addRestaurant(toInsert, restaurant);
             }
+            System.out.println("Dopo di ristoranti");
             for (TourBean tour : pacchettoRaw.getTour()) {
                 pacchettoDAO.addTour(toInsert, tour);
             }
+            System.out.println("Dopo tour");
             carrelloDAO.addPacchetto(carrelloBean, toInsert);
+            System.out.println("Inserito nel carrello");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Prima di forward");
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("./user/chart.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/chart.jsp");
         dispatcher.forward(request, response);
 
     }
