@@ -42,43 +42,42 @@ window.onload = () => {
 
 function createCard(hashes) {
     hashes.forEach((hash) => {
-        const card = document.createElement('div')
-        card.classList.add('card')
-        const cardImg = document.createElement('img');
-        cardImg.classList.add('card-img-top')
-        cardImg.src = hash.immagine;
-        cardImg.alt = hash.nome_albergo;
-        card.appendChild(cardImg);
-        const cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
-        card.appendChild(cardBody);
-        const cardTitle = document.createElement('h5');
-        cardTitle.classList.add('card-title');
-        cardTitle.innerText = `Pacchetto ad ${hash.citta}`
-        cardBody.appendChild(cardTitle);
-        const cardPar = document.createElement('p');
-        cardPar.classList.add('card-text');
-        cardPar.innerText= `Soggiorno ad ${hash.citta} in ${hash.nome_albergo} per ${hash.persone} persone della durata di ${hash.durata} giorni.`
-        cardBody.appendChild(cardPar);
-        const cardPar2 = document.createElement('p');
-        cardPar2.classList.add('card-text');
-        cardPar2.innerText= `Per soli: ${hash.costo_pacchetto} euro`
-        cardBody.appendChild(cardPar2);
-        const cardBtn = document.createElement('a');
-        cardBtn.classList.add('btn');
-        cardBtn.classList.add('btn-primary')
-        cardBtn.innerText = 'Dettagli'
-        cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
-        cardBody.appendChild(cardBtn)
-        const aggiungiAlCArrello = document.createElement('a');
-        aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
-        aggiungiAlCArrello.addEventListener('click', () => {
-            console.log('Hello');
-            $("#notification").toast('show')
-        })
-        aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
-        cardBody.appendChild(aggiungiAlCArrello);
-        deck.appendChild(card);
+        if(hash.predefinito === true){
+            const card = document.createElement('div')
+            card.classList.add('card')
+            const cardImg = document.createElement('img');
+            cardImg.classList.add('card-img-top')
+            cardImg.src = hash.immagine;
+            cardImg.alt = hash.nome_albergo;
+            card.appendChild(cardImg);
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
+            card.appendChild(cardBody);
+            const cardTitle = document.createElement('h5');
+            cardTitle.classList.add('card-title');
+            cardTitle.innerText = `Pacchetto ad ${hash.citta}`
+            cardBody.appendChild(cardTitle);
+            const cardPar = document.createElement('p');
+            cardPar.classList.add('card-text');
+            cardPar.innerText = `Soggiorno ad ${hash.citta} in ${hash.nome_albergo} per ${hash.persone} persone della durata di ${hash.durata} giorni.`
+            cardBody.appendChild(cardPar);
+            const cardPar2 = document.createElement('p');
+            cardPar2.classList.add('card-text');
+            cardPar2.innerText = `Per soli: ${hash.costo_pacchetto} euro`
+            cardBody.appendChild(cardPar2);
+            const cardBtn = document.createElement('a');
+            cardBtn.classList.add('btn');
+            cardBtn.classList.add('btn-primary')
+            cardBtn.innerText = 'Dettagli'
+            cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
+            cardBody.appendChild(cardBtn)
+            const aggiungiAlCArrello = document.createElement('a');
+            aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
+            aggiungiAlCArrello.href = ``
+            aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
+            cardBody.appendChild(aggiungiAlCArrello);
+            deck.appendChild(card);
+        }
     })
 }
 
@@ -107,6 +106,7 @@ function createObjects(data, hashes) {
 
 
 function addCart() {
+
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {

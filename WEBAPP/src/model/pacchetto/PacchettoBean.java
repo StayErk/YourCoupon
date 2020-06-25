@@ -16,6 +16,7 @@ public class PacchettoBean implements Bean, Serializable, Cloneable {
     private int persone;
 
     public PacchettoBean() {
+        this.id = UUID.randomUUID();
     }
 
     public PacchettoBean(UUID id, double costo, String id_cliente, UUID id_struttura, int durata, boolean predefinito, int persone) {

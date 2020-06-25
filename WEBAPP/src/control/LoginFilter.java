@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/admin/*", "/user/*", "/login.jsp", "/signup.jsp"})
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/admin/*", "/user/*",  "/creazionePacchetto.jsp"})
 public class LoginFilter implements Filter {
     public void destroy() {
     }
@@ -27,13 +27,13 @@ public class LoginFilter implements Filter {
         } else if (uri.contains("/user/")) {
             HttpSession session = hrequest.getSession(false);
             checkLogic(session, req, resp, chain, hresponse, hrequest, "user");
-        } else if(uri.contains("login") || uri.contains("signup")) {
+        } else if(uri.contains("creazionePacchetto")) {
             HttpSession session = hrequest.getSession(false);
             ClienteBean bean = (ClienteBean) session.getAttribute("user");
             if(bean != null) {
-                hresponse.sendRedirect(hrequest.getContextPath() + "/user/profile.jsp");
-            } else {
                 chain.doFilter(req, resp);
+            } else {
+                hresponse.sendRedirect(hrequest.getContextPath() + "/login.jsp");
             }
         }
     }

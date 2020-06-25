@@ -2,9 +2,13 @@ package control;
 
 import com.google.gson.Gson;
 import model.Bean;
+import model.carrello.CarrelloBean;
+import model.carrello.CarrelloDAO;
+import model.cliente.ClienteBean;
 import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
+import model.pacchetto.PacchettoRaw;
 import model.restaurant.RestaurantBean;
 import model.tour.LuogoDAO;
 import model.tour.TourBean;
@@ -21,6 +25,57 @@ import java.util.UUID;
 @WebServlet("/PacchettiServlet")
 public class PacchettiServlet extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        String idCliente = "";
+        CarrelloBean carrelloBean = null;
+        Boolean predefinito = false;
+        CarrelloDAO carrelloDAO = new CarrelloDAO();
+        if(session != null) {
+            ClienteBean bean = (ClienteBean) session.getAttribute("user");
+
+            if(bean != null) {
+                idCliente = bean.getEmail();
+                if(bean.isAdmin()) predefinito = true;
+                try {
+                    carrelloBean = carrelloDAO.retrieveByKey(idCliente);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Gson gson = new Gson();
+        PacchettoRaw pacchettoRaw = gson.fromJson(request.getParameter("pacchetto"), PacchettoRaw.class);
+
+        PacchettoDAO pacchettoDAO = new PacchettoDAO();
+        PacchettoBean toInsert = new PacchettoBean();
+
+        toInsert.setDurata(pacchettoRaw.getDurata());
+        toInsert.setCosto(pacchettoRaw.getCosto());
+        toInsert.setPersone(pacchettoRaw.getPersone());
+        toInsert.setId_cliente(idCliente);
+        toInsert.setId_struttura(pacchettoRaw.getHotel().getId());
+        toInsert.setPredefinito(predefinito);
+        System.out.println("Prima di ristoranti");
+        try {
+            pacchettoDAO.doSave(toInsert);
+            for(RestaurantBean restaurant : pacchettoRaw.getRistoranti()) {
+                pacchettoDAO.addRestaurant(toInsert, restaurant);
+            }
+            System.out.println("Dopo di ristoranti");
+            for (TourBean tour : pacchettoRaw.getTour()) {
+                pacchettoDAO.addTour(toInsert, tour);
+            }
+            System.out.println("Dopo tour");
+            carrelloDAO.addPacchetto(carrelloBean, toInsert);
+            System.out.println("Inserito nel carrello");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Prima di forward");
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/chart.jsp");
+        dispatcher.forward(request, response);
 
     }
 
@@ -37,7 +92,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     HashMap<UUID, ArrayList<Bean>> hashPacchetti = new HashMap<>();
                     ArrayList<Bean> componenti = new ArrayList<>();
                     String persone = request.getParameter("persone");
-                    System.out.println(persone);
                     ArrayList<PacchettoBean> pacchetti = new ArrayList<>(modelDAO.retrieveAll("",""));
                     for(PacchettoBean p: pacchetti){
 
@@ -51,19 +105,16 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                     Gson gson = new Gson();
                     String hashmap = gson.toJson(hashPacchetti);
                     response.setStatus(200);
-                    
-                    System.out.println("JSON: " + hashmap);
+
                     response.getWriter().write(hashmap);
 
                 } catch (SQLException e) {
                     request.setAttribute("errore", e.toString());
-                    System.out.println("Errore retrieve");
                     e.printStackTrace();
                 }
                 break;
             case "bykey":
                 String key = request.getParameter("key");
-                System.out.println(key);
                 if(key != null && !key.equals("")){
                     try {
                         ArrayList<Bean> beans = new ArrayList<>();
@@ -82,7 +133,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                         //Recupero i possibili extra ristorativi
                         extraRestaurants = modelDAO.retrieveExtraRistoranti(UUID.fromString(key));
                         request.setAttribute("extraristoranti", extraRestaurants);
-                        System.out.println(extraRestaurants);
 
                         //Recupero i possibili extra tour
                         extraTour = modelDAO.retrieveExtraTour(UUID.fromString(key));
@@ -94,9 +144,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                         }
 
                         request.setAttribute("extratourluoghi", extraTourLuoghi);
-                        System.out.println(extraTour);
-
-
 
 
                         RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/details.jsp");
@@ -111,7 +158,7 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                 }
                 break;
             case "create":
-
+                doPost(request, response);
                 break;
         }
 
