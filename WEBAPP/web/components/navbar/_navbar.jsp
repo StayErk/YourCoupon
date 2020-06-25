@@ -22,26 +22,26 @@
                     <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success" href="#">Crea il Tuo Pacchetto</a>
+                    <a class="btn btn-outline-success" href="<%=response.encodeURL("/YourCoupon_war/creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
+                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/hotel.jsp?type=hotel")%>">Hotel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
+                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/tour.jsp?type=tour")%>">Visite Guidate</a>
                 </li>
 
             </ul>
             <ul class="navbar-nav ml-auto">
                 <% if(bean == null) {%>
                     <li class="nav-item ">
-                        <a class="nav-link text-success" href="./login.jsp">Log-In</a>
+                        <a class="nav-link text-success" href="<%=response.encodeURL("./login.jsp")%>">Log-In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./signup.jsp">Sign-Up</a>
+                        <a class="nav-link" href="<%=response.encodeURL("./signup.jsp")%>">Sign-Up</a>
                     </li>
                 <%} else {%>
                 <li class="nav-item dropdown">
@@ -49,13 +49,13 @@
                         <span class="small text-muted">Benvenuto, </span> <span class="text-success"><%=bean.getNome()%></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Il mio profilo</a>
+                        <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
                         <a class="dropdown-item" href="#"></a>
                         <a class="dropdown-item" href="#">Logout</a>
                     </div>
                 </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Carrello</a>
+                        <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>">Carrello</a>
                     </li>
                 <%}%>
             </ul>
