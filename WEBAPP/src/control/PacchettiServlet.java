@@ -74,8 +74,10 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         }
         System.out.println("Prima di forward");
 
+        response.sendRedirect(response.encodeURL("./user/chart.jsp"));
+        /*
         RequestDispatcher dispatcher = request.getRequestDispatcher("/user/chart.jsp");
-        dispatcher.forward(request, response);
+        dispatcher.forward(request, response);*/
 
     }
 

@@ -12,26 +12,50 @@
 %>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="index.jsp">YourCoupon</a>
+        <% if(request.getRequestURI().contains("user")) { %>
+            <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="../index.jsp">YourCoupon</a>
+        <% } else { %>
+            <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="index.jsp">YourCoupon</a>
+        <% } %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
+                    <% if(request.getRequestURI().contains("user")) { %>
+                        <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
+                    <% } else { %>
+                        <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
+                    <% } %>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
+                    <% if(request.getRequestURI().contains("user")) { %>
+                        <a class="btn btn-outline-success" href="<%=response.encodeURL("../creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
+                    <% } else { %>
+                        <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
+                    <% } %>
                 </li>
                 <li class="nav-item">
+                    <% if(request.getRequestURI().contains("user")) { %>
+                        <a class="nav-link" href="<%=response.encodeURL("../hotel.jsp?type=hotel")%>">Hotel</a>
+                    <% } else { %>
                     <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
+                    <% } %>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                    <% if(request.getRequestURI().contains("user")) { %>
+                        <a class="nav-link" href="<%=response.encodeURL("../restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                    <% } else { %>
+                        <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                    <% } %>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
+                    <% if(request.getRequestURI().contains("user")) { %>
+                        <a class="nav-link" href="<%=response.encodeURL("../tour.jsp?type=tour")%>">Visite Guidate</a>
+                    <% } else { %>
+                        <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
+                    <% } %>
                 </li>
 
             </ul>
@@ -55,7 +79,11 @@
                     </div>
                 </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>">Carrello</a>
+                        <% if(request.getRequestURI().contains("user")) { %>
+                            <a class="nav-link" href="<%=response.encodeURL("./chart.jsp")%>">Carrello</a>
+                        <% } else {%>
+                            <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>">Carrello</a>
+                        <% } %>
                     </li>
                 <%}%>
             </ul>
