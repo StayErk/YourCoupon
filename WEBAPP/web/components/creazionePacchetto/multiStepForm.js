@@ -123,7 +123,7 @@ const showTour = (citta) => {
                 return element.citta.toLowerCase() == citta;
             })
             console.log(filtered)
-            createCardFromHash(array)
+            createCardFromHash(filtered)
             $(".sceltaMultipla").click(function () {
                 package.tours.push(JSON.parse(this.value))
                 console.log(package.tours);

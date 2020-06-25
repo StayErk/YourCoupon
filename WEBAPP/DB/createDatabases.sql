@@ -12,7 +12,7 @@ create table Cliente(
                         nome            varchar(15)     not null,
                         cognome         varchar(15)     not null,
                         puntiViaggio    int             not null default 0,
-                        email           varchar(30)     not null unique primary key,
+                        email           varchar(35)     not null unique primary key,
                         password        binary(32)      not null,    /* SHA256 encripted */
                         admin           boolean         not null default FALSE,
                         immagine        varchar(100)
@@ -34,7 +34,7 @@ create table StrutturaAlberghiera(
 create table Pacchetto(
                         id            char(36)        not null primary key,
                         costo         double          not null,
-                        id_cliente    varchar(30)     not null,
+                        id_cliente    varchar(35)     not null,
                         id_struttura  char(36)        not null,
                         durata        int             not null,
                         predefinito   boolean         not null default FALSE,
@@ -74,7 +74,7 @@ create table Pacchetto_Ristorante(
 
 create table Luogo(
                         id              char(36)        not null primary key,
-                        nome            varchar(15)     not null,
+                        nome            varchar(25)     not null,
                         indirizzo       varchar(50)     not null,
                         citta           varchar(20)     not null,
                         descrizione     varchar(500)    not null,
@@ -105,7 +105,7 @@ create table Pacchetto_Visita(
 
 
 create table Carrello(
-                        id_carrello      varchar(30)     not null primary key,
+                        id_carrello      varchar(35)     not null primary key,
                         totale          double          not null,
                         foreign key     (id_carrello)    references Cliente(email)
                             ON DELETE CASCADE
@@ -113,7 +113,7 @@ create table Carrello(
 );
 
 create table Carrello_Pacchetto(
-                        id_carrello     varchar(30)     not null,
+                        id_carrello     varchar(35)     not null,
                         id_pacchetto    char(36)        not null,
                         primary key (id_pacchetto, id_carrello),
                         foreign key (id_carrello)       references Carrello(id_carrello)
@@ -126,7 +126,7 @@ create table Carrello_Pacchetto(
 
 create table Fattura(
                         id              varchar(36)     not null primary key,
-                        id_carrello     varchar(30)     not null,
+                        id_carrello     varchar(35)     not null,
                         totale          double          not null,
                         foreign key     (id_carrello)   references Carrello(id_carrello)
                             ON DELETE CASCADE

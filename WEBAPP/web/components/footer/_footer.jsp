@@ -14,19 +14,39 @@
                 <nav>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Home</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="../index.jsp">Home</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="./index.jsp">Home</a>
+                            <% } %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Crea il tuo pacchetto</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="<%= response.encodeURL("../creazionePacchetto.jsp") %>">Crea il tuo pacchetto</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./creazionePacchetto.jsp") %>">Crea il tuo pacchetto</a>
+                            <% } %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("../hotel.jsp?type=hotel")%>">Hotel</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
+                            <% } %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("../restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                            <% } %>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("../tour.jsp?type=tour")%>">Visite Guidate</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
+                            <% } %>
                         </li>
                     </ul>
                 </nav>
@@ -52,10 +72,19 @@
                 <nav>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Log-In</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="#">Log-In</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./login.jsp")%>">Log-In</a>
+                            <% } %>
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Registrazione Nuovo Utente</a>
+                            <% if(request.getRequestURI().contains("user")) { %>
+                                <a class="nav-link text-light" href="#">Registrazione Nuovo Utente</a>
+                            <% } else { %>
+                                <a class="nav-link text-light" href="<%=response.encodeURL("./signup.jsp")%>">Registrazione Nuovo Utente</a>
+                            <% } %>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="<%=response.encodeURL("admin/")%>">Pannello Admin</a>
