@@ -65,7 +65,7 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
             for (TourBean tour : pacchettoRaw.getTour()) {
                 pacchettoDAO.addTour(toInsert, tour);
             }
-            System.out.println("Dopo tour");
+            System.out.println(carrelloBean + "\n\n" + toInsert);
             carrelloDAO.addPacchetto(carrelloBean, toInsert);
             System.out.println("Inserito nel carrello");
 
