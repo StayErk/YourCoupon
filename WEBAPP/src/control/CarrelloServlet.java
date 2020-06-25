@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-@WebServlet(name = "CarrelloServlet")
+@WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

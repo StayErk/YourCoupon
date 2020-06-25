@@ -6,6 +6,7 @@ let package = {
     hotel: {},
     restaurants: [],
     tours: [],
+    costo: 0
 }
 
 //Step del form
@@ -73,7 +74,8 @@ jQuery().ready(function () {
     });
     $(".open5").click(function () {
         if(v) {
-            return false;
+            $("#pacchetto").val(JSON.stringify(package))
+            return true;
         }
     });
 
@@ -175,13 +177,14 @@ const showRiepilogo = () => {
         tableRowTour.appendChild(tabledataTour3);
         costoTotale += tours.costo * package.persone;
     })
-    let paragrafoRep = `Il costo totale di questo wonderbox per ${package.persone == 1 ? 'Una persona' : package.persone + ' persone' }, dalla durata di ${package.durata} notti costa ${costoTotale}`
+    package.costo = (Math.round(costoTotale * 100) / 100).toFixed(2);
+    let paragrafoRep = `Il costo totale di questo wonderbox per ${package.persone == 1 ? 'Una persona' : package.persone + ' persone' }, dalla durata di ${package.durata} notti costa ${package.costo}`
     $("#paragrafoRep").text(paragrafoRep);
 }
 const createArrayOfHash = (data, hashes) => {
     for (let propt in data) {
         let hash = {
-            id_tour : data[propt][0].id,
+            id : data[propt][0].id,
             id_luogo: data[propt][0].id_luogo,
             costo: data[propt][0].costo,
             partecipanti: data[propt][0].partecipanti,

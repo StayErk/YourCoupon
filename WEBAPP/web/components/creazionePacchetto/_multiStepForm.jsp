@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<form action="" id="form" class="rounded shadow text-center">
+<form method="post"  action="PacchettiServlet" id="form"  class="rounded shadow text-center" enctype="application/x-www-form-urlencoded">
 	<div id="sf1" class="frm p-3">
         <fieldset>
             <input type="hidden" name="id" id="sessionid" value="<%=request.getSession().getId()%>">
@@ -94,11 +94,12 @@
                     </tbody>
                 </table>
                 <p id="paragrafoRep"></p>
+                <input type="hidden" name="pacchetto" id="pacchetto" value="">
             </div>
             <div class="form-group">
                 <div class="col-12">
                     <button class="btn btn-secondary back5" type="button">Previus</button>
-                    <button class="btn btn-primary open5" type="button">Aggiungi al carrello</button>
+                    <button class="btn btn-primary open5" type="submit">Aggiungi al carrello</button>
                 </div>
             </div>
         </fieldset>
