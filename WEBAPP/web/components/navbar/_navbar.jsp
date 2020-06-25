@@ -22,16 +22,16 @@
                     <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success" href="<%=response.encodeURL("/YourCoupon_war/creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
+                    <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/hotel.jsp?type=hotel")%>">Hotel</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=response.encodeURL("/YourCoupon_war/tour.jsp?type=tour")%>">Visite Guidate</a>
+                    <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
                 </li>
 
             </ul>

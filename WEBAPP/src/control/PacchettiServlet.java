@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @WebServlet("/PacchettiServlet")
 public class PacchettiServlet extends javax.servlet.http.HttpServlet {
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected synchronized void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         HttpSession session = request.getSession(true);
         String idCliente = "";
         CarrelloBean carrelloBean = null;
