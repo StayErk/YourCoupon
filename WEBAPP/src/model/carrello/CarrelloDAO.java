@@ -133,7 +133,7 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
     public void removePacchetto(CarrelloBean carrello, PacchettoBean pacchetto) throws SQLException{
 
         String sql = "delete from Carrello_Pacchetto where id_carrello = ? and id_pacchetto = ?"; //id_carrello, id_pacchetto
-        String sql2 = "update Carrello set totale = totale - (select costo from Pacchetto where id = (select id_pacchetto from Carrello_Pacchetto AS cp where cp.id_carrello = id_carrello)) where id_carrello = ?"; //id_carrello
+        String sql2 = "update Carrello set totale = totale - (select costo from Pacchetto where id = ?) where id_carrello = ?"; //id_pacchetto id_carrello
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -141,7 +141,8 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql2);
-            preparedStatement.setString(1, carrello.getId().toString());
+            preparedStatement.setString(1, pacchetto.getId().toString());
+            preparedStatement.setString(2, carrello.getId().toString());
             preparedStatement.executeUpdate();
             connection.commit();
 

@@ -41,14 +41,16 @@ public class UploadServlet extends HttpServlet {
             for (Part part : request.getParts()) {
                 String fileName = extractFileName(part);
                 if (fileName != null && !fileName.equals("")) {
-                    part.write(savePath + File.separator + fileName);
-                    System.out.println(savePath + File.separator + fileName);
+                    String path = savePath + File.separator + fileName;
+                    part.write(path);
+                    System.out.println(path);
+                    System.out.println("../../../out/artifacts/YourCoupon2_war_exploded/img/"+fileName);
 
                     ClienteDAO clienteDAO = new ClienteDAO();
                     ClienteBean clienteBean = new ClienteBean();
                     HttpSession session = request.getSession(false);
                     clienteBean = (ClienteBean) session.getAttribute("user");
-                    clienteBean.setImmagine(savePath + File.separator + fileName);
+                    clienteBean.setImmagine("../../../out/artifacts/YourCoupon2_war_exploded/img/"+fileName);
                     try {
                         clienteDAO.doUpdate(clienteBean);
                     } catch (SQLException throwables) {
