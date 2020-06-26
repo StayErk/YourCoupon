@@ -50,6 +50,7 @@
                     <h1 class="display-4 text-success"><span class="small text-secondary">Il Carrello</span></h1>
                 </div>
                 <div class="col-12 mt-3">
+                    <button class="btn btn-primary" onclick="refreshCarrello()">Refresh</button>
                     <table class="table">
                         <thead>
                             <tr>
