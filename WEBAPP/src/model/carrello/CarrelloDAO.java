@@ -135,6 +135,7 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
         String sql = "delete from Carrello_Pacchetto where id_carrello = ? and id_pacchetto = ?"; //id_carrello, id_pacchetto
         String sql2 = "update Carrello set totale = totale - (select costo from Pacchetto where id = ?) where id_carrello = ?"; //id_pacchetto id_carrello
 
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
