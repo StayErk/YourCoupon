@@ -45,7 +45,14 @@ public class CarrelloServlet extends HttpServlet {
                             if(idpacchettoStr != null) {
                                 UUID id_pacchetto = UUID.fromString(idpacchettoStr);
                                 PacchettoBean pacchettoDaAggiungere = pacchettoDAO.retrieveByKey(id_pacchetto);
-                                carrelloDAO.addPacchetto(carrello, pacchettoDaAggiungere);
+                                if(pacchettoDaAggiungere.isPredefinito()) {
+                                    PacchettoBean cloned = pacchettoDaAggiungere.clone();
+                                    cloned.setId(UUID.randomUUID());
+                                    cloned.setPredefinito(false);
+                                    pacchettoDAO.doSave(cloned);
+                                    carrelloDAO.addPacchetto(carrello, cloned);
+                                }
+                                else carrelloDAO.addPacchetto(carrello, pacchettoDaAggiungere);
                                 response.setStatus(200);
                             }
                             break;

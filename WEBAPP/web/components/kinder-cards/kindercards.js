@@ -134,10 +134,8 @@ function addCart(hash) {
     console.log('click')
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
-        if (xmlHttpRequest.status == 302 && xmlHttpRequest.readyState == 4) {
-            window.location = "login.jsp";
-        }
-        else if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+        if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            $("#aggiunto").text(hash.citta)
             $("#notification").toast('show')
         }
     }

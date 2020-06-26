@@ -22,16 +22,15 @@
       <%@include file="components/header-form/_header-from.jsp"%>
       <!-- default coupons -->
       <div class="container p-5">
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="notification" data-delay="1000" style="position: fixed; top: 20px; left: 5px; z-index: 100">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="notification" data-delay="2000" style="position: fixed; top: 20px; left: 5px; z-index: 100">
           <div class="toast-header">
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
+            <strong class="mr-auto">Pacchetto aggiunto correttamente</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="toast-body">
-            Hello, world! This is a toast message.
+            Hai aggiunto correttamente il pacchetto "visita ad <span id="aggiunto"></span>" al carrello
           </div>
         </div>
         <div class="row">
