@@ -3,25 +3,43 @@ const btn = document.getElementById('provabtn');
 const btn2 = document.getElementById('cerca-btn');
 const form = document.getElementById('search');
 const sessionId = form[4].value;
+const citta = form.citta;
+let cittaInserite = [];
 
-btn2.addEventListener('click', () => {
 
-
+function filtra(){
+    console.log("click");
     let xmlHttpRequest = new XMLHttpRequest();
+
+    xmlHttpRequest.onreadystatechange = (data) => {
+        if (xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            let data = JSON.parse(xmlHttpRequest.responseText);
+            console.log(data)
+            let hashes = [];
+            createObjects(data, hashes)
+            let filteredCitta = hashes.filter((hash) => {
+                if (form[0].value == 'nil') {
+                    return true
+                } else return hash.citta === form[0].value;
+            })
+            let filteredPersone = filteredCitta.filter((hash) => {
+                if (form[1].value == 0) {
+                    return true;
+                } else return hash.persone <= form[1].value;
+            })
+            let filteredDurata = filteredPersone.filter((hash) => {
+                if (form[2].value == 0) {
+                    return true;
+                } else return hash.durata <= form[2].value;
+            })
+            deck.innerHTML = '';
+            createCard(filteredDurata)
+        }
+    }
+
     xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, true);
     xmlHttpRequest.send();
-    console.log('cosa sei: ' + sessionId)
-    if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
-        let data = JSON.parse(xmlHttpRequest.responseText);
-        let hashes = [];
-        createObjects(data, hashes)
-        let filtered = hashes.filter((hash) => {
-            return hash.durata <= form[2].value && hash.citta === form[0].value && hash.persone <= form[1].value
-        })
-        deck.children = '';
-        createCard(filtered)
-    }
-})
+}
 
 
 window.onload = () => {
@@ -77,6 +95,13 @@ function createCard(hashes) {
             aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
             cardBody.appendChild(aggiungiAlCArrello);
             deck.appendChild(card);
+            const option = document.createElement('option')
+                if(!cittaInserite.includes(hash.citta)) {
+                    option.value = hash.citta.toLowerCase();
+                    option.innerText = hash.citta
+                    cittaInserite.push(hash.citta)
+                    citta.appendChild(option);
+                }
         }
     })
 }

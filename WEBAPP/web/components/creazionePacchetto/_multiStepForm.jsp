@@ -27,7 +27,6 @@
                 <label for="citta" class="col-lg-4 control-label">Scegli Citta</label>
                 <div class="col-lg-12">
                     <select name="citta" id="citta" class="form-control">
-                        <option value="roma">Roma</option>
                     </select>
                 </div>
             </div>

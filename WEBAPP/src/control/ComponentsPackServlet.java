@@ -43,11 +43,41 @@ public class ComponentsPackServlet extends HttpServlet {
         String componentPack = request.getParameter("component");
         System.out.println(componentPack);
         //Se l'utente ha modificato il parametro component, verrà demandato alla home
-        if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti"))) {
+        if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti") && !componentPack.equals("citta"))) {
             response.sendRedirect("./index.jsp");
         } else {
             //Andiamo a prelevare dal DB gli hotel, ristoranti o tour
             switch (componentPack) {
+                case "citta":
+                    try{
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        String filter = request.getParameter("filter");
+                        String order = request.getParameter("order");
+                        ArrayList<String> citta = new ArrayList<>();
+                        ArrayList<HotelBean> hotel = new ArrayList<>();
+                        if(filter != null && order != null) {
+                            hotel = new ArrayList<>(hotelDAO.retrieveAll(filter, order));
+                        } else {
+                            hotel = new ArrayList<>(hotelDAO.retrieveAll("", ""));
+                        }
+                        Gson gson = new Gson();
+                        for(HotelBean bean : hotel) {
+                            if(!citta.contains(bean.getCitta()))
+                                citta.add(bean.getCitta());
+                            System.out.println(bean.getCitta() + "\n\n" + citta);
+                        }
+
+                        String cittadatornare = gson.toJson(citta);
+                        response.setStatus(200);
+                        response.getWriter().write(cittadatornare);
+                        System.out.println(cittadatornare);
+                    } catch (SQLException e) {
+                        request.setAttribute("error", e.toString());
+                        System.out.println("Errore RetrieveAll Hotel");
+                        e.printStackTrace();
+                    }
+                    break;
                 case "hotel":
                     try {
                         response.setContentType("application/json");

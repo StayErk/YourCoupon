@@ -1,5 +1,5 @@
-let sessionID = $("#sessionid").value;
-
+let sessionID = $("#sessionid").val();
+console.log($("#sessionid").val())
 let package = {
     durata:0,
     persone:0,
@@ -12,7 +12,16 @@ let package = {
 //Step del form
 jQuery().ready(function () {
     let v = $("#form")
-    let cittaScelta = document.getElementById('citta').value
+    $.getJSON(`ComponentsPackServlet;jsessionid=${sessionID}?component=citta`, function (data, status) {
+        if(status === 'success') {
+            data.forEach((citta) => {
+                const option = document.createElement("option");
+                option.value = citta.toLowerCase();
+                option.innerText = citta;
+                $("#citta").append(option)
+            })
+        }
+    })
     let durataInput = document.getElementById('durata');
     let personeInput = document.getElementById('persone');
     $(".open1").click(function () {
@@ -20,7 +29,7 @@ jQuery().ready(function () {
             if(durataInput.value != '' && personeInput.value != '') {
                 $(".frm").hide("fast");
                 $("#sf2").show("slow");
-                showHotel(cittaScelta);
+                showHotel($("#citta").select().val());
                 package.durata = durataInput.value;
                 package.persone = personeInput.value;
             }
@@ -30,7 +39,7 @@ jQuery().ready(function () {
         if(v) {
             $(".frm").hide("fast");
             $("#sf3").show("slow");
-            showRestaurants(cittaScelta)
+            showRestaurants($("#citta").select().val())
         }
     });
 
@@ -38,7 +47,7 @@ jQuery().ready(function () {
         if(v) {
             $(".frm").hide("fast");
             $("#sf4").show("slow");
-            showTour(cittaScelta)
+            showTour($("#citta").select().val())
         }
     });
     $(".open4").click(function () {
@@ -86,7 +95,8 @@ const showHotel = (citta) => {
     $.getJSON(`ComponentsPackServlet;jsessionid=${sessionID}?component=hotel`, function (data, status) {
         if(status === 'success') {
             let filtered = data.filter((element) => {
-                return element.citta.toLowerCase() == citta;
+                console.log(element.citta.toLowerCase() + ", " + citta.toLowerCase())
+                return element.citta.toLowerCase() === citta.toLowerCase();
             })
             createHotelCard(filtered);
             $(".sceltaSingola").click(function () {
