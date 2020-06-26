@@ -21,6 +21,10 @@ import java.sql.SQLException;
 @WebServlet("/user/LoadPhotoServlet")
 public class LoadPhotoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         ClienteBean user = (ClienteBean) session.getAttribute("user");
         String filename = "";
@@ -31,7 +35,7 @@ public class LoadPhotoServlet extends HttpServlet {
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
-            String sql = "select immagine from Cliente where id = ?";
+            String sql = "select immagine from Cliente where email = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             rs = statement.executeQuery();
@@ -60,6 +64,8 @@ public class LoadPhotoServlet extends HttpServlet {
             }
         }
 
+        System.out.println(filename);
+
         File file = new File(filename);
         FileInputStream fileInputStream = new FileInputStream(file);
         byte[] bt = fileInputStream.readAllBytes();
@@ -68,7 +74,4 @@ public class LoadPhotoServlet extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

@@ -44,13 +44,12 @@ public class UploadServlet extends HttpServlet {
                     String path = savePath + File.separator + fileName;
                     part.write(path);
                     System.out.println(path);
-                    System.out.println("../../../out/artifacts/YourCoupon2_war_exploded/img/"+fileName);
 
                     ClienteDAO clienteDAO = new ClienteDAO();
                     ClienteBean clienteBean = new ClienteBean();
                     HttpSession session = request.getSession(false);
                     clienteBean = (ClienteBean) session.getAttribute("user");
-                    clienteBean.setImmagine("../../../out/artifacts/YourCoupon2_war_exploded/img/"+fileName);
+                    clienteBean.setImmagine(path);
                     try {
                         clienteDAO.doUpdate(clienteBean);
                     } catch (SQLException throwables) {
