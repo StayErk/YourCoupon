@@ -15,7 +15,7 @@ create table Cliente(
                         email           varchar(35)     not null unique primary key,
                         password        binary(32)      not null,    /* SHA256 encripted */
                         admin           boolean         not null default FALSE,
-                        immagine        varchar(100)
+                        immagine        varchar(200)
 );
 
 
