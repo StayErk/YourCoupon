@@ -30,7 +30,7 @@
                             <span class="input-group-text" id="inputGroupFileAddon01">Scegli Immagine</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01">
                             <label class="custom-file-label" for="inputGroupFile01">...</label>
                         </div>
                     </div>

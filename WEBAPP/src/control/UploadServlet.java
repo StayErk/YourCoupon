@@ -9,11 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.util.List;
 
 @WebServlet("/user/UploadServlet")
+
 public class UploadServlet extends HttpServlet {
     static String Save_Dir = "img";
 
+    private String extractFileName(Part part) {
+        // content-disposition: form-data; name="file"; filename="file.txt"
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
@@ -28,11 +43,16 @@ public class UploadServlet extends HttpServlet {
             System.out.println("cartella creata");
         }
 
-        Part part = request.getPart("");
-        String fileName = extractFileName(part);
-        if(fileName != null && !fileName.equals("")) {
-            part.write(savePath + File.separator + fileName);
+        if (request.getParts() != null && request.getParts().size() > 0) {
+            for (Part part : request.getParts()) {
+                String fileName = extractFileName(part);
+                if (fileName != null && !fileName.equals("")) {
+                    part.write(savePath + File.separator + fileName);
+                    System.out.println(savePath + File.separator + fileName);
+                }
+            }
         }
+
 
     }
 
