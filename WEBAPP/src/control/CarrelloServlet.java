@@ -27,7 +27,7 @@ public class CarrelloServlet extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String azione = request.getParameter("action");
         if(session.getAttribute("user") != null && azione != null) {
@@ -54,6 +54,9 @@ public class CarrelloServlet extends HttpServlet {
                             if(idpacchettoStr != null) {
                                 UUID id_pacchetto = UUID.fromString(idpacchettoStr);
                                 PacchettoBean pacchettoDaRimuovere = pacchettoDAO.retrieveByKey(id_pacchetto);
+                                System.out.println("porca madonna");
+                                System.out.println(id_pacchetto);
+                                System.out.println(carrello);
                                 carrelloDAO.removePacchetto(carrello, pacchettoDaRimuovere);
                                 response.setStatus(200);
                             }
@@ -81,6 +84,7 @@ public class CarrelloServlet extends HttpServlet {
                 request.setAttribute("error", e.toString());
                 System.out.println("Errore visualizzazione carrello");
                 e.printStackTrace();
+                response.setStatus(500);
 
             }
         }

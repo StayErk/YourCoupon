@@ -64,7 +64,7 @@ function eliminaDalCarrello(elemento) {
     xmlHttpRequest.onreadystatechange = () => {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             console.log('click')
-            refreshCarrello()
+
         }
     }
 
