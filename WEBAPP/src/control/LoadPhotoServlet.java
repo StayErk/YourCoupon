@@ -2,6 +2,7 @@ package control;
 
 import datasource.DriverManagerConnectionPool;
 import model.cliente.ClienteBean;
+import model.cliente.ClienteDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -27,11 +28,13 @@ public class LoadPhotoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         ClienteBean user = (ClienteBean) session.getAttribute("user");
+        ClienteDAO clienteDAO = new ClienteDAO();
         String filename = "";
 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
+
 
         try {
             connection = DriverManagerConnectionPool.getConnection();

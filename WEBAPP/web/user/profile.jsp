@@ -14,35 +14,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="modal fade" id="modImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modifica Immagine</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="UploadServlet" enctype="multipart/form-data" id="modificaImg">
-                    <div class="input-group mb-3 form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupFileAddon01">Scegli Immagine</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label" for="inputGroupFile01">...</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-                <button type="button" class="btn btn-primary" onclick="invia()">Salva</button>
-            </div>
-        </div>
-    </div>
-</div>
+
     <!-- Navbar -->
     <%@include file="../components/navbar/_navbar.jsp"%>
     <!-- Una colonna dove saranno presenti propic, miei ordini e link al carrello -->
