@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.io.File" %><%--
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 5/19/20
@@ -46,13 +46,15 @@
     <!-- Navbar -->
     <%@include file="../components/navbar/_navbar.jsp"%>
     <!-- Una colonna dove saranno presenti propic, miei ordini e link al carrello -->
+
+
     <div class="container-fluid">
 	<div class="row">
 		<div class="col-12 col-md-4 p-5  sidebar-bg">
             <div class="row">
 	            <div class="col-md-12 col-6 p-2 align-items-center">
                     <div class="propic-container mx-auto">
-                        <img class="d-block rounded-circle propic" src="photo_2020-05-19_22-48-41.jpg" alt="propic"> <!--photo_2020-05-19_22-48-41.jpg foto locale -->
+                        <img class="d-block rounded-circle propic" src="<%=response.encodeURL("./LoadPhotoServlet") %>" alt="propic"> <!--photo_2020-05-19_22-48-41.jpg foto locale -->
                         <div class="propic-desciption rounded-circle text-center">
                             <p class="text"><button class="text-light btn btn-secondary" type="button" data-toggle="modal" data-target="#modImg">Modifica</button></p>
                         </div>
