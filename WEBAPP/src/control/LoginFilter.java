@@ -73,7 +73,7 @@ public class LoginFilter implements Filter {
         if(tipo.equals("admin")){
             return bean != null && bean.isAdmin();
         } else if (tipo.equals("user")) {
-            return bean != null && (bean.isAdmin() || !bean.isAdmin());
+            return bean != null;
         } else return false;
     }
 

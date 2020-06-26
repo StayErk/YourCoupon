@@ -141,7 +141,7 @@ public class CarrelloDAO implements ComponentCRUD<CarrelloBean, String> {
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql2);
-            preparedStatement.setString(1, carrello.getId().toString());
+            preparedStatement.setString(1, carrello.getId());
             preparedStatement.executeUpdate();
             connection.commit();
 

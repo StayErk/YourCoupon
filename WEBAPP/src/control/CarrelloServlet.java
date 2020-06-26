@@ -3,7 +3,9 @@ package control;
 import com.google.gson.Gson;
 import model.carrello.CarrelloBean;
 import model.carrello.CarrelloDAO;
+import model.carrello.ItemBean;
 import model.cliente.ClienteBean;
+import model.hotel.HotelDAO;
 import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-@WebServlet("/CarrelloServlet")
+@WebServlet("/user/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,9 +30,7 @@ public class CarrelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String azione = request.getParameter("action");
-        String idpacchettoStr = request.getParameter("idpacchetto");
-        UUID id_pacchetto = UUID.fromString(idpacchettoStr);
-        if(session.getAttribute("user") != null) {
+        if(session.getAttribute("user") != null && azione != null) {
             ClienteBean cliente = (ClienteBean) session.getAttribute("user");
             CarrelloDAO carrelloDAO = new CarrelloDAO();
             try {
@@ -41,19 +41,32 @@ public class CarrelloServlet extends HttpServlet {
                     response.setCharacterEncoding("UTF-8");
                     switch (azione) {
                         case "aggiungi":
-                            PacchettoBean pacchettoDaAggiungere =  pacchettoDAO.retrieveByKey(id_pacchetto);
-                            carrelloDAO.addPacchetto(carrello, pacchettoDaAggiungere);
-                            response.setStatus(200);
+                            String idpacchettoStr = request.getParameter("idpacchetto");
+                            if(idpacchettoStr != null) {
+                                UUID id_pacchetto = UUID.fromString(idpacchettoStr);
+                                PacchettoBean pacchettoDaAggiungere = pacchettoDAO.retrieveByKey(id_pacchetto);
+                                carrelloDAO.addPacchetto(carrello, pacchettoDaAggiungere);
+                                response.setStatus(200);
+                            }
                             break;
                         case "elimina":
-                            PacchettoBean pacchettoDaRimuovere =  pacchettoDAO.retrieveByKey(id_pacchetto);
-                            carrelloDAO.removePacchetto(carrello, pacchettoDaRimuovere);
-                            response.setStatus(200);
+                            idpacchettoStr = request.getParameter("idpacchetto");
+                            if(idpacchettoStr != null) {
+                                UUID id_pacchetto = UUID.fromString(idpacchettoStr);
+                                PacchettoBean pacchettoDaRimuovere = pacchettoDAO.retrieveByKey(id_pacchetto);
+                                carrelloDAO.removePacchetto(carrello, pacchettoDaRimuovere);
+                                response.setStatus(200);
+                            }
+                            response.setStatus(401);
                             break;
                         case "vedi":
-                            ArrayList<PacchettoBean> contenutoCarr = new ArrayList<>();
+                            ArrayList<ItemBean> contenutoCarr = new ArrayList<>();
+                            HotelDAO hotelDAO = new HotelDAO();
                             for (UUID id : carrelloDAO.vediCarrello(carrello)){
-                                contenutoCarr.add(pacchettoDAO.retrieveByKey(id));
+                                ItemBean item = new ItemBean();
+                                item.setPacchetto(pacchettoDAO.retrieveByKey(id));
+                                item.setCittaDestinazione(hotelDAO.retrieveByKey(item.getPacchetto().getId_struttura()).getCitta());
+                                contenutoCarr.add(item);
                             }
                             Gson gson = new Gson();
                             String carrelloDaRit = gson.toJson(contenutoCarr);

@@ -89,10 +89,10 @@ function createCard(hashes) {
             cardBtn.innerText = 'Dettagli'
             cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
             cardBody.appendChild(cardBtn)
-            const aggiungiAlCArrello = document.createElement('a');
+            const aggiungiAlCArrello = document.createElement('button');
             aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
-            aggiungiAlCArrello.href = ``
             aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
+            aggiungiAlCArrello.addEventListener('click', () => addCart(hash))
             cardBody.appendChild(aggiungiAlCArrello);
             deck.appendChild(card);
             const option = document.createElement('option')
@@ -130,18 +130,16 @@ function createObjects(data, hashes) {
 }
 
 
-function addCart() {
-
+function addCart(hash) {
+    console.log('click')
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             $("#notification").toast('show')
-            createObjects(data, hashes)
-            createCard(hashes);
         }
     }
 
-    xmlHttpRequest.open("GET", `CarrelloServlet;jsessionid=${sessionId}?action=aggiungi`, true);
+    xmlHttpRequest.open("GET", `user/CarrelloServlet;jsessionid=${sessionId}?action=aggiungi&idpacchetto=${hash.id_pacchetto}`, true);
     xmlHttpRequest.send();
 }
 
