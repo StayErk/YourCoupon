@@ -70,7 +70,7 @@
                 <%} else {%>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="small text-muted">Benvenuto, </span> <span class="text-success"><%=bean.getNome()%></span>
+                        <span class="small text-muted">Ciao, </span> <span class="text-success"><%=bean.getNome()%></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
