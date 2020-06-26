@@ -27,7 +27,7 @@ public class CarrelloServlet extends HttpServlet {
 
     }
 
-    protected synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String azione = request.getParameter("action");
         if(session.getAttribute("user") != null && azione != null) {
@@ -60,7 +60,7 @@ public class CarrelloServlet extends HttpServlet {
                                 carrelloDAO.removePacchetto(carrello, pacchettoDaRimuovere);
                                 response.setStatus(200);
                             }
-                            response.setStatus(401);
+                            else response.setStatus(401);
                             break;
                         case "vedi":
                             ArrayList<ItemBean> contenutoCarr = new ArrayList<>();
