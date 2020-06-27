@@ -202,28 +202,6 @@ const createArrayOfHash = (data, hashes) => {
 
 const btn = document.getElementById('btn')
 btn.addEventListener('click', () => {
-    console.log('click')
-    console.log(form.citta.value)
-    let xmlHttpRequest = new XMLHttpRequest()
-    if(document.title.toLowerCase() == 'hotel') {
-        if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', request_uriASC, true)
-            xmlHttpRequest.send()
-        } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', request_uriDESC, true)
-            xmlHttpRequest.send()
-        }
-    } else {
-        console.log(form.prezzo)
-        if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', request_uriASC, true)
-            xmlHttpRequest.send()
-        } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', request_uriDESC, true)
-            xmlHttpRequest.send()
-        }
-    }
-
 
     xmlHttpRequest.onreadystatechange = function() {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
@@ -262,5 +240,30 @@ btn.addEventListener('click', () => {
             }
         }
     }
+
+    console.log('click')
+    console.log(form.citta.value)
+    let xmlHttpRequest = new XMLHttpRequest()
+    if(document.title.toLowerCase() == 'hotel') {
+        if(form.prezzo[0].checked){
+            xmlHttpRequest.open('GET', request_uriASC, true)
+            xmlHttpRequest.send()
+        } else if (form.prezzo[1].checked) {
+            xmlHttpRequest.open('GET', request_uriDESC, true)
+            xmlHttpRequest.send()
+        }
+    } else {
+        console.log(form.prezzo)
+        if(form.prezzo[0].checked){
+            xmlHttpRequest.open('GET', request_uriASC, true)
+            xmlHttpRequest.send()
+        } else if (form.prezzo[1].checked) {
+            xmlHttpRequest.open('GET', request_uriDESC, true)
+            xmlHttpRequest.send()
+        }
+    }
+
+
+
 })
 
