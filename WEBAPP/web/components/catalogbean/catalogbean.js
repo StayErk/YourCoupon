@@ -1,10 +1,19 @@
 const pancake= document.getElementById('pancack')
 const citta = document.getElementById('citta')
 const form = document.getElementById('form-filter')
+let uri = window.location.href.toString()
+let request_uri = ""
 let cittaInserite = []
+
+
+if(uri.includes('admin')){
+    request_uri = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
+}else request_uri = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
+
+
 window.onload = () => {
     let xmlHttpRequest = new XMLHttpRequest()
-    xmlHttpRequest.open('GET', `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`, true)
+    xmlHttpRequest.open('GET', request_uri, true)
     xmlHttpRequest.send()
 
     xmlHttpRequest.onreadystatechange = function() {
@@ -65,6 +74,13 @@ const createCardFromHash = (hashes) => {
             cittaInserite.push(hash.citta);
             citta.appendChild(option)
         }
+        if(uri.includes('admin')){
+            const btnEdit = document.createElement('a');
+            btnEdit.classList.add('btn', 'btn-warning')
+            btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${hash.id_tour}`
+            btnEdit.innerText = "Modifica"
+            cardBody.appendChild(btnEdit)
+        }
     })
 }
 
@@ -101,6 +117,13 @@ const createRestaurantCard = (data) => {
             option.innerText = ristorante.citta
             cittaInserite.push(ristorante.citta);
             citta.appendChild(option)
+        }
+        if(uri.includes('admin')){
+            const btnEdit = document.createElement('a');
+            btnEdit.classList.add('btn', 'btn-warning')
+            btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${ristorante.id}`
+            btnEdit.innerText = "Modifica"
+            cardBody.appendChild(btnEdit)
         }
 
     })
@@ -139,6 +162,13 @@ const createHotelCard = (data) => {
             cittaInserite.push(hotel.citta);
             citta.appendChild(option)
         }
+        if(uri.includes('admin')){
+            const btnEdit = document.createElement('a');
+            btnEdit.classList.add('btn', 'btn-warning')
+            btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${hotel.id}`
+            btnEdit.innerText = "Modifica"
+            cardBody.appendChild(btnEdit)
+        }
 
     })
 }
@@ -168,19 +198,19 @@ btn.addEventListener('click', () => {
     let xmlHttpRequest = new XMLHttpRequest()
     if(document.title.toLowerCase() == 'hotel') {
         if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=ASC`, true)
+            xmlHttpRequest.open('GET', request_uri, true)
             xmlHttpRequest.send()
         } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=DESC`, true)
+            xmlHttpRequest.open('GET', request_uri, true)
             xmlHttpRequest.send()
         }
     } else {
         console.log(form.prezzo)
         if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=ASC`, true)
+            xmlHttpRequest.open('GET', request_uri, true)
             xmlHttpRequest.send()
         } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=DESC`, true)
+            xmlHttpRequest.open('GET', request_uri, true)
             xmlHttpRequest.send()
         }
     }
@@ -224,3 +254,4 @@ btn.addEventListener('click', () => {
         }
     }
 })
+

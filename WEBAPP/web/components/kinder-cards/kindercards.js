@@ -14,24 +14,31 @@ function filtra(){
     xmlHttpRequest.onreadystatechange = (data) => {
         if (xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             let data = JSON.parse(xmlHttpRequest.responseText);
-            console.log(data)
+
             let hashes = [];
             createObjects(data, hashes)
+
             let filteredCitta = hashes.filter((hash) => {
-                if (form[0].value == 'nil') {
+                if (form[0].value === 'nil') {
                     return true
                 } else return hash.citta === form[0].value;
             })
+            console.log(form[0].value)
+            console.log(form[1].value)
+            console.log(form[2].value)
+            console.log(filteredCitta)
             let filteredPersone = filteredCitta.filter((hash) => {
-                if (form[1].value == 0) {
+                if (form[1].value === "") {
                     return true;
                 } else return hash.persone <= form[1].value;
             })
+            console.log(filteredPersone)
             let filteredDurata = filteredPersone.filter((hash) => {
-                if (form[2].value == 0) {
+                if (form[2].value === "") {
                     return true;
                 } else return hash.durata <= form[2].value;
             })
+            console.log(filteredDurata)
             deck.innerHTML = '';
             createCard(filteredDurata)
         }

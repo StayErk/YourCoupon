@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
 	            <div class="col-12">
-                    <button class="btn btn-primary open1" type="button">Next</button>
+                    <button class="btn btn-primary open1" type="button">Avanti</button>
                 </div>
             </div>
         </fieldset>
@@ -45,8 +45,8 @@
             </div>
             <div class="form-group">
                 <div class="col-12">
-                    <button class="btn btn-secondary back2" type="button">Previus</button>
-                    <button class="btn btn-primary open2" type="button">Next</button>
+                    <button class="btn btn-secondary back2" type="button">Indietro</button>
+                    <button class="btn btn-primary open2" type="button">Avanti</button>
                 </div>
             </div>
         </fieldset>
@@ -59,7 +59,7 @@
             </div>
             <div class="form-group">
                 <div class="col-12">
-                    <button class="btn btn-secondary back3" type="button">Previus</button>
+                    <button class="btn btn-secondary back3" type="button">Indietro</button>
                     <button class="btn btn-primary open3" type="button">Non Inserire Ristorante</button>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="form-group">
                 <div class="col-12">
-                    <button class="btn btn-secondary back4" type="button">Previus</button>
+                    <button class="btn btn-secondary back4" type="button">Indietro</button>
                     <button class="btn btn-primary open4" type="button">Non Inserire Tour</button>
                 </div>
             </div>
@@ -97,7 +97,7 @@
             </div>
             <div class="form-group">
                 <div class="col-12">
-                    <button class="btn btn-secondary back5" type="button">Previus</button>
+                    <button class="btn btn-secondary back5" type="button">Indietro</button>
                     <button class="btn btn-primary open5" type="submit">Aggiungi al carrello</button>
                 </div>
             </div>

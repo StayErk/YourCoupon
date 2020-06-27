@@ -29,10 +29,10 @@
                                     </select>
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <input type="number" class="form-control max-size" name="persone" placeholder="Persone" value="0">
+                                    <input type="number" class="form-control max-size" min="1" name="persone" placeholder="Persone" >
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3">
-                                    <input type="number" class="form-control max-size"  placeholder="Durata" value="0">
+                                    <input type="number" class="form-control max-size" min="1" placeholder="Durata" >
                                 </div>
                                 <div class="col-12 my-3 my-md-0 col-md-3 text-center">
                                     <button class="btn btn-primary" type="button" id="cerca-btn" onclick="filtra()">Cerca</button>

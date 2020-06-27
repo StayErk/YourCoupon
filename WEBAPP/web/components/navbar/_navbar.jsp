@@ -23,35 +23,35 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <% if(request.getRequestURI().contains("user")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
                         <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
                     <% } else { %>
                         <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
                         <a class="btn btn-outline-success" href="<%=response.encodeURL("../creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                     <% } else { %>
                         <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../hotel.jsp?type=hotel")%>">Hotel</a>
                     <% } else { %>
                     <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                     <% } else { %>
                         <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../tour.jsp?type=tour")%>">Visite Guidate</a>
                     <% } else { %>
                         <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
@@ -73,8 +73,11 @@
                         <span class="small text-muted">Ciao, </span> <span class="text-success"><%=bean.getNome()%></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
-                        <a class="dropdown-item" href="#"></a>
+                        <% if(request.getRequestURI().contains("user")) { %>
+                            <a class="dropdown-item" href="<%=response.encodeURL("./profile.jsp")%>">Il mio profilo</a>
+                        <% } else { %>
+                            <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
+                        <% } %>
                         <a class="dropdown-item" href="#">Logout</a>
                     </div>
                 </li>
