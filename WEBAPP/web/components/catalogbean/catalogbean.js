@@ -5,17 +5,23 @@ let uri = window.location.href.toString()
 let request_uri = ""
 let request_uriASC= ""
 let request_uriDESC= ""
+let request_uriASCHotel = ""
+let request_uriDESCHotel = ""
 let cittaInserite = []
 
 
 if(uri.includes('admin')){
     request_uri = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
     request_uriASC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=ASC`
+    request_uriASCHotel = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=ASC`
+    request_uriDESCHotel = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=DESC`
     request_uriDESC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=DESC`
 }else {
     request_uri = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
     request_uriASC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=ASC`
     request_uriDESC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=DESC`
+    request_uriASCHotel = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=ASC`
+    request_uriDESCHotel = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costoNotte&order=DESC`
 }
 
 
@@ -203,6 +209,7 @@ const createArrayOfHash = (data, hashes) => {
 const btn = document.getElementById('btn')
 btn.addEventListener('click', () => {
 
+    let xmlHttpRequest = new XMLHttpRequest()
     xmlHttpRequest.onreadystatechange = function() {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             if (document.title.toLowerCase() === 'tour') {
@@ -243,13 +250,13 @@ btn.addEventListener('click', () => {
 
     console.log('click')
     console.log(form.citta.value)
-    let xmlHttpRequest = new XMLHttpRequest()
+
     if(document.title.toLowerCase() == 'hotel') {
         if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', request_uriASC, true)
+            xmlHttpRequest.open('GET', request_uriASCHotel, true)
             xmlHttpRequest.send()
         } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', request_uriDESC, true)
+            xmlHttpRequest.open('GET', request_uriDESCHotel, true)
             xmlHttpRequest.send()
         }
     } else {
