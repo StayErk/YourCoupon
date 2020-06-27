@@ -93,8 +93,13 @@ const createCardFromHash = (hashes) => {
             const btnEdit = document.createElement('a');
             btnEdit.classList.add('btn', 'btn-warning')
             btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${hash.id_tour}`
-            btnEdit.innerText = "Modifica"
+            btnEdit.innerText = "Modiifica"
             cardBody.appendChild(btnEdit)
+            const btnDelete = document.createElement('button');
+            btnDelete.addEventListener('click', () => eliminaDalDB(hash.id_tour))
+            btnDelete.classList.add("btn", 'btn-danger', 'ml-3')
+            btnDelete.innerText = "Elimina"
+            cardBody.appendChild(btnDelete)
         }
     })
 }
@@ -139,6 +144,11 @@ const createRestaurantCard = (data) => {
             btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${ristorante.id}`
             btnEdit.innerText = "Modifica"
             cardBody.appendChild(btnEdit)
+            const btnDelete = document.createElement('button');
+            btnDelete.addEventListener('click', () => eliminaDalDB(ristorante.id))
+            btnDelete.classList.add("btn", 'btn-danger', 'ml-3')
+            btnDelete.innerText = "Elimina"
+            cardBody.appendChild(btnDelete)
         }
 
     })
@@ -183,6 +193,11 @@ const createHotelCard = (data) => {
             btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${hotel.id}`
             btnEdit.innerText = "Modifica"
             cardBody.appendChild(btnEdit)
+            const btnDelete = document.createElement('button');
+            btnDelete.addEventListener('click', () => eliminaDalDB(hotel.id))
+            btnDelete.classList.add("btn", 'btn-danger', 'ml-3')
+            btnDelete.innerText = "Elimina"
+            cardBody.appendChild(btnDelete)
         }
 
     })
@@ -207,7 +222,22 @@ const createArrayOfHash = (data, hashes) => {
 
 
 const btn = document.getElementById('btn')
-btn.addEventListener('click', () => {
+btn.addEventListener('click', () => filtra())
+
+function eliminaDalDB(hash) {
+    console.log('click')
+    let xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function () {
+        if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            filtra();
+        }
+    }
+
+    xmlHttpRequest.open("GET", `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=elimina&id=${hash}`, true);
+    xmlHttpRequest.send();
+}
+
+function filtra(){
 
     let xmlHttpRequest = new XMLHttpRequest()
     xmlHttpRequest.onreadystatechange = function() {
@@ -270,7 +300,5 @@ btn.addEventListener('click', () => {
         }
     }
 
-
-
-})
+}
 

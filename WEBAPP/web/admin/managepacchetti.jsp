@@ -1,15 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
-  User: andreaerk
-  Date: 6/27/20
-  Time: 5:32 PM
+  User: edrio
+  Date: 27/06/2020
+  Time: 22:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% String tipo = (String) request.getAttribute("tipo"); %>
 <html>
 <head>
-    <title></title>
+    <title>Hotel</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,9 +19,7 @@
 <div class="wrapper">
     <nav id="sidebar" class="rounded-right " >
         <div class="sidebar-header">
-            <% if(tipo != null  && !tipo.equals("")) {%>
-                <h4>Aggiungi nuovo <%=tipo%></h4>
-            <%}%>
+            <h4>Amministra Pacchetti</h4>
         </div>
         <ul class="list-unstyled components">
             <li class="nav-item"><a class="nav-link" href="./managehotel.jsp">Gestisci Hotel</a></li>
@@ -45,7 +42,7 @@
                     <span>Menu</span>
                 </button>
 
-                <h3 class="text-center ml-auto mr-auto text-light m-0">Modifica del sito</h3>
+                <h3 class="text-center ml-auto mr-auto text-light m-0">Amministra Pacchetti</h3>
                 <div>
                     <a href="./index.jsp" class="btn btn-success">Pannello Principale</a>
                 </div>
@@ -53,14 +50,44 @@
 
             </div>
         </nav>
-        <%@include file="_newform.jsp"%>
+        <% Boolean errore = (Boolean) request.getAttribute("errore");
+            if(errore != null && errore) { %>
+        <div class="row">
+            <div class="col">
+                    <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                        Si è verificato un errore, riprova
+                    </span>
+            </div>
+        </div>
+        <%}%>
+        <form class="mx-auto my-4" onsubmit="return false" id="search">
+            <div class="form-row">
+
+                <div class="col-12 my-3 my-md-0 col-md-3">
+                    <select class="max-size form-control" name="citta">
+                        <option value="nil" selected>Tutte le città</option>
+                    </select>
+                </div>
+                <div class="col-12 my-3 my-md-0 col-md-3">
+                    <input type="number" class="form-control max-size" min="1" name="persone" placeholder="Persone" >
+                </div>
+                <div class="col-12 my-3 my-md-0 col-md-3">
+                    <input type="number" class="form-control max-size" min="1" placeholder="Durata" >
+                </div>
+                <div class="col-12 my-3 my-md-0 col-md-3 text-center">
+                    <button class="btn btn-primary" type="button" id="cerca-btn" onclick="filtra()">Cerca</button>
+                    <button class="btn btn-secondary" type="reset" >Reset</button>
+                </div>
+            </div>
+            <input type="hidden" value="<%=request.getSession().getId()%>">
+        </form>
+        <%@include file="../components/kinder-cards/_kinder-cards.jsp"%>
 
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="toggle-sidebar.js"></script>
-<script src="../components/catalogbean/catalogbean.js"></script>
-<script src="../components/script/citta.js"></script>
+<script src="../components/kinder-cards/kindercards.js"></script>
 </body>
 </html>

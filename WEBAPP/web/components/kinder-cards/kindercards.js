@@ -6,6 +6,13 @@ const sessionId = form[4].value;
 const citta = form.citta;
 let cittaInserite = [];
 
+let request_uri;
+if(window.location.href.toString().includes('admin')) {
+    request_uri = "../PacchettiServlet"
+} else {
+    request_uri = "PacchettiServlet"
+}
+
 
 function filtra(){
     console.log("click");
@@ -45,14 +52,14 @@ function filtra(){
         }
     }
 
-    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, true);
+    xmlHttpRequest.open("GET", `${request_uri};jsessionid=${sessionId}?action=retrieve`, true);
     xmlHttpRequest.send();
 }
 
 
 window.onload = () => {
     let xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("GET", `PacchettiServlet;jsessionid=${sessionId}?action=retrieve`, true);
+    xmlHttpRequest.open("GET", `${request_uri};jsessionid=${sessionId}?action=retrieve`, true);
     xmlHttpRequest.send();
 
     xmlHttpRequest.onreadystatechange = function () {
@@ -95,7 +102,7 @@ function createCard(hashes) {
             cardBtn.classList.add('btn');
             cardBtn.classList.add('btn-primary')
             cardBtn.innerText = 'Dettagli'
-            cardBtn.href = `PacchettiServlet;jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
+            cardBtn.href = `${request_uri};jsessionid=${sessionId}?action=bykey&key=${hash.id_pacchetto}`
             cardBody.appendChild(cardBtn)
             const aggiungiAlCArrello = document.createElement('button');
             aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
@@ -110,6 +117,14 @@ function createCard(hashes) {
                     cittaInserite.push(hash.citta)
                     citta.appendChild(option);
                 }
+            if(window.location.href.toString().includes('admin')){
+                const elimina = document.createElement('button');
+                elimina.classList.add('btn', 'btn-danger', 'ml-3');
+                elimina.innerText = 'Elimina'
+                elimina.addEventListener('click', () => eliminaDalDB(hash))
+                cardBody.appendChild(elimina);
+                cardBody.removeChild(aggiungiAlCArrello)
+            }
         }
     })
 }
@@ -149,6 +164,19 @@ function addCart(hash) {
     }
 
     xmlHttpRequest.open("GET", `user/CarrelloServlet;jsessionid=${sessionId}?action=aggiungi&idpacchetto=${hash.id_pacchetto}`, true);
+    xmlHttpRequest.send();
+}
+
+function eliminaDalDB(hash) {
+    console.log('click')
+    let xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function () {
+        if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+            filtra();
+        }
+    }
+
+    xmlHttpRequest.open("GET", `AdminServlet;jsessionid=${sessionId}?component=pacchetto&action=elimina&id=${hash.id_pacchetto}`, true);
     xmlHttpRequest.send();
 }
 

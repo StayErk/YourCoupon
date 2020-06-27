@@ -3,6 +3,7 @@ package control;
 import model.BackendValidation;
 import model.hotel.HotelBean;
 import model.hotel.HotelDAO;
+import model.pacchetto.PacchettoDAO;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
 import model.tour.LuogoDAO;
@@ -159,7 +160,7 @@ public class AdminServlet extends HttpServlet {
         if(componente != null && action != null){
             switch(action) {
                 case "edit":
-                    if(id != null) {
+                    if(checkID(id)) {
                         if (componente.equals("hotel")) {
                             request.setAttribute("tipo", "hotel");
                             try {
@@ -199,6 +200,55 @@ public class AdminServlet extends HttpServlet {
                     } else if(componente.equals("ristoranti")) {
                         request.setAttribute("tipo", componente);
                         RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/addcomponent.jsp");
+                        requestDispatcher.forward(request, response);
+                    }
+                    break;
+                case "elimina":
+                    if (componente.equals("pacchetto")) {
+                        PacchettoDAO pacchettoDAO = new PacchettoDAO();
+                        try {
+                            pacchettoDAO.doDelete(pacchettoDAO.retrieveByKey(UUID.fromString(id)));
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managepacchetti.jsp");
+                            requestDispatcher.forward(request, response);
+                        } catch (SQLException throwables) {
+                            request.setAttribute("errore", true);
+                            response.setStatus(500);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managepacchetti.jsp");
+                            requestDispatcher.forward(request, response);
+                            throwables.printStackTrace();
+                        }
+                    } else if(componente.equals("hotel")){
+                        HotelDAO hotelDAO = new HotelDAO();
+                        try {
+                            hotelDAO.doDelete(hotelDAO.retrieveByKey(UUID.fromString(id)));
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                            requestDispatcher.forward(request, response);
+                        } catch (SQLException throwables) {
+                            request.setAttribute("errore", true);
+                            response.setStatus(500);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                            requestDispatcher.forward(request, response);
+                            throwables.printStackTrace();
+                            throwables.printStackTrace();
+                        }
+                    } else if(componente.equals("ristoranti")){
+                        RestaurantDAO restaurantDAO = new RestaurantDAO();
+                        try {
+                            restaurantDAO.doDelete(restaurantDAO.retrieveByKey(UUID.fromString(id)));
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
+                            requestDispatcher.forward(request, response);
+                        } catch (SQLException throwables) {
+                            request.setAttribute("errore", true);
+                            response.setStatus(500);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
+                            requestDispatcher.forward(request, response);
+                            throwables.printStackTrace();
+                        }
+                    }
+                    else {
+                        request.setAttribute("errore", true);
+                        response.setStatus(500);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managepacchetti.jsp");
                         requestDispatcher.forward(request, response);
                     }
                     break;

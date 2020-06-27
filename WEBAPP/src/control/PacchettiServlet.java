@@ -35,11 +35,14 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
 
             if(bean != null) {
                 idCliente = bean.getEmail();
-                if(bean.isAdmin()) predefinito = true;
-                try {
-                    carrelloBean = carrelloDAO.retrieveByKey(idCliente);
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                if(bean.isAdmin()) {
+                    predefinito = true;
+                } else {
+                    try {
+                        carrelloBean = carrelloDAO.retrieveByKey(idCliente);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -55,26 +58,31 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
         toInsert.setId_cliente(idCliente);
         toInsert.setId_struttura(pacchettoRaw.getHotel().getId());
         toInsert.setPredefinito(predefinito);
-        System.out.println("Prima di ristoranti");
+
         try {
             pacchettoDAO.doSave(toInsert);
             for(RestaurantBean restaurant : pacchettoRaw.getRistoranti()) {
                 pacchettoDAO.addRestaurant(toInsert, restaurant);
             }
-            System.out.println("Dopo di ristoranti");
+
             for (TourBean tour : pacchettoRaw.getTour()) {
                 pacchettoDAO.addTour(toInsert, tour);
             }
             System.out.println(carrelloBean + "\n\n" + toInsert);
-            carrelloDAO.addPacchetto(carrelloBean, toInsert);
-            System.out.println("Inserito nel carrello");
+            if(!toInsert.isPredefinito()) {
+                response.sendRedirect(response.encodeURL("./user/chart.jsp"));
+                carrelloDAO.addPacchetto(carrelloBean, toInsert);
+            } else {
+                response.sendRedirect(response.encodeURL("./admin/managepacchetti.jsp"));
+            }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Prima di forward");
 
-        response.sendRedirect(response.encodeURL("./user/chart.jsp"));
+
+
         /*
         RequestDispatcher dispatcher = request.getRequestDispatcher("/user/chart.jsp");
         dispatcher.forward(request, response);*/
