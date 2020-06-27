@@ -54,7 +54,7 @@
             <div class="row">
 	            <div class="col-md-12 col-6 p-2 align-items-center">
                     <div class="propic-container mx-auto">
-                        <img class="d-block rounded-circle propic" src="./LoadPhotoServlet" alt="propic"> <!--photo_2020-05-19_22-48-41.jpg foto locale -->
+                        <img class="d-block rounded-circle propic" src="./LoadPhotoServlet?tipo=user" alt="propic"> <!--photo_2020-05-19_22-48-41.jpg foto locale -->
                         <div class="propic-desciption rounded-circle text-center">
                             <p class="text"><button class="text-light btn btn-secondary" type="button" data-toggle="modal" data-target="#modImg">Modifica</button></p>
                         </div>

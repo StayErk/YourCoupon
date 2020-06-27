@@ -5,10 +5,12 @@ import model.cliente.ClienteDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -116,7 +118,6 @@ public class ClienteServlet extends HttpServlet {
                         }
                     }
                 }
-
 
                 response.sendRedirect(request.getContextPath()+"/user/profile.jsp");
                 break;

@@ -18,25 +18,46 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Clock;
 
-@WebServlet("/user/LoadPhotoServlet")
+@WebServlet({"/user/LoadPhotoServlet", "/LoadPhotoServlet"})
 public class LoadPhotoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        ClienteBean user = (ClienteBean) session.getAttribute("user");
-        String filename = user.getImmagine();
 
-        System.out.println(filename);
+        String typePhoto = request.getParameter("tipo");
+        System.out.println("Tipo: "+typePhoto);
 
-        File file = new File(filename);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        byte[] bt = fileInputStream.readAllBytes();
-        ServletOutputStream out = response.getOutputStream();
-        out.write(bt);
+        switch (typePhoto){
+            case "user":
+                HttpSession session = request.getSession(false);
+                ClienteBean user = (ClienteBean) session.getAttribute("user");
+                String filename = user.getImmagine();
+
+                System.out.println(filename);
+
+                File file = new File(filename);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] bt = fileInputStream.readAllBytes();
+                ServletOutputStream out = response.getOutputStream();
+                out.write(bt);
+
+                break;
+
+            case "hotel":
+
+                break;
+
+            case "tour":
+
+                break;
+        }
+
+
+
 
     }
 
