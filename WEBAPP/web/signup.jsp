@@ -24,6 +24,16 @@
                     <% if(registered == null) {%>
                     <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
                     <form method="post" action="ClienteServlet" id="signUpForm">
+                        <%if (request.getAttribute("errore") != null && (Boolean) request.getAttribute("errore") == true) {%>
+                            <div class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                                <p>I Dati forniti non sono corretti.</p>
+                                <ul class="list-unstyled">
+                                    <li>Password: almeno 8 caratteri</li>
+                                    <li>Nome: massimo 15 caratteri</li>
+                                    <li>Cognome: massimo 15 caratteri</li>
+                                </ul>
+                            </div>
+                        <%}%>
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" required>

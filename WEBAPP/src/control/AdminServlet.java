@@ -1,5 +1,6 @@
 package control;
 
+import model.BackendValidation;
 import model.hotel.HotelBean;
 import model.hotel.HotelDAO;
 import model.restaurant.RestaurantBean;
@@ -19,6 +20,8 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static model.BackendValidation.*;
 
 @WebServlet("/admin/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -203,30 +206,6 @@ public class AdminServlet extends HttpServlet {
         }
     }
 
-    private boolean checkNumeroTelefono (String numeroTelefono) {
-        String regex = "(\\d{3})[-]{1}(\\d{6,7})";
-        return numeroTelefono != null && numeroTelefono.matches(regex);
-    }
 
-    private boolean checkEmail (String email) {
-        String regex = "(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))";
-        return email != null && email.matches(regex);
-    }
-
-    private  boolean checkStelle (int stelle) {
-        return  stelle != 0 && stelle >= 1 && stelle <= 5;
-    }
-
-    private  boolean checkID(String id) {
-        return id != null && id.matches("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}");
-    }
-
-    private  boolean checkTesto(String testo, int maxlenght) {
-        return  testo != null && testo.length() <= maxlenght;
-    }
-
-    private boolean checkCosto(Double costo) {
-        return  costo >= 0 && costo<= 9999999.99999;
-    }
 }
 

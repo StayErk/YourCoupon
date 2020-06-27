@@ -1,5 +1,6 @@
 package control;
 
+import model.BackendValidation;
 import model.Popolamento;
 import model.cliente.ClienteBean;
 import model.cliente.ClienteDAO;
@@ -18,6 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+
+import static model.BackendValidation.*;
 
 @WebServlet({"/ClienteServlet", "/user/ClienteServlet"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB after which the file will be
@@ -39,12 +42,19 @@ public class ClienteServlet extends HttpServlet {
                         String cognome = request.getParameter("cognome");
                         String email = request.getParameter("email");
                         String password = request.getParameter("password");
-                        ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
-                        modelDAO.doSave(bean);
-                        System.out.println("saved " + bean);
-                        request.setAttribute("registrato", modelDAO.retrieveByKey(email));
-                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
-                        requestDispatcher.forward(request, response);
+                        if(checkTesto(nome, 15) && checkTesto(cognome, 15) && checkEmail(email) && checkPwd(password)) {
+                            ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
+                            modelDAO.doSave(bean);
+                            System.out.println("saved " + bean);
+                            request.setAttribute("registrato", modelDAO.retrieveByKey(email));
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                            requestDispatcher.forward(request, response);
+                        } else {
+                            System.out.println("Ci sono");
+                            request.setAttribute("errore", true);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                            requestDispatcher.forward(request, response);
+                        }
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -55,7 +65,7 @@ public class ClienteServlet extends HttpServlet {
                     try {
                         String email = request.getParameter("email");
                         String pass = request.getParameter("password");
-                        if (email == null || pass == null) {
+                        if (email == null || !checkPwd(pass)) {
                             badInput(request, response, "non-esistente");
                         }
                         ClienteBean bean = null;
@@ -128,7 +138,7 @@ public class ClienteServlet extends HttpServlet {
                     String newPwd = request.getParameter("password");
                     HttpSession session = request.getSession();
                     ClienteBean utente = (ClienteBean) session.getAttribute("user");
-                    if(utente != null && newPwd != null && checkPwd(newPwd)) {
+                    if(utente != null && checkPwd(newPwd)) {
                         utente.setPassword(newPwd);
                         try {
                             clienteDAO.doUpdate(utente);
@@ -192,7 +202,4 @@ public class ClienteServlet extends HttpServlet {
         return "";
     }
 
-    private boolean checkPwd(String pwd) {
-        return pwd.length() >= 8;
-    }
 }

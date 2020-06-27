@@ -43,7 +43,7 @@
 
                 <h3 class="text-center ml-auto mr-auto text-light m-0">Modifica i Ristoranti</h3>
                 <div>
-                    <a href="#" class="btn btn-success">Torna alla Home</a>
+                    <a href="./index.jsp" class="btn btn-success">Pannello Principale</a>
                 </div>
 
 
