@@ -19,11 +19,12 @@ function filtra(){
             createObjects(data, hashes)
 
             let filteredCitta = hashes.filter((hash) => {
+                console.log(form[0].value + " " + hash.citta.toLowerCase())
                 if (form[0].value === 'nil') {
                     return true
-                } else return hash.citta === form[0].value;
+                } else return hash.citta.toLowerCase() === form[0].value;
             })
-            console.log(form[0].value)
+
             console.log(form[1].value)
             console.log(form[2].value)
             console.log(filteredCitta)

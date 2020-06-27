@@ -2,13 +2,16 @@
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 6/27/20
-  Time: 3:06 PM
+  Time: 4:28 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% String tipo = (String) request.getAttribute("tipo"); %>
 <html>
 <head>
-    <title>Hotel</title>
+    <%if (tipo!= null && !tipo.equals("")) {%>
+        <title>Modifica <%=tipo%>></title>
+    <%}%>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +22,9 @@
 <div class="wrapper">
     <nav id="sidebar" class="rounded-right " >
         <div class="sidebar-header">
-            <h4>Amministra Hotel</h4>
+            <%if (tipo!= null && !tipo.equals("")) {%>
+                <h4>Modifica <%=tipo%>></h4>
+            <%}%>
         </div>
         <ul class="list-unstyled components">
             <li class="nav-item"><a class="nav-link" href="./managehotel.jsp">Gestisci Hotel</a></li>
@@ -41,7 +46,7 @@
                     <span>Menu</span>
                 </button>
 
-                <h3 class="text-center ml-auto mr-auto text-light m-0">Statistiche del sito</h3>
+                <h3 class="text-center ml-auto mr-auto text-light m-0">Modifica del sito</h3>
                 <div>
                     <a href="#" class="btn btn-success">Torna alla Home</a>
                 </div>
@@ -49,18 +54,7 @@
 
             </div>
         </nav>
-        <% Boolean errore = (Boolean) request.getAttribute("errore");
-        if(errore != null && errore) { %>
-            <div class="row">
-                <div class="col">
-                    <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
-                        Si è verificato un errore nella modifica, riprova
-                    </span>
-                </div>
-            </div>
-        <%}%>
-        <%@include file="../components/catalogbean/_filter.jsp"%>
-        <%@include file="../components/catalogbean/_catalogbean.jsp"%>
+        <%@include file="_editform.jsp"%>
 
     </div>
 </div>

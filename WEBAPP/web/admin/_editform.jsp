@@ -10,48 +10,55 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-        String tipo = (String) request.getAttribute("tipo");
         if(tipo != null && tipo.equals("hotel")){
             HotelBean daModificare = (HotelBean) request.getAttribute("damodificare");
             if(daModificare != null) { %>
-                <form action="">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="immagine">
-                        <label class="custom-file-label" for="immagine">Cambia immagine</label>
-                    </div>
+                <form action="AdminServlet" method="post">
+                    <input type="hidden" name="id" value="<%=daModificare.getId()%>">
+                    <input type="hidden" name="tipo" value="<%=tipo%>">
+                    <input type="hidden" name="action" value="edit">
                     <div class="form-group">
-                        <label for="nome">Modifica costo notte</label>
-                        <input type="number" class="form-control" id="nome" name="nome" value="<%=daModificare.getCostoNotte()%>">
+                        <label for="costonotte">Modifica costo notte</label>
+                        <input type="number" class="form-control" id="costonotte" name="costonotte" value="<%=daModificare.getCostoNotte()%>" required>
                     </div>
                     <div class="form-group">
                         <label for="numeroTelefono">Modifica numero di telefono</label>
-                        <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>">
+                        <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>" required>
                     </div>
                     <div class="form-group">
                         <label for="stelle">Stelle</label>
-                        <input type="number" class="form-control" id="stelle" name="stelle" value="<%=daModificare.getStelle()%>">
+                        <input type="number" class="form-control" id="stelle" min="1" max="5" name="stelle" value="<%=daModificare.getStelle()%>" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Modifica</button>
                     </div>
                 </form>
             <%}%>
-    <%} else if(tipo != null && tipo.equals("ristorante")) {
+    <%} else if(tipo != null && tipo.equals("ristoranti")) {
         RestaurantBean daModificare = (RestaurantBean) request.getAttribute("damodificare");
         if(daModificare != null) {%>
-            <form action="">
+            <form action="AdminServlet" method="post">
+                <input type="hidden" name="id" value="<%=daModificare.getId()%>">
+                <input type="hidden" name="tipo" value="<%=tipo%>">
+                <input type="hidden" name="action" value="edit">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="immagine">
                     <label class="custom-file-label" for="immagine">Cambia immagine</label>
                 </div>
                 <div class="form-group">
-                    <label for="nome">Modifica costo notte</label>
-                    <input type="number" class="form-control" id="nome" name="nome" value="<%=daModificare.getCosto()%>">
+                    <label for="costo">Modifica costo pasto</label>
+                    <input type="number" class="form-control" id="costo" name="costo" min="1" value="<%=daModificare.getCosto()%>">
                 </div>
                 <div class="form-group">
                     <label for="numeroTelefono">Modifica numero di telefono</label>
-                    <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>">
+                    <input type="text" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>">
                 </div>
                 <div class="form-group">
-                    <label for="email">Stelle</label>
-                    <input type="number" class="form-control" id="email" name="stelle" value="<%=daModificare.getEmail()%>">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" value="<%=daModificare.getEmail()%>">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Modifica</button>
                 </div>
             </form>
         <%}%>

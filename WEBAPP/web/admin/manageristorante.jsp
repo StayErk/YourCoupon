@@ -2,13 +2,13 @@
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 6/27/20
-  Time: 4:28 PM
+  Time: 7:01 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Modifica Hotel</title>
+    <title>Ristoranti</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +19,11 @@
 <div class="wrapper">
     <nav id="sidebar" class="rounded-right " >
         <div class="sidebar-header">
-            <h4>Modifica Hotel</h4>
+            <h4>Amministra Ristorante</h4>
         </div>
         <ul class="list-unstyled components">
             <li class="nav-item"><a class="nav-link" href="./managehotel.jsp">Gestisci Hotel</a></li>
-            <li class="nav-item"><a class="nav-link" href="">Gestisci Ristoranti</a></li>
+            <li class="nav-item"><a class="nav-link" href="./manageristorante.jsp">Gestisci Ristoranti</a></li>
             <li class="nav-item"><a class="nav-link" href="">Gestisci Tour</a></li>
         </ul>
         <ul class="list-unstyled buttons">
@@ -41,7 +41,7 @@
                     <span>Menu</span>
                 </button>
 
-                <h3 class="text-center ml-auto mr-auto text-light m-0">Statistiche del sito</h3>
+                <h3 class="text-center ml-auto mr-auto text-light m-0">Modifica i Ristoranti</h3>
                 <div>
                     <a href="#" class="btn btn-success">Torna alla Home</a>
                 </div>
@@ -49,7 +49,18 @@
 
             </div>
         </nav>
-        <%@include file="_editform.jsp"%>
+        <% Boolean errore = (Boolean) request.getAttribute("errore");
+            if(errore != null && errore) { %>
+        <div class="row">
+            <div class="col">
+                    <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                        Si è verificato un errore nella modifica, riprova
+                    </span>
+            </div>
+        </div>
+        <%}%>
+        <%@include file="../components/catalogbean/_filter.jsp"%>
+        <%@include file="../components/catalogbean/_catalogbean.jsp"%>
 
     </div>
 </div>

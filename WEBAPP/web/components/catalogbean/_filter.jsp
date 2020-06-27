@@ -6,6 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String tipo = "";
+    if(request.getRequestURI().contains("managehotel")) {
+        tipo = "hotel";
+    } else if (request.getRequestURI().contains("manageristorante")) {
+        tipo = "ristoranti";
+    } else if (request.getRequestURI().contains("managetour")) {
+        tipo = "tour";
+    }
+%>
 <div class="container mt-5">
 	<div class="row">
 		<div class="col">
@@ -23,6 +33,9 @@
                     <option value="all" selected>Seleziona Citta</option>
                 </select>
                 <button type="submit" id="btn" class="btn btn-primary d-inline-block ml-md-auto">Applica Filtro</button>
+                <% if (request.getRequestURI().contains("admin")) {%>
+                    <a id="btn" class="btn btn-success d-inline-block ml-md-auto" href="AdminServlet?component=<%=tipo%>&action=new">Aggiungi Nuovo</a>
+                <%}%>
             </form>
         </div>
 	</div>

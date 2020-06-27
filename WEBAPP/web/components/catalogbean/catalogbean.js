@@ -3,12 +3,21 @@ const citta = document.getElementById('citta')
 const form = document.getElementById('form-filter')
 let uri = window.location.href.toString()
 let request_uri = ""
+let request_uriASC= ""
+let request_uriDESC= ""
 let cittaInserite = []
 
 
 if(uri.includes('admin')){
     request_uri = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
-}else request_uri = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
+    request_uriASC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=ASC&filter=`
+    request_uriDESC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=DESC&filter=`
+}else {
+    request_uri = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
+    request_uriASC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=ASC&filter=`
+    request_uriDESC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=DESC&filter=`
+}
+
 
 
 window.onload = () => {
@@ -198,19 +207,19 @@ btn.addEventListener('click', () => {
     let xmlHttpRequest = new XMLHttpRequest()
     if(document.title.toLowerCase() == 'hotel') {
         if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', request_uri, true)
+            xmlHttpRequest.open('GET', request_uriASC, true)
             xmlHttpRequest.send()
         } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', request_uri, true)
+            xmlHttpRequest.open('GET', request_uriDESC, true)
             xmlHttpRequest.send()
         }
     } else {
         console.log(form.prezzo)
         if(form.prezzo[0].checked){
-            xmlHttpRequest.open('GET', request_uri, true)
+            xmlHttpRequest.open('GET', request_uriASC, true)
             xmlHttpRequest.send()
         } else if (form.prezzo[1].checked) {
-            xmlHttpRequest.open('GET', request_uri, true)
+            xmlHttpRequest.open('GET', request_uriDESC, true)
             xmlHttpRequest.send()
         }
     }
