@@ -10,12 +10,12 @@ let cittaInserite = []
 
 if(uri.includes('admin')){
     request_uri = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
-    request_uriASC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=ASC&filter=costo`
-    request_uriDESC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=DESC&filter=costo`
+    request_uriASC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=ASC`
+    request_uriDESC = `../ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=DESC`
 }else {
     request_uri = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}`
-    request_uriASC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=ASC&filter=costo`
-    request_uriDESC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&order=DESC&filter=costo`
+    request_uriASC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=ASC`
+    request_uriDESC = `ComponentsPackServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&filter=costo&order=DESC`
 }
 
 
