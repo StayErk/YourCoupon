@@ -75,11 +75,13 @@
                         <% if(request.getRequestURI().contains("user") && bean != null) { %>
                             <a class="dropdown-item" href="<%=response.encodeURL("./profile.jsp")%>">Il mio profilo</a>
                             <a class="dropdown-item" href="<%=response.encodeURL("./ordini.jsp")%>">I miei ordini</a>
+                            <a class="dropdown-item" href="../ClienteServlet?action=logout">Logout</a>
                         <% } else { %>
                             <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
                             <a class="dropdown-item" href="<%=response.encodeURL("./user/ordini.jsp")%>">I miei ordini</a>
+                             <a class="dropdown-item" href="./ClienteServlet?action=logout">Logout</a>
                         <% } %>
-                        <a class="dropdown-item" href="./ClienteServlet?action=logout">Logout</a>
+
                     </div>
                 </li>
                     <li class="nav-item">

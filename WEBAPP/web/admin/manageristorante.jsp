@@ -28,7 +28,7 @@
         </ul>
         <ul class="list-unstyled buttons">
             <li class="nav-item"><a href="#" class="btn btn-outline-success ml-auto mr-auto">Crea Pacchetto</a></li>
-            <li class="nav-item"><a href="#" class="btn btn-outline-danger ml-auto mr-auto">Log Out</a></li>
+            <li class="nav-item"><a href="../ClienteServlet?action=logout" class="btn btn-outline-danger ml-auto mr-auto">Log Out</a></li>
         </ul>
 
     </nav>

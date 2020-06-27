@@ -28,7 +28,7 @@ create table StrutturaAlberghiera(
                         stelle          int             not null check (stelle >= 0 AND stelle <= 5),
                         immagine        varchar(100)    not null,
                         email           varchar(30)     not null,
-                        numeroTelefono  varchar(9)      not null
+                        numeroTelefono  varchar(11)      not null
 );
 
 create table Pacchetto(
@@ -55,7 +55,7 @@ create table StruttureRistorative(
                         nome            varchar(20)     not null,
                         costo           double          not null,
                         immagine        varchar(100)    not null,
-                        numeroTelefono  varchar(9)      not null,
+                        numeroTelefono  varchar(11)      not null,
                         email           varchar(30)     not null
 );
 

@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="citta">Scegli citta</label>
-                <input type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
+                <input class="form-control" type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
                 <datalist id="nomidicitta">
                 </datalist>
             </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="form-group">
             <label for="citta">Scegli citta</label>
-            <input type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
+            <input class="form-control" type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
             <datalist id="nomidicitta">
             </datalist>
         </div>

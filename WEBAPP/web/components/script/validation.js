@@ -21,7 +21,7 @@ function cfCheck(campo) {
 }
 
 function telefonoFisso(campo) {
-    let regex= /^(\d{3})\s(\d{6,7})$/
+    let regex= /^(\d{3})-(\d{6,7})$/
     return  regex.test(campo.value);
 }
 

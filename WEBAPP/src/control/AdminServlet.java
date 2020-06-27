@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet("/admin/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -34,7 +35,7 @@ public class AdminServlet extends HttpServlet {
                         String nuovoCostoNotte = request.getParameter("costonotte");
                         String nuovoNumeroTelefono = request.getParameter("numeroTelefono");
                         String nuoveStelle = request.getParameter("stelle");
-                        if ((id != null && nuoveStelle != null && Integer.parseInt(nuoveStelle) <= 5 && Integer.parseInt(nuoveStelle) >= 1) && nuovoNumeroTelefono != null && nuovoCostoNotte != null) {
+                        if ((checkID(id) && checkStelle(Integer.parseInt(nuoveStelle)) && checkCosto(Double.parseDouble(nuovoCostoNotte)) && checkNumeroTelefono(nuovoNumeroTelefono))) {
                             try {
                                 System.out.println("nel try");
                                 HotelBean daModificare = hotelDAO.retrieveByKey(UUID.fromString(id));
@@ -63,7 +64,7 @@ public class AdminServlet extends HttpServlet {
                         String numeroTelefono = request.getParameter("numeroTelefono");
                         String email = request.getParameter("email");
                         Integer stelle = Integer.parseInt(request.getParameter("stelle"));
-                        if (stelle != null && stelle >= 1 && stelle <= 5 && nome != null && indirizzo != null && citta != null && costoNotte != null && numeroTelefono != null && email != null) {
+                        if (checkStelle(stelle) && checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costoNotte)  && checkNumeroTelefono(numeroTelefono) && checkEmail(email)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
                                 HotelBean daInserire = new HotelBean(UUID.randomUUID(), nome, indirizzo, citta, costoNotte, stelle, "", email, numeroTelefono);
@@ -90,7 +91,7 @@ public class AdminServlet extends HttpServlet {
                         Double nuovoCosto = Double.parseDouble(request.getParameter("costo"));
                         String nuovonumeroTelefono = request.getParameter("numeroTelefono");
                         String nuovaEmail = request.getParameter("email");
-                        if(id != null && nuovoCosto != null && nuovonumeroTelefono != null && nuovaEmail != null){
+                        if(checkID(id) && checkCosto(nuovoCosto) && nuovonumeroTelefono != null && nuovaEmail != null && checkNumeroTelefono(nuovonumeroTelefono) && checkEmail(nuovaEmail)){
                             try {
                                 System.out.println("nel try");
                                 RestaurantBean daModificare = restaurantDAO.retrieveByKey(UUID.fromString(id));
@@ -114,29 +115,30 @@ public class AdminServlet extends HttpServlet {
                         Double costo = Double.parseDouble(request.getParameter("costo"));
                         String numeroTelefono = request.getParameter("numeroTelefono");
                         String email = request.getParameter("email");
-                        if (nome != null && indirizzo != null && citta != null && costo != null && numeroTelefono != null && email != null) {
+                        if (checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costo) && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkNumeroTelefono(numeroTelefono)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
                                 RestaurantBean daInserire = new RestaurantBean(UUID.randomUUID(), indirizzo, citta, nome, costo, "", numeroTelefono, email);
                                 restaurantDAO.doSave(daInserire);
-                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                                 requestDispatcher.forward(request, response);
                             } catch (SQLException throwables) {
                                 throwables.printStackTrace();
                                 request.setAttribute("errore", true);
-                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                                 requestDispatcher.forward(request, response);
                             }
                         } else {
+                            System.out.println("" + checkTesto(nome, 20) +  checkTesto(indirizzo, 50)  + checkTesto(citta, 20) +  checkCosto(costo) +  checkNumeroTelefono(numeroTelefono) +  checkEmail(email) +  checkNumeroTelefono(numeroTelefono));
                             request.setAttribute("errore", true);
-                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                             requestDispatcher.forward(request, response);
                         }
                         break;
                 }
                 } else {
                 request.setAttribute("errore", true);
-                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
+                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                 requestDispatcher.forward(request, response);
             }
         }
@@ -199,6 +201,32 @@ public class AdminServlet extends HttpServlet {
                     break;
             }
         }
+    }
+
+    private boolean checkNumeroTelefono (String numeroTelefono) {
+        String regex = "(\\d{3})[-]{1}(\\d{6,7})";
+        return numeroTelefono != null && numeroTelefono.matches(regex);
+    }
+
+    private boolean checkEmail (String email) {
+        String regex = "(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))";
+        return email != null && email.matches(regex);
+    }
+
+    private  boolean checkStelle (int stelle) {
+        return  stelle != 0 && stelle >= 1 && stelle <= 5;
+    }
+
+    private  boolean checkID(String id) {
+        return id != null && id.matches("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}");
+    }
+
+    private  boolean checkTesto(String testo, int maxlenght) {
+        return  testo != null && testo.length() <= maxlenght;
+    }
+
+    private boolean checkCosto(Double costo) {
+        return  costo >= 0 && costo<= 9999999.99999;
     }
 }
 

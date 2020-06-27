@@ -14,7 +14,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="../ClienteServlet">
+                    <input type="hidden" name="action" value="changepwd">
+                    <div class="form-group">
+                        <label for="password">Inserisci Password</label>
+                        <input type="password" minlength="8" name="password" class="form-control" id="password" placeholder="Minimo 8 caratteri">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-warning">Cambia Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Navbar -->
     <%@include file="../components/navbar/_navbar.jsp"%>
     <!-- Una colonna dove saranno presenti propic, miei ordini e link al carrello -->
@@ -30,7 +53,7 @@
                     <p>Nome: <span class="text-bold"><%=bean.getNome()%></span></p>
                     <p>Cognome: <span class="text-boold"><%=bean.getCognome()%></span></p>
                     <p>Punti viaggio: <span class="text-bold"><%=bean.getPuntiViaggio()%></span></p>
-                    <p><a href="#" class="btn btn-outline-warning">Cambia Password</a></p>
+                    <p><button type="button" data-toggle="modal" data-target="#exampleModal"  class="btn btn-outline-warning">Cambia Password</button></p>
                 </div>
             </div>
         </div>

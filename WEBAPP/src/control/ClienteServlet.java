@@ -31,107 +31,122 @@ public class ClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         System.out.println(action);
-        switch (action){
-            case "signup":
-                try {
-                    String nome = request.getParameter("nome");
-                    String cognome = request.getParameter("cognome");
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
-                    modelDAO.doSave(bean);
-                    System.out.println("saved " + bean);
-                    request.setAttribute("registrato", modelDAO.retrieveByKey(email));
-                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
-                    requestDispatcher.forward(request, response);
-
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
-                break;
-
-            case "login":
-                try {
-                    String email = request.getParameter("email");
-                    String pass = request.getParameter("password");
-                    if(email == null || pass == null) {
-                        badInput(request, response, "non-esistente");
-                    }
-                    ClienteBean bean = null;
-                    System.out.println(email + "\n" + pass);
-                    HttpSession session = request.getSession(true);
-                    byte[] password = null;
+        if(action != null){
+            switch (action) {
+                case "signup":
                     try {
-                        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                        byte[] hash = digest.digest(pass.getBytes("UTF-8"));
-                        password = hash.clone();
-                    } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                        String nome = request.getParameter("nome");
+                        String cognome = request.getParameter("cognome");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
+                        modelDAO.doSave(bean);
+                        System.out.println("saved " + bean);
+                        request.setAttribute("registrato", modelDAO.retrieveByKey(email));
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                        requestDispatcher.forward(request, response);
+
+                    } catch (SQLException e) {
                         e.printStackTrace();
                     }
+                    break;
 
-                    bean = modelDAO.retrieveByKey(email);
-                    if(bean != null){
-                        if(bean.getPassword() != null || bean.getEmail() != null) {
-                            String s = new String(password, StandardCharsets.UTF_8);
-                            String s1 = new String(bean.getPassword(), StandardCharsets.UTF_8);
-                            if (s1.equals(s)) {
-                                session.setAttribute("user", bean);
-                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-                                requestDispatcher.forward(request, response);
-                            } else {
-                                badInput(request, response, "errore-login");
-                            }
-                        } else {
+                case "login":
+                    try {
+                        String email = request.getParameter("email");
+                        String pass = request.getParameter("password");
+                        if (email == null || pass == null) {
                             badInput(request, response, "non-esistente");
                         }
+                        ClienteBean bean = null;
+                        System.out.println(email + "\n" + pass);
+                        HttpSession session = request.getSession(true);
+                        byte[] password = null;
+                        try {
+                            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                            byte[] hash = digest.digest(pass.getBytes("UTF-8"));
+                            password = hash.clone();
+                        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        bean = modelDAO.retrieveByKey(email);
+                        if (bean != null) {
+                            if (bean.getPassword() != null || bean.getEmail() != null) {
+                                String s = new String(password, StandardCharsets.UTF_8);
+                                String s1 = new String(bean.getPassword(), StandardCharsets.UTF_8);
+                                if (s1.equals(s)) {
+                                    session.setAttribute("user", bean);
+                                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                                    requestDispatcher.forward(request, response);
+                                } else {
+                                    badInput(request, response, "errore-login");
+                                }
+                            } else {
+                                badInput(request, response, "non-esistente");
+                            }
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
+                    break;
 
-            case "uploadPhoto":
-                String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+                case "uploadPhoto":
+                    String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
 
-                File fileSaveDir = new File(savePath);
-                if (!fileSaveDir.exists()) {
-                    fileSaveDir.mkdir();
-                }
+                    File fileSaveDir = new File(savePath);
+                    if (!fileSaveDir.exists()) {
+                        fileSaveDir.mkdir();
+                    }
 
-                if (request.getParts() != null && request.getParts().size() > 0) {
-                    for (Part part : request.getParts()) {
-                        String fileName = extractFileName(part);
-                        if (fileName != null && !fileName.equals("")) {
-                            String path = savePath + File.separator + fileName;
-                            part.write(path);
-                            System.out.println(path);
+                    if (request.getParts() != null && request.getParts().size() > 0) {
+                        for (Part part : request.getParts()) {
+                            String fileName = extractFileName(part);
+                            if (fileName != null && !fileName.equals("")) {
+                                String path = savePath + File.separator + fileName;
+                                part.write(path);
+                                System.out.println(path);
 
-                            ClienteDAO clienteDAO = new ClienteDAO();
-                            ClienteBean clienteBean = new ClienteBean();
-                            HttpSession session = request.getSession(false);
-                            clienteBean = (ClienteBean) session.getAttribute("user");
-                            clienteBean.setImmagine(path);
-                            try {
-                                clienteDAO.doUpdate(clienteBean);
-                            } catch (SQLException throwables) {
-                                throwables.printStackTrace();
+                                ClienteDAO clienteDAO = new ClienteDAO();
+                                ClienteBean clienteBean = new ClienteBean();
+                                HttpSession session = request.getSession(false);
+                                clienteBean = (ClienteBean) session.getAttribute("user");
+                                clienteBean.setImmagine(path);
+                                try {
+                                    clienteDAO.doUpdate(clienteBean);
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
                             }
                         }
                     }
-                }
 
-                response.sendRedirect(request.getContextPath()+"/user/profile.jsp");
-                break;
+                    response.sendRedirect(request.getContextPath() + "/user/profile.jsp");
+                    break;
+                case "changepwd":
+                    ClienteDAO clienteDAO = new ClienteDAO();
+                    String newPwd = request.getParameter("password");
+                    HttpSession session = request.getSession();
+                    ClienteBean utente = (ClienteBean) session.getAttribute("user");
+                    if(utente != null && newPwd != null && checkPwd(newPwd)) {
+                        utente.setPassword(newPwd);
+                        try {
+                            clienteDAO.doUpdate(utente);
+                            request.setAttribute("cambiopwd", true);
+                            session.invalidate();
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+                            requestDispatcher.forward(request, response);
+                        } catch (SQLException throwables) {
+                            response.setStatus(500);
+                            throwables.printStackTrace();
+                        }
+                    } else{
+                        response.setStatus(500);
+                        System.out.println(utente + newPwd);
+                    }
+                    break;
+            }
 
-            case "logout":
-                HttpSession session = request.getSession();
-                ClienteBean utente = (ClienteBean) session.getAttribute("email");
-                if(utente != null){
-                    session.invalidate();
-                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-                    requestDispatcher.forward(request, response);
-                }
-                break;
 
         }
 
@@ -146,8 +161,22 @@ public class ClienteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action.equals("signup") || action.equals("login")) {
+        if(action.equals("signup") || action.equals("login") || action.equals("changepwd")) {
             doPost(request, response);
+        } else if (action.equals("logout")){
+                HttpSession session = request.getSession();
+                ClienteBean utente = (ClienteBean) session.getAttribute("user");
+
+                if(utente != null){
+
+                    session.invalidate();
+                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                    requestDispatcher.forward(request, response);
+                } else {
+                    session.invalidate();
+                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                    requestDispatcher.forward(request, response);
+                }
         }
 
     }
@@ -161,5 +190,9 @@ public class ClienteServlet extends HttpServlet {
             }
         }
         return "";
+    }
+
+    private boolean checkPwd(String pwd) {
+        return pwd.length() >= 8;
     }
 }

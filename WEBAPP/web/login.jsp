@@ -23,6 +23,11 @@
                             Password o Email errate, oppure prova a <a href="<%=response.encodeURL("./signup.jsp")%>">Registrarti</a>
                         </span>
                     <%}%>
+                    <% if((request.getAttribute("cambiopwd") != null && (Boolean) request.getAttribute("cambiopwd") == true)) { %>
+                    <span class="form-text text-primary text-center border border-primary p-3 rounded m-3">
+                            Accedi con la nuova password
+                        </span>
+                    <%}%>
                     <div class="form-group">
                         <label for="email">email</label>
                         <input class="form-control" type="email" id="email" name="email" required>
