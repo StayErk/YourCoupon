@@ -122,7 +122,20 @@ public class ClienteServlet extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath()+"/user/profile.jsp");
                 break;
+
+            case "logout":
+                HttpSession session = request.getSession();
+                ClienteBean utente = (ClienteBean) session.getAttribute("email");
+                if(utente != null){
+                    session.invalidate();
+                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                break;
+
         }
+
+
     }
 
     private void badInput(HttpServletRequest request, HttpServletResponse response, String s2) throws ServletException, IOException {

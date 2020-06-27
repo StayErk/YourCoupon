@@ -79,7 +79,7 @@
                             <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
                             <a class="dropdown-item" href="<%=response.encodeURL("./user/ordini.jsp")%>">I miei ordini</a>
                         <% } %>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="./ClienteServlet?action=logout">Logout</a>
                     </div>
                 </li>
                     <li class="nav-item">
