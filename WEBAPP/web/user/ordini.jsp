@@ -24,7 +24,7 @@
         <div class="col-12 col-md-8 p-5 info-user">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="display-4 text-success"><span class="small text-secondary">I tuoi ordini:</span>&nbsp;Andrea</h1>
+                    <h1 class="display-4 text-success"><span class="small text-secondary">I tuoi ordini:</span>&nbsp;<%=bean.getNome()%></h1>
                 </div>
                 <div class="col-12 mt-3">
                     <table class="table table-responsive">
@@ -72,7 +72,7 @@
             <div class="col-12 col-md-8 p-5 info-user">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="display-4 text-success"><span class="small text-secondary">I tuoi ordini:</span>&nbsp;Andrea</h1>
+                        <h1 class="display-4 text-success"><span class="small text-secondary">I tuoi ordini:</span>&nbsp<%=bean.getNome()%></h1>
                     </div>
                     <div class="col-12 mt-3">
                         <table class="table table-responsive">
