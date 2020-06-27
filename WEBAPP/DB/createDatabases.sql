@@ -2,9 +2,9 @@ drop database if exists yourcoupon;
 create database yourcoupon;
 use yourcoupon;
 
-DROP user IF EXISTS 'adminYoupon'@'localhost';
-CREATE USER 'adminYoupon'@'localhost' IDENTIFIED BY 'adminadmin';
-GRANT ALL ON yourcoupon.* TO 'adminYoupon'@'localhost';
+DROP user IF EXISTS 'youpon'@'%';
+CREATE USER 'youpon'@'%' IDENTIFIED BY 'adminadmin';
+GRANT ALL ON yourcoupon.* TO 'youpon'@'%';
 
 
 

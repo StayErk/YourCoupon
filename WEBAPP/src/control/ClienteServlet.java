@@ -1,5 +1,6 @@
 package control;
 
+import model.Popolamento;
 import model.cliente.ClienteBean;
 import model.cliente.ClienteDAO;
 

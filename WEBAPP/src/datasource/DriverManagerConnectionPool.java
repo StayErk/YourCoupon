@@ -32,7 +32,8 @@ public class DriverManagerConnectionPool {
         String username = loginDB.username;
         String password = loginDB.password;
 
-        newConnetcion = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db, username, password);
+
+        newConnetcion = DriverManager.getConnection(db, username, password);
         newConnetcion.setAutoCommit(false);
         return newConnetcion;
     }
