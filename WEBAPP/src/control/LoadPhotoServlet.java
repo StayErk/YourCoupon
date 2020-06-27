@@ -28,44 +28,7 @@ public class LoadPhotoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         ClienteBean user = (ClienteBean) session.getAttribute("user");
-        ClienteDAO clienteDAO = new ClienteDAO();
-        String filename = "";
-
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
-
-
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            String sql = "select immagine from Cliente where email = ?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, user.getEmail());
-            rs = statement.executeQuery();
-
-            if (rs.next()) {
-                filename = rs.getString("immagine");
-            }
-            connection.commit();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            try {
-                if(statement != null){
-                    statement.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                if(connection != null){
-                    try {
-                        DriverManagerConnectionPool.releaseConnection(connection);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                }
-            }
-        }
+        String filename = user.getImmagine();
 
         System.out.println(filename);
 

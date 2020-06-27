@@ -5,11 +5,10 @@ import model.cliente.ClienteDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -17,9 +16,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-@WebServlet("/ClienteServlet")
+@WebServlet({"/ClienteServlet", "/user/ClienteServlet"})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB after which the file will be
+        maxFileSize = 1024 * 1024 * 10, // 10MB maximum size allowed for uploaded files
+        maxRequestSize = 1024 * 1024 * 50) // 50MB overall size of all uploaded files
 public class ClienteServlet extends HttpServlet {
 
+    static String SAVE_DIR = "img";
     ClienteDAO modelDAO = new ClienteDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -80,8 +83,42 @@ public class ClienteServlet extends HttpServlet {
                         }
                     }
                 } catch (SQLException e) {
-
+                    e.printStackTrace();
                 }
+                break;
+
+            case "uploadPhoto":
+                String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+
+                File fileSaveDir = new File(savePath);
+                if (!fileSaveDir.exists()) {
+                    fileSaveDir.mkdir();
+                }
+
+                if (request.getParts() != null && request.getParts().size() > 0) {
+                    for (Part part : request.getParts()) {
+                        String fileName = extractFileName(part);
+                        if (fileName != null && !fileName.equals("")) {
+                            String path = savePath + File.separator + fileName;
+                            part.write(path);
+                            System.out.println(path);
+
+                            ClienteDAO clienteDAO = new ClienteDAO();
+                            ClienteBean clienteBean = new ClienteBean();
+                            HttpSession session = request.getSession(false);
+                            clienteBean = (ClienteBean) session.getAttribute("user");
+                            clienteBean.setImmagine(path);
+                            try {
+                                clienteDAO.doUpdate(clienteBean);
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+
+                response.sendRedirect(request.getContextPath()+"/user/profile.jsp");
                 break;
         }
     }
@@ -98,5 +135,16 @@ public class ClienteServlet extends HttpServlet {
             doPost(request, response);
         }
 
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
     }
 }

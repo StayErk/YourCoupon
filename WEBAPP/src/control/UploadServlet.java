@@ -55,16 +55,12 @@ public class UploadServlet extends HttpServlet {
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-                } else {
-                    request.setAttribute("error", "Errore: Bisogna selezionare almeno un file");
                 }
             }
         }
 
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/profile.jsp");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect(request.getContextPath()+"/user/profile.jsp");
     }
 
     private String extractFileName(Part part) {
