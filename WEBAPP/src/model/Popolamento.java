@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class Popolamento {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] argsloca) throws SQLException {
         ClienteDAO clienteDAO = new ClienteDAO();
         HotelDAO hotelDAO = new HotelDAO();
         RestaurantDAO restaurantDAO = new RestaurantDAO();

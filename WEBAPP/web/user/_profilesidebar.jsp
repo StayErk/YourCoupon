@@ -48,9 +48,9 @@
         <div class="col-md-12 col-6 mt-3">
             <nav class="text-center">
                 <ul class="list-unstyled">
-                    <li class="nav-item"><a href="profile.jsp" class="nav-link text-info active">Profilo</a></li>
-                    <li class="nav-item"><a href="ordini.jsp" class="nav-link text-info">I Miei Ordini</a></li>
-                    <li class="nav-item"><a href="chart.jsp" class="nav-link text-info">Carrello</a></li>
+                    <li class="nav-item"><a href="<%=response.encodeURL("profile.jsp")%>" class="nav-link text-info active">Profilo</a></li>
+                    <li class="nav-item"><a href="<%=response.encodeURL("ordini.jsp")%>" class="nav-link text-info">I Miei Ordini</a></li>
+                    <li class="nav-item"><a href="<%=response.encodeURL("chart.jsp")%>" class="nav-link text-info">Carrello</a></li>
                 </ul>
             </nav>
         </div>

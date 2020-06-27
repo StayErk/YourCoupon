@@ -14,54 +14,6 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<!-- Navbar -->
-<%@include file="../components/navbar/_navbar.jsp"%>
-<!-- Una colonna dove saranno presenti propic, miei ordini e link al carrello -->
-<div class="container-fluid">
-    <div class="row">
-        <%@include file="_profilesidebar.jsp"%>
-        <div class="col-12 col-md-8 p-5 info-user">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="display-4 text-success"><span class="small text-secondary">I tuoi ordini:</span>&nbsp;<%=bean.getNome()%></h1>
-                </div>
-                <div class="col-12 mt-3">
-                    <table class="table table-responsive">
-                        <thead class="rounded-top">
-                        <tr class="bg-primary text-light ">
-                            <th scope="col">Numero Fattura</th>
-                            <th scope="col">Prezzo Fattura</th>
-                            <th scope="col">Data di acquisto</th>
-                        </tr>
-                        </thead>
-                        <tbody id="data">
-                        <tr>
-                            <td>000001</td>
-                            <td>300€</td>
-                            <td>YYYY-mm-gg</td>
-                        </tr>
-                        <tr>
-                            <td>000002</td>
-                            <td>120€</td>
-                            <td>YYYY-mm-gg</td>
-                        </tr>
-                        <tr>
-                            <td>000003</td>
-                            <td>80€</td>
-                            <td>YYYY-mm-gg</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Una colonna più larga dove saranno presenti tutte le info dell'utente -->
-<!-- Footer -->
-<%@include file="../components/footer/_footer.jsp"%>
-</body>
 
     <!-- Navbar -->
     <%@include file="../components/navbar/_navbar.jsp"%>

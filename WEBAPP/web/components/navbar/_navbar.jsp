@@ -8,11 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ClienteBean bean = (ClienteBean) session.getAttribute("user");
-
 %>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <% if(request.getRequestURI().contains("user")) { %>
+        <% if(request.getRequestURI().contains("user") || bean != null) { %>
             <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="../index.jsp">YourCoupon</a>
         <% } else { %>
             <a class="navbar-brand" style="font-family: 'Dancing Script', serif" href="index.jsp">YourCoupon</a>
@@ -23,35 +22,35 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin") && bean != null) { %>
                         <a class="nav-link" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
                     <% } else { %>
                         <a class="nav-link" href="./index.jsp">Home <span class="sr-only">(current)</span></a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin") && bean != null) { %>
                         <a class="btn btn-outline-success" href="<%=response.encodeURL("../creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                     <% } else { %>
                         <a class="btn btn-outline-success" href="<%=response.encodeURL("./creazionePacchetto.jsp")%>">Crea il Tuo Pacchetto</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin") && bean != null) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../hotel.jsp?type=hotel")%>">Hotel</a>
                     <% } else { %>
                     <a class="nav-link" href="<%=response.encodeURL("./hotel.jsp?type=hotel")%>">Hotel</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin") && bean != null) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                     <% } else { %>
                         <a class="nav-link" href="<%=response.encodeURL("./restaurant.jsp?type=ristoranti")%>">Ristoranti</a>
                     <% } %>
                 </li>
                 <li class="nav-item">
-                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin")) { %>
+                    <% if(request.getRequestURI().contains("user") || request.getRequestURI().contains("admin") && bean != null) { %>
                         <a class="nav-link" href="<%=response.encodeURL("../tour.jsp?type=tour")%>">Visite Guidate</a>
                     <% } else { %>
                         <a class="nav-link" href="<%=response.encodeURL("./tour.jsp?type=tour")%>">Visite Guidate</a>
@@ -73,16 +72,18 @@
                         <span class="small text-muted">Ciao, </span> <span class="text-success"><%=bean.getNome()%></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <% if(request.getRequestURI().contains("user")) { %>
+                        <% if(request.getRequestURI().contains("user") && bean != null) { %>
                             <a class="dropdown-item" href="<%=response.encodeURL("./profile.jsp")%>">Il mio profilo</a>
+                            <a class="dropdown-item" href="<%=response.encodeURL("./ordini.jsp")%>">I miei ordini</a>
                         <% } else { %>
                             <a class="dropdown-item" href="<%=response.encodeURL("./user/profile.jsp")%>">Il mio profilo</a>
+                            <a class="dropdown-item" href="<%=response.encodeURL("./user/ordini.jsp")%>">I miei ordini</a>
                         <% } %>
                         <a class="dropdown-item" href="#">Logout</a>
                     </div>
                 </li>
                     <li class="nav-item">
-                        <% if(request.getRequestURI().contains("user")) { %>
+                        <% if(request.getRequestURI().contains("user") && bean != null) { %>
                             <a class="nav-link" href="<%=response.encodeURL("./chart.jsp")%>">Carrello</a>
                         <% } else {%>
                             <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>">Carrello</a>
