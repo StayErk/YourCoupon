@@ -1,12 +1,17 @@
 package control;
 
 import model.BackendValidation;
+import model.fattura.FatturaBean;
+import model.fattura.FatturaDAO;
 import model.hotel.HotelBean;
 import model.hotel.HotelDAO;
+import model.pacchetto.PacchettoBean;
 import model.pacchetto.PacchettoDAO;
 import model.restaurant.RestaurantBean;
 import model.restaurant.RestaurantDAO;
+import model.tour.LuogoBean;
 import model.tour.LuogoDAO;
+import model.tour.TourBean;
 import model.tour.TourDAO;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -253,8 +258,115 @@ public class AdminServlet extends HttpServlet {
                     }
                     break;
             }
+        } else if(action != null) {
+            if(action.equals("retrievedati")){
+                HashMap<String, Object> stats = new HashMap<>();
+                statFatture(stats, request);
+                statHotel(stats, request);
+                statExtra("ristoranti", stats, request);
+                statExtra("tour", stats, request);
+                request.setAttribute("statistiche", stats);
+                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/index.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                request.setAttribute("errore", true);
+                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/index.jsp");
+                requestDispatcher.forward(request, response);
+            }
         }
     }
+
+    private void statFatture(HashMap<String, Object> stats, HttpServletRequest request) {
+        try {
+            FatturaDAO fatturaDAO = new FatturaDAO();
+            ArrayList<FatturaBean> fatture = new ArrayList<>(fatturaDAO.retrieveAll("", ""));
+            double guadagnoTotale = 0;
+            for (FatturaBean fattura : fatture) {
+                guadagnoTotale += fattura.getTotale();
+            }
+            stats.put("guadagni", guadagnoTotale);
+            stats.put("numeroFatture", fatture.size());
+        } catch (SQLException throwables) {
+            request.setAttribute("erroreFatture", true);
+            throwables.printStackTrace();
+        }
+    }
+
+    private void statHotel(HashMap<String, Object> stats, HttpServletRequest request) {
+        PacchettoDAO pacchettoDAO = new PacchettoDAO();
+        HotelDAO hotelDAO = new HotelDAO();
+        ArrayList<PacchettoBean> pacchetti= null;
+        try {
+            pacchetti = new ArrayList<>(pacchettoDAO.retrieveAll("", ""));
+            HashMap<UUID, Integer> contatore = new HashMap<>();
+            for(PacchettoBean pacchettoBean : pacchetti) {
+                contatore.computeIfPresent(pacchettoBean.getId_struttura(), (id, tot) -> tot+1);
+                contatore.putIfAbsent(pacchettoBean.getId_struttura(), 1);
+            }
+            stats.put("numeroHotel", hotelDAO.retrieveAll("", "").size());
+            stats.put("migliorHotel", hotelDAO.retrieveByKey(Collections.max(contatore.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey()));
+        } catch (SQLException throwables) {
+            request.setAttribute("erroreHotel", true);
+            throwables.printStackTrace();
+        }
+
+    }
+
+    private void statExtra(String tipo, HashMap<String, Object> stats, HttpServletRequest request) {
+        PacchettoDAO pacchettoDAO = new PacchettoDAO();
+        if(tipo.equals("ristoranti")) {
+            RestaurantDAO restaurantDAO = new RestaurantDAO();
+            try {
+                HashMap<UUID, Integer> contatore = new HashMap<>();
+                ArrayList<PacchettoBean> pacchettoBeans = new ArrayList<>(pacchettoDAO.retrieveAll("", ""));
+                for(PacchettoBean pacchettoBean : pacchettoBeans) {
+                    ArrayList<RestaurantBean> ristoranti = new ArrayList<>(pacchettoDAO.retrieveExtraRistoranti(pacchettoBean.getId()));
+                    System.out.println(ristoranti);
+                    for (RestaurantBean ristorante : ristoranti) {
+                        contatore.computeIfPresent(ristorante.getId(), (id, tot) -> tot+1);
+                        contatore.putIfAbsent(ristorante.getId(), 1);
+                    }
+                }
+                stats.put("numeroRistoranti", restaurantDAO.retrieveAll("", "").size());
+                RestaurantBean migliorRistorante;
+                if(!contatore.isEmpty()) {
+                    migliorRistorante = restaurantDAO.retrieveByKey(Collections.max(contatore.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey());
+                }else{
+                    migliorRistorante = new RestaurantBean();
+                }
+                stats.put("migliorRistorante", migliorRistorante);
+            } catch (SQLException throwables) {
+                request.setAttribute("erroreRistoranti", true);
+                throwables.printStackTrace();
+            }
+        } else if(tipo.equals("tour")) {
+            TourDAO tourDAO = new TourDAO();
+            LuogoDAO luogoDAO = new LuogoDAO();
+            HashMap<UUID, Integer> contatore = new HashMap<>();
+            try {
+                ArrayList<PacchettoBean> pacchettoBeans = new ArrayList<>(pacchettoDAO.retrieveAll("", ""));
+                for(PacchettoBean pacchettoBean : pacchettoBeans) {
+                    ArrayList<TourBean> tours = new ArrayList<>(pacchettoDAO.retrieveExtraTour(pacchettoBean.getId()));
+                    for (TourBean tour : tours) {
+                        contatore.computeIfPresent(tour.getId(), (id, tot) -> tot+1);
+                        contatore.putIfAbsent(tour.getId(), 1);
+                    }
+                }
+                LuogoBean migliorTour;
+                if(!contatore.isEmpty()) {
+                    migliorTour = luogoDAO.retrieveByKey((tourDAO.retrieveByKey(Collections.max(contatore.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey())).getId_luogo());
+                } else {
+                    migliorTour = new LuogoBean();
+                }
+                stats.put("numeroTour", tourDAO.retrieveAll("", "").size());
+                stats.put("migliorTour", migliorTour);
+            } catch (SQLException throwables) {
+                request.setAttribute("erroreTour", true);
+                throwables.printStackTrace();
+            }
+        }
+    }
+
 
 
 }

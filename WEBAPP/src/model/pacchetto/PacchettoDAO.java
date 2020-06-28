@@ -366,6 +366,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                System.out.println("Id in result set: " + UUID.fromString(resultSet.getString("id_visita")));
                 ids.add(UUID.fromString(resultSet.getString("id_visita")));
             }
             for(UUID id : ids) {
