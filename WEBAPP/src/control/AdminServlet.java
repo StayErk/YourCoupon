@@ -77,7 +77,7 @@ public class AdminServlet extends HttpServlet {
                         if (checkStelle(stelle) && checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costoNotte)  && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkImmagine(immagine)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
-                                HotelBean daInserire = new HotelBean(UUID.randomUUID(), nome, indirizzo, citta, costoNotte, stelle, "", email, numeroTelefono);
+                                HotelBean daInserire = new HotelBean(UUID.randomUUID(), nome, indirizzo, citta, costoNotte, stelle, immagine, email, numeroTelefono);
                                 hotelDAO.doSave(daInserire);
                                 RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managehotel.jsp");
                                 requestDispatcher.forward(request, response);
@@ -129,7 +129,7 @@ public class AdminServlet extends HttpServlet {
                         if (checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costo) && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkNumeroTelefono(numeroTelefono) && checkImmagine(immagine)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
-                                RestaurantBean daInserire = new RestaurantBean(UUID.randomUUID(), indirizzo, citta, nome, costo, "", numeroTelefono, email);
+                                RestaurantBean daInserire = new RestaurantBean(UUID.randomUUID(), indirizzo, citta, nome, costo, immagine, numeroTelefono, email);
                                 restaurantDAO.doSave(daInserire);
                                 RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                                 requestDispatcher.forward(request, response);

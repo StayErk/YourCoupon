@@ -41,10 +41,6 @@
                 <input type="hidden" name="id" value="<%=daModificare.getId()%>">
                 <input type="hidden" name="tipo" value="<%=tipo%>">
                 <input type="hidden" name="action" value="edit">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="immagine">
-                    <label class="custom-file-label" for="immagine">Cambia immagine</label>
-                </div>
                 <div class="form-group">
                     <label for="costo">Modifica costo pasto</label>
                     <input type="number" class="form-control" id="costo" name="costo" min="1" value="<%=daModificare.getCosto()%>">
@@ -67,10 +63,6 @@
         LuogoBean luogoDaMidificare = (LuogoBean) request.getAttribute("luogodamodificare");
         if(tourdaModificare != null && luogoDaMidificare != null) {%>
         <form action="">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="immagine">
-                <label class="custom-file-label" for="immagine">Cambia immagine Luogo</label>
-            </div>
             <div class="form-group">
                 <label for="nome">Modifica costo notte</label>
                 <input type="number" class="form-control" id="nome" name="nome" value="<%=tourdaModificare.getCosto()%>">
