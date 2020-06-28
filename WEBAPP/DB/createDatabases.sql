@@ -95,6 +95,7 @@ create table VisitaGuidata(
 create table Pacchetto_Visita(
                          id_pacchetto   char(36)        not null,
                          id_visita      char(36)        not null,
+                         quantita       int             not null default 1,
                          primary key (id_visita, id_pacchetto),
                          foreign key (id_pacchetto)     references Pacchetto (id)
                              ON DELETE CASCADE

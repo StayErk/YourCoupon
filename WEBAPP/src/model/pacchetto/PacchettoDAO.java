@@ -182,7 +182,8 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             preparedStatement.setString(2, rBean.getId().toString());
             ResultSet rs = preparedStatement.executeQuery();
 
-            if(rs.getRow() == 0){ //Coppia pacchetto ristorante inesistente
+            System.out.println(rs.next());
+            try {
                 String sql2 = "INSERT INTO Pacchetto_Ristorante (id_pacchetto, id_ristorante, quantita) VALUES (?, ?, 1)";
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setString(1, bean.getId().toString());
@@ -190,27 +191,28 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
                 preparedStatement.executeUpdate();
                 connection.commit();
 
+
+
             }
-            else { //Coppia pacchetto ristorante esistente, incremento il campo quantita
+            catch (SQLIntegrityConstraintViolationException e){
+                //Coppia pacchetto ristorante esistente, incremento il campo quantita
                 String sql2 = "UPDATE Pacchetto_Ristorante SET quantita = quantita + 1 WHERE id_pacchetto = ? and id_ristorante = ?";
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setString(1, bean.getId().toString());
                 preparedStatement.setString(2, rBean.getId().toString());
                 preparedStatement.executeUpdate();
                 connection.commit();
-
             }
 
             String sql3 = "UPDATE Pacchetto SET " +
-                    "costo = costo + ((SELECT costo FROM StruttureRistorative WHERE id = ?) * " +
-                    "(SELECT quantita FROM Pacchetto_Ristorante WHERE id_pacchetto = ? and id_ristorante = ?) * persone)" +
+                    "costo = costo + ((SELECT costo FROM StruttureRistorative WHERE id = ?) * persone) " +
                     "WHERE id = ?";
+
+
 
             preparedStatement = connection.prepareStatement(sql3);
             preparedStatement.setString(1, rBean.getId().toString());
-            preparedStatement.setString(2, bean.getId().toString());
-            preparedStatement.setString(3, rBean.getId().toString());
-            preparedStatement.setString(4, bean.getId().toString());
+            preparedStatement.setString(2, bean.getId().toString());;
             preparedStatement.executeUpdate();
             connection.commit();
 
@@ -225,12 +227,7 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
     }
 
     public void removeRestaurant(PacchettoBean bean, RestaurantBean rBean) throws  SQLException{
-        String sql = "DELETE FROM Pacchetto_Ristorante WHERE id_pacchetto = ? AND id_ristorante = ? ";
-        String updatePrice = "UPDATE Pacchetto SET " +
-                "costo = costo  - " +
-                "((SELECT costo from StruttureRistorative WHERE id = ?)" + //rBean.getID
-                "* persone )" +
-                " WHERE id = ?"; //id pacchetto
+        String sql = "SELECT quantita FROM Pacchetto_Ristorante WHERE id_pacchetto = ? and id_ristorante = ?";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -240,16 +237,51 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, bean.getId().toString());
             preparedStatement.setString(2, rBean.getId().toString());
+            ResultSet rs = preparedStatement.executeQuery();
 
-            preparedStatement.executeUpdate();
+            int quantita = rs.getInt("quantita");
+            if(quantita > 1) {
+                String sql2 = "UPDATE Pacchetto_Ristorante SET quantita = quantita - 1 WHERE id_pacchetto = ? and id_ristorante = ?";
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setString(1, bean.getId().toString());
+                preparedStatement.setString(2, rBean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
+
+                String sql3 = "UPDATE Pacchetto SET " +
+                        "costo = (((SELECT costoNotte from StrutturaAlberghiera where id = ?) * persone * durata) + " +
+                        "((SELECT costo FROM StruttureRistorative WHERE id = ?) * (SELECT quantita FROM Pacchetto_Ristorante WHERE id_pacchetto = ? and id_ristorante = ?) * persone)) " +
+                        "WHERE id = ?";
 
 
-            preparedStatement = connection.prepareStatement(updatePrice);
-            preparedStatement.setString(1, rBean.getId().toString());
-            preparedStatement.setString(2, bean.getId().toString());
+                preparedStatement = connection.prepareStatement(sql3);
+                preparedStatement.setString(1, bean.getId_struttura().toString());
+                preparedStatement.setString(2, rBean.getId().toString());
+                preparedStatement.setString(3, bean.getId().toString());
+                preparedStatement.setString(4, rBean.getId().toString());
+                preparedStatement.setString(5, bean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            }
+            else if(quantita == 0) {
+                String sql2 = "DELETE FROM Pacchetto_Ristorante WHERE id_pacchetto = ? and id_ristorante = ?";
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setString(1, bean.getId().toString());
+                preparedStatement.setString(2, rBean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
 
-            preparedStatement.executeUpdate();
-            connection.commit();
+                String sql3 = "UPDATE Pacchetto SET" +
+                        " costo = costo - " +
+                        "((SELECT costo FROM StruttureRistorative WHERE id = ?) " +
+                        "* persone) WHERE  id = ?";
+                preparedStatement = connection.prepareStatement(sql3);
+                preparedStatement.setString(1, rBean.getId().toString());
+                preparedStatement.setString(2, bean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            }
+
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
@@ -266,30 +298,48 @@ public class PacchettoDAO implements ComponentCRUD<PacchettoBean, UUID> {
      * @throws SQLException
      */
     public void addTour(PacchettoBean bean, TourBean tBean) throws  SQLException{
+        String sql = "SELECT quantita FROM Pacchetto_Visita WHERE id_pacchetto = ? and id_visita = ?";
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO Pacchetto_Visita (id_pacchetto, id_visita) " +
-                "VALUES (?, ?)"; //bean.getID() tBean.getId()
-
-        String updatePrice = "UPDATE Pacchetto SET" +
-                " costo = costo + " +
-                "((SELECT costo FROM VisitaGuidata WHERE id = ?) " + //tBean.getId()
-                "* persone) WHERE  id = ?"; //bean.getID()
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-
             preparedStatement.setString(1, bean.getId().toString());
             preparedStatement.setString(2, tBean.getId().toString());
-            preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.executeQuery();
 
-            preparedStatement = connection.prepareStatement(updatePrice);
+            System.out.println(rs.next());
+            try {
+                String sql2 = "INSERT INTO Pacchetto_Visita (id_pacchetto, id_visita, quantita) VALUES (?, ?, 1)";
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setString(1, bean.getId().toString());
+                preparedStatement.setString(2, tBean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
+
+            }
+            catch (SQLIntegrityConstraintViolationException e){
+                //Coppia pacchetto ristorante esistente, incremento il campo quantita
+                String sql2 = "UPDATE Pacchetto_Visita SET quantita = quantita + 1 WHERE id_pacchetto = ? and id_visita = ?";
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setString(1, bean.getId().toString());
+                preparedStatement.setString(2, tBean.getId().toString());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            }
+
+            String sql3 = "UPDATE Pacchetto SET " +
+                    "costo = costo + ((SELECT costo FROM VisitaGuidata WHERE id = ?) * persone) " +
+                    "WHERE id = ?";
+
+            preparedStatement = connection.prepareStatement(sql3);
             preparedStatement.setString(1, tBean.getId().toString());
             preparedStatement.setString(2, bean.getId().toString());
             preparedStatement.executeUpdate();
-
             connection.commit();
+
         } finally {
             try {
                 if(preparedStatement != null) preparedStatement.close();
