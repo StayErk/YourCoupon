@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isErrorPage = "true"%>
-<% System.out.println(request.getPathInfo()); %>
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,900" rel="stylesheet">
