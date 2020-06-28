@@ -62,6 +62,7 @@ create table StruttureRistorative(
 create table Pacchetto_Ristorante(
                         id_pacchetto    char(36)        not null,
                         id_ristorante   char(36)        not null,
+                        quantita        int             not null default 1,
                         primary key (id_pacchetto, id_ristorante),
                         foreign key (id_pacchetto) references Pacchetto (id)
                             ON DELETE CASCADE

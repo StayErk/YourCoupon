@@ -126,5 +126,7 @@ public class Popolamento {
             System.out.println("Errore popolamento Pacchetti");
             throwables.printStackTrace();
         }
+        PacchettoBean pacchettoBean = new PacchettoBean();
+        System.out.println(pacchettoDAO.retrieveByKey(UUID.fromString("529c170d-20f4-4d30-afa7-e552dd0dd3b9")));
     }
 }
