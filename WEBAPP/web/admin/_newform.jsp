@@ -91,25 +91,18 @@
     <form action="AdminServlet" method="post">
         <input type="hidden" name="tipo" value="<%=tipo%>">
         <input type="hidden" name="action" value="new">
+        <input type="hidden" name="id" id="sessionid" value="<%=request.getSession().getId()%>">
         <div class="form-group">
             <label for="nome">Inserisci Luogo Tour</label>
             <select name="luoghi" id="luoghi"></select>
         </div>
         <div class="form-group">
-            <label for="costo">Inserisci costo pasto</label>
+            <label for="costo">Inserisci costo</label>
             <input type="number" class="form-control" id="costo" name="costo" required>
         </div>
         <div class="form-group">
             <label for="numeroPartecipanti">Inserisci Numero partecipanti medi</label>
-            <input type="text" class="form-control" id="numeroPartecipanti" name="numeroTelefono" maxlength="11"  required>
-        </div>
-        <div class="form-group">
-            <label for="email">Inserisci Email</label>
-            <input type="email" class="form-control" id="email" name="email" maxlength="30" required>
-        </div>
-        <div class="form-group">
-            <label for="immagine">Inserisci link Immagine</label>
-            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+            <input type="number" class="form-control" id="numeroPartecipanti" name="numeroPartecipanti" min="1"  required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>

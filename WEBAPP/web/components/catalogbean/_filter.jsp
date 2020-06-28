@@ -35,6 +35,8 @@
                 <button type="submit" id="btn" class="btn btn-primary d-inline-block ml-md-auto">Applica Filtro</button>
                 <% if (request.getRequestURI().contains("admin")) {%>
                     <a id="btn" class="btn btn-success d-inline-block ml-md-auto" href="AdminServlet?component=<%=tipo%>&action=new">Aggiungi Nuovo</a>
+                <%} if(request.getRequestURI().contains("admin") && request.getRequestURI().contains("managetour")){%>
+                    <a id="btn" class="btn btn-success d-inline-block ml-md-auto" href="AdminServlet?component=luogo&action=new">Aggiungi Nuovo Luogo</a>
                 <%}%>
             </form>
         </div>

@@ -147,7 +147,86 @@ public class AdminServlet extends HttpServlet {
                         }
                         break;
                 }
-                } else {
+                } else if(tipo.equals("tour")){
+                    switch (action){
+                        case "new":
+                            String luoghi = request.getParameter("luoghi");
+                            Double costo = Double.parseDouble(request.getParameter("costo"));
+                            Integer numPartecipanti = Integer.parseInt(request.getParameter("numeroPartecipanti"));
+                            String email = request.getParameter("email");
+                            if(checkTesto(luoghi, 500) && checkCosto(costo) && numPartecipanti != null && checkEmail(email)) {
+                                try {
+                                    TourDAO tourDAO = new TourDAO();
+                                    tourDAO.doSave(new TourBean(UUID.randomUUID(), UUID.fromString(luoghi), costo, numPartecipanti));
+                                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                                    requestDispatcher.forward(request, response);
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                    request.setAttribute("errore", true);
+                                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                                    requestDispatcher.forward(request, response);
+                                }
+                            }
+                            break;
+                        case "edit":
+                            Double newcosto = Double.parseDouble(request.getParameter("costo"));
+                            Integer newnumPartecipanti = Integer.parseInt(request.getParameter("numeroPartecipanti"));
+                            String newimmagine = request.getParameter("immagine");
+                            String idluogo = request.getParameter("idluogo");
+                            String newdescrizione = request.getParameter("descrizione");
+
+                            if(checkCosto(newcosto) && newnumPartecipanti != null && checkImmagine(newimmagine) && checkID(id) && checkID(idluogo) && checkTesto(newdescrizione, 500)){
+                                TourDAO newtourDao = new TourDAO();
+                                LuogoDAO luogoDAO = new LuogoDAO();
+                                try {
+                                    LuogoBean luogoBean = luogoDAO.retrieveByKey(UUID.fromString(idluogo));
+                                    TourBean tourBean = newtourDao.retrieveByKey(UUID.fromString(id));
+
+                                    luogoBean.setDescrizione(newdescrizione);
+                                    luogoBean.setImmagine(newimmagine);
+                                    tourBean.setPartecipanti(newnumPartecipanti);
+                                    tourBean.setCosto(newcosto);
+
+                                    luogoDAO.doUpdate(luogoBean);
+                                    newtourDao.doUpdate(tourBean);
+
+                                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                                    requestDispatcher.forward(request, response);
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                    request.setAttribute("errore", true);
+                                    RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                                    requestDispatcher.forward(request, response);
+                                }
+
+                            }
+                            break;
+                        }
+            } else if(tipo.equals("luogo") && action.equals("new")){
+                String nome = request.getParameter("nome");
+                String indirizzo = request.getParameter("indirizzo");
+                String citta = request.getParameter("citta");
+                String descrizione = request.getParameter("descrizione");
+                String immagine = request.getParameter("immagine");
+
+                if(checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkTesto(descrizione, 500) && checkImmagine(immagine)){
+                    LuogoDAO luogoDAO = new LuogoDAO();
+                    LuogoBean dainserire = new LuogoBean(UUID.randomUUID(), nome, indirizzo, citta, descrizione, immagine);
+                    try {
+                        luogoDAO.doSave(dainserire);
+
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                        requestDispatcher.forward(request, response);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        request.setAttribute("errore", true);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                        requestDispatcher.forward(request, response);
+                    }
+                }
+            }
+
+            else {
                 request.setAttribute("errore", true);
                 RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                 requestDispatcher.forward(request, response);
@@ -208,6 +287,14 @@ public class AdminServlet extends HttpServlet {
                         request.setAttribute("tipo", componente);
                         RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/addcomponent.jsp");
                         requestDispatcher.forward(request, response);
+                    } else if(componente.equals("tour")){
+                        request.setAttribute("tipo", componente);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/addcomponent.jsp");
+                        requestDispatcher.forward(request, response);
+                    } else if(componente.equals("luogo")){
+                        request.setAttribute("tipo", componente);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/addcomponent.jsp");
+                        requestDispatcher.forward(request, response);
                     }
                     break;
                 case "elimina":
@@ -248,6 +335,19 @@ public class AdminServlet extends HttpServlet {
                             request.setAttribute("errore", true);
                             response.setStatus(500);
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
+                            requestDispatcher.forward(request, response);
+                            throwables.printStackTrace();
+                        }
+                    } else if(componente.equals("tour")){
+                        TourDAO tourDAO = new TourDAO();
+                        try{
+                            tourDAO.doDelete(tourDAO.retrieveByKey(UUID.fromString(id)));
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                            requestDispatcher.forward(request,response);
+                        } catch (SQLException throwables) {
+                            request.setAttribute("errore", true);
+                            response.setStatus(500);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
                             requestDispatcher.forward(request, response);
                             throwables.printStackTrace();
                         }

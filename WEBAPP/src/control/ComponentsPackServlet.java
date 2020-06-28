@@ -78,6 +78,29 @@ public class ComponentsPackServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                     break;
+                case "luogo":
+                    try{
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        ArrayList<LuogoBean> luoghi = new ArrayList<>();
+                        HashMap<UUID, String> daritornare = new HashMap<>();
+                        LuogoDAO luogoDAO = new LuogoDAO();
+                        luoghi = new ArrayList<>(luogoDAO.retrieveAll("",""));
+                        Gson gson = new Gson();
+                        for(LuogoBean bean : luoghi) {
+                            daritornare.putIfAbsent(bean.getId(), bean.getNome());
+                        }
+
+                        String risposta = gson.toJson(daritornare);
+                        response.setStatus(200);
+                        response.getWriter().write(risposta);
+                        System.out.println(risposta);
+                    } catch (SQLException e) {
+                        request.setAttribute("error", e.toString());
+                        System.out.println("Errore RetrieveAll Luoghi");
+                        e.printStackTrace();
+                    }
+                    break;
                 case "hotel":
                     try {
                         response.setContentType("application/json");

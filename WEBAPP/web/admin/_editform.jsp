@@ -64,8 +64,8 @@
         if(tourdaModificare != null && luogoDaMidificare != null) {%>
         <form action="">
             <div class="form-group">
-                <label for="nome">Modifica costo notte</label>
-                <input type="number" class="form-control" id="nome" name="nome" value="<%=tourdaModificare.getCosto()%>">
+                <label for="costo">Modifica costo</label>
+                <input type="number" class="form-control" id="costo" name="costo" value="<%=tourdaModificare.getCosto()%>">
             </div>
             <div class="form-group">
                 <label for="numeroTelefono">Modifica numero di max partecipanti</label>
@@ -74,6 +74,10 @@
             <div class="form-group">
                 <label for="descrizione">Descrizione Luogo</label>
                <textarea id="descrizione" name="descriione"><%=luogoDaMidificare.getDescrizione()%></textarea>
+            </div>
+            <div class="form-group">
+                <label for="immagine">Inserisci link Immagine</label>
+                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20">
             </div>
         </form>
     <%}%>
