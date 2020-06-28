@@ -42,6 +42,10 @@
                 <input type="number" class="form-control" id="stelle" min="1" max="5" name="stelle"  required>
             </div>
             <div class="form-group">
+                <label for="immagine">Inserisci link Immagine</label>
+                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary" type="submit">Crea</button>
             </div>
         </form>
@@ -76,6 +80,10 @@
             <input type="email" class="form-control" id="email" name="email" maxlength="30" required>
         </div>
         <div class="form-group">
+            <label for="immagine">Inserisci link Immagine</label>
+            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+        </div>
+        <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>
         </div>
     </form>
@@ -100,6 +108,10 @@
             <input type="email" class="form-control" id="email" name="email" maxlength="30" required>
         </div>
         <div class="form-group">
+            <label for="immagine">Inserisci link Immagine</label>
+            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+        </div>
+        <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>
         </div>
     </form>
@@ -122,6 +134,10 @@
         <div class="form-group">
             <label for="descrizione">Inserisci Descrizione</label>
             <textarea name="descrizione" id="descrizione" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="immagine">Inserisci link Immagine</label>
+            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>

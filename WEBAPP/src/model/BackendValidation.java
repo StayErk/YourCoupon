@@ -30,4 +30,6 @@ public class BackendValidation {
     public static boolean checkPwd(String pwd) {
         return pwd != null &&  pwd.length() >= 8;
     }
+
+    public static boolean checkImmagine(String immagine) { return immagine != null && immagine.matches("((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[\\-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9\\.\\-]+|(?:www\\.|[\\-;:&=\\+\\$,\\w]+@)[A-Za-z0-9\\.\\-]+)((?:\\/[\\+~%\\/\\.\\w\\-_]*)?\\??(?:[\\-\\+=&;%@\\.\\w_]*)#?(?:[\\.\\!\\/\\\\\\w]*))?)"); }
 }

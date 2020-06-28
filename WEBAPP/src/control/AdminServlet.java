@@ -73,7 +73,8 @@ public class AdminServlet extends HttpServlet {
                         String numeroTelefono = request.getParameter("numeroTelefono");
                         String email = request.getParameter("email");
                         Integer stelle = Integer.parseInt(request.getParameter("stelle"));
-                        if (checkStelle(stelle) && checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costoNotte)  && checkNumeroTelefono(numeroTelefono) && checkEmail(email)) {
+                        String immagine = request.getParameter("immagine");
+                        if (checkStelle(stelle) && checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costoNotte)  && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkImmagine(immagine)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
                                 HotelBean daInserire = new HotelBean(UUID.randomUUID(), nome, indirizzo, citta, costoNotte, stelle, "", email, numeroTelefono);
@@ -124,7 +125,8 @@ public class AdminServlet extends HttpServlet {
                         Double costo = Double.parseDouble(request.getParameter("costo"));
                         String numeroTelefono = request.getParameter("numeroTelefono");
                         String email = request.getParameter("email");
-                        if (checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costo) && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkNumeroTelefono(numeroTelefono)) {
+                        String immagine = request.getParameter("immagine");
+                        if (checkTesto(nome, 20) && checkTesto(indirizzo, 50) && checkTesto(citta, 20) && checkCosto(costo) && checkNumeroTelefono(numeroTelefono) && checkEmail(email) && checkNumeroTelefono(numeroTelefono) && checkImmagine(immagine)) {
                             try {
                                 citta = citta.substring(0, 1).toUpperCase() + citta.substring(1);
                                 RestaurantBean daInserire = new RestaurantBean(UUID.randomUUID(), indirizzo, citta, nome, costo, "", numeroTelefono, email);
