@@ -11,15 +11,16 @@ function prendiLuoghi() {
             creaOpzioni(array)
         }
     }
-    xmlHttpRequest.open("get", `../ComponentsPackServlet;jsessionid=${id}?component=luogo`)
+    xmlHttpRequest.open("get", `../ComponentsPackServlet;jsessionid=${id.value}?component=luogo`)
     xmlHttpRequest.send()
 }
 
 function arrayFromHash(array, hash) {
     for(let propt in hash){
+        console.log(propt + ": "+ hash[propt])
         let element = {
-            id : hash[propt].id,
-            nome : hash[propt].nome
+            id : propt,
+            nome : hash[propt]
         }
         array.push(element)
     }
@@ -33,3 +34,5 @@ function creaOpzioni(array) {
         select.appendChild(opzione)
     })
 }
+
+window.onload =  prendiLuoghi()

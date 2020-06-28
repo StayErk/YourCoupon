@@ -153,8 +153,7 @@ public class AdminServlet extends HttpServlet {
                             String luoghi = request.getParameter("luoghi");
                             Double costo = Double.parseDouble(request.getParameter("costo"));
                             Integer numPartecipanti = Integer.parseInt(request.getParameter("numeroPartecipanti"));
-                            String email = request.getParameter("email");
-                            if(checkTesto(luoghi, 500) && checkCosto(costo) && numPartecipanti != null && checkEmail(email)) {
+                            if(checkTesto(luoghi, 500) && checkCosto(costo) && numPartecipanti != null) {
                                 try {
                                     TourDAO tourDAO = new TourDAO();
                                     tourDAO.doSave(new TourBean(UUID.randomUUID(), UUID.fromString(luoghi), costo, numPartecipanti));
@@ -166,6 +165,10 @@ public class AdminServlet extends HttpServlet {
                                     RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
                                     requestDispatcher.forward(request, response);
                                 }
+                            } else {
+                                request.setAttribute("errore", true);
+                                RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/managertour.jsp");
+                                requestDispatcher.forward(request, response);
                             }
                             break;
                         case "edit":

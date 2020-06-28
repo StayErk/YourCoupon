@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="immagine">Inserisci link Immagine</label>
-                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="200" required>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Crea</button>
@@ -81,7 +81,7 @@
         </div>
         <div class="form-group">
             <label for="immagine">Inserisci link Immagine</label>
-            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="200" required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>
@@ -94,7 +94,7 @@
         <input type="hidden" name="id" id="sessionid" value="<%=request.getSession().getId()%>">
         <div class="form-group">
             <label for="nome">Inserisci Luogo Tour</label>
-            <select name="luoghi" id="luoghi"></select>
+            <select class="form-control" name="luoghi" id="luoghi"></select>
         </div>
         <div class="form-group">
             <label for="costo">Inserisci costo</label>
@@ -108,6 +108,7 @@
             <button class="btn btn-primary" type="submit">Crea</button>
         </div>
     </form>
+<script src="../components/script/luoghi.js"></script>
 <%} else if(tipo != null && tipo.equals("luogo")){%>
     <form action="AdminServlet" method="post">
         <input type="hidden" name="tipo" value="<%=tipo%>">
@@ -121,8 +122,9 @@
             <input type="indirizzo" class="form-control" id="indirizzo" name="indirizzo" required>
         </div>
         <div class="form-group">
-            <label for="citta">Inserisci Città</label>
-            <input type="text" class="form-control" id="citta" name="citta" maxlength="20"  required>
+            <input class="form-control" type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
+            <datalist id="nomidicitta">
+            </datalist>
         </div>
         <div class="form-group">
             <label for="descrizione">Inserisci Descrizione</label>
@@ -130,7 +132,7 @@
         </div>
         <div class="form-group">
             <label for="immagine">Inserisci link Immagine</label>
-            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" required>
+            <input type="url" name="immagine" id="immagine" class="form-control" maxlength="200" required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>

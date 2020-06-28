@@ -24,7 +24,7 @@
         <ul class="list-unstyled components">
             <li class="nav-item"><a class="nav-link" href="./managehotel.jsp">Gestisci Hotel</a></li>
             <li class="nav-item"><a class="nav-link" href="./manageristorante.jsp">Gestisci Ristoranti</a></li>
-            <li class="nav-item"><a class="nav-link" href="">Gestisci Tour</a></li>
+            <li class="nav-item"><a class="nav-link" href="./managertour.jsp">Gestisci Tour</a></li>
             <li class="nav-item"><a class="nav-link" href="./managepacchetti.jsp">Gestisci Pacchetti</a></li>
         </ul>
         <ul class="list-unstyled buttons">
@@ -42,7 +42,7 @@
                     <span>Menu</span>
                 </button>
 
-                <h3 class="text-center ml-auto mr-auto text-light m-0">Statistiche del sito</h3>
+                <h3 class="text-center ml-auto mr-auto text-light m-0">Amministra Hotel</h3>
                 <div>
                     <a href="./index.jsp" class="btn btn-success">Pannello Principale</a>
                 </div>

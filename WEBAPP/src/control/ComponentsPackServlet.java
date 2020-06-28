@@ -43,7 +43,7 @@ public class ComponentsPackServlet extends HttpServlet {
         String componentPack = request.getParameter("component");
         System.out.println(componentPack);
         //Se l'utente ha modificato il parametro component, verrà demandato alla home
-        if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti") && !componentPack.equals("citta"))) {
+        if (componentPack == null || componentPack.equals("") || (!componentPack.equals("hotel") && !componentPack.equals("tour") && !componentPack.equals("ristoranti") && !componentPack.equals("citta") && !componentPack.equals("luogo"))) {
             response.sendRedirect("./index.jsp");
         } else {
             //Andiamo a prelevare dal DB gli hotel, ristoranti o tour
@@ -89,6 +89,7 @@ public class ComponentsPackServlet extends HttpServlet {
                         Gson gson = new Gson();
                         for(LuogoBean bean : luoghi) {
                             daritornare.putIfAbsent(bean.getId(), bean.getNome());
+                            System.out.println(bean);
                         }
 
                         String risposta = gson.toJson(daritornare);
