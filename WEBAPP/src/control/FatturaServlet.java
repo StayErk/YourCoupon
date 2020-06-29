@@ -57,8 +57,10 @@ public class FatturaServlet extends HttpServlet {
                     Integer nuoviPunti = utente.getPuntiViaggio() - 40;
                     utente.setPuntiViaggio(nuoviPunti);
                 } else if (numeroPunti.equals("0")) {
-                    Integer nuoviPunti = utente.getPuntiViaggio() + Math.floorMod((int) carrelloBean.getTotale(), VALOREPUNTO);
+                    Integer nuoviPunti = utente.getPuntiViaggio() + (int) carrelloBean.getTotale() / VALOREPUNTO;
                     utente.setPuntiViaggio(nuoviPunti);
+                    System.out.println((int) carrelloBean.getTotale());
+                    System.out.println((int) carrelloBean.getTotale() / VALOREPUNTO);
                 }
                 Double totaleFattura = calcolaSconto(sconto, carrelloBean.getTotale());
                 FatturaBean fatturaBean = new FatturaBean(UUID.randomUUID(), carrelloBean.getId(), totaleFattura, new Date());
@@ -68,12 +70,12 @@ public class FatturaServlet extends HttpServlet {
                 for (UUID id_pacchetto : carrelloDAO.vediCarrello(carrelloBean)) {
                     carrelloDAO.removePacchetto(carrelloBean, pacchettoDAO.retrieveByKey(id_pacchetto));
                 }
-                RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ordini.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/user/ordini.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 request.setAttribute("errore", true);
-                RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/chart.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/user/chart.jsp");
                 dispatcher.forward(request, response);
             }
         }
@@ -90,11 +92,12 @@ public class FatturaServlet extends HttpServlet {
                     try {
                         List<FatturaBean> fatture = fatturaDAO.retrieveAll("", "");
                         request.setAttribute("fatture", fatture);
-                        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ordini.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/ordini.jsp");
                         dispatcher.forward(request, response);
+
                     } catch (SQLException throwables) {
                         request.setAttribute("errore", true);
-                        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ordini.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/ordini.jsp");
                         dispatcher.forward(request, response);
                         throwables.printStackTrace();
                     }
@@ -105,7 +108,7 @@ public class FatturaServlet extends HttpServlet {
             }
         } else {
             request.setAttribute("errore", true);
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ordini.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user/ordini.jsp");
             dispatcher.forward(request, response);
         }
     }

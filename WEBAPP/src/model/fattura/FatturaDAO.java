@@ -62,7 +62,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
 
     @Override
     public void doSave(FatturaBean objectToSave) throws SQLException {
-        String sql = "INSERT INTO Fattura (id, id_carrello, totale) VALUES (?, ?, ?)"; //id, id_carrello, totale
+        String sql = "INSERT INTO Fattura (id, id_carrello, totale, data) VALUES (?, ?, ?, NOW())"; //id, id_carrello, totale
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 

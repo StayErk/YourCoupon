@@ -8,6 +8,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% if(request.getAttribute("fatture") == null && request.getAttribute("errore") == null) {
+        response.sendRedirect(response.encodeURL("FatturaServlet?action=retrievedati"));
+    } %>
 <html>
 <head>
     <title>I miei ordini</title>
@@ -42,9 +45,9 @@
                                     <tbody>
                                         <%for(FatturaBean fattura : fatture) {%>
                                             <tr>
-                                                <td><%=fattura.getId()%>></td>
-                                                <td><%=fattura.getTotale()%></td>
-                                                <td><%=fattura.getData().toString()%>></td>
+                                                <td><%=fattura.getId()%></td>
+                                                <td><%=fattura.getTotale()%> €</td>
+                                                <td><%=fattura.getData().toString()%></td>
                                             </tr>
                                         <%}%>
                                     </tbody>
@@ -52,9 +55,7 @@
                                     <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
                                         Errore, riprova più tardi.
                                     </span>
-                                <%} else {
-                                    response.sendRedirect(response.encodeURL("FatturaServlet?action=retrievedati"));
-                                }%>
+                            <%}%>
                         </table>
                     </div>
                 </div>

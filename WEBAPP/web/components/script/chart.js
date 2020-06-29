@@ -1,5 +1,5 @@
 let sessionID= $("#sessionid").val()
-
+let totaleCarrello = 0;
 window.onload = function () {
     const table = document.getElementById("data");
     table.innerHTML = ''
@@ -12,6 +12,7 @@ window.onload = function () {
             if(items.length > 0) {
                 document.getElementById('procedialpagamento').classList.remove('d-none')
             }
+            document.getElementById("totalecarrello").innerText = `${totaleCarrello} €`
         }
     }
 
@@ -33,6 +34,7 @@ function refreshCarrello() {
             if(items.length === 0) {
                 document.getElementById('procedialpagamento').classList.remove('d-none')
             }
+        document.getElementById("totalecarrello").innerText = `${totaleCarrello} €`
         }
     }
 
@@ -63,6 +65,7 @@ const riempiTabella = (data, table) => {
         eliminaBtn.classList.add('btn', 'btn-danger')
         eliminaBtn.addEventListener('click', () => eliminaDalCarrello(elemento))
         elimina.appendChild(eliminaBtn)
+        totaleCarrello += elemento.pacchetto.costo;
     }))
 }
 

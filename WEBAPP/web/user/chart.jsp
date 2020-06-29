@@ -60,6 +60,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                     <span class="form-text text-center border border-success p-3 rounded m-3">
+                         Totale: <span id="totalecarrello" class="text-success"></span>
+                     </span>
                     <form action="FatturaServlet" method="post"  id="datipagamento">
                         <input type="hidden" name="action" value="paga">
                         <div class="form-group">
