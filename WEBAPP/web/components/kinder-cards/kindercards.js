@@ -106,7 +106,7 @@ function createCard(hashes) {
             cardBody.appendChild(cardBtn)
             const aggiungiAlCArrello = document.createElement('button');
             aggiungiAlCArrello.classList.add('btn', 'btn-success', 'ml-3');
-            aggiungiAlCArrello.innerText = 'Aggiungi al Carrello'
+            aggiungiAlCArrello.innerHTML = '<i class="fa fa-cart-plus fa-2x text-light" aria-hidden="true"></i>'
             aggiungiAlCArrello.addEventListener('click', () => addCart(hash))
             cardBody.appendChild(aggiungiAlCArrello);
             deck.appendChild(card);
