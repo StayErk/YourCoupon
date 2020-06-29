@@ -119,7 +119,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
             return new FatturaBean(
               UUID.fromString(rs.getString("id")),
               rs.getString("id_carrello"),
-              rs.getDouble("totale")
+              rs.getDouble("totale"), rs.getDate("data")
             );
         }
         return new FatturaBean();
@@ -129,7 +129,8 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
         while(rs.next()){
             fatture.add(new FatturaBean(UUID.fromString(rs.getString("id")),
                     rs.getString("id_carrello"),
-                    rs.getDouble("totale")));
+                    rs.getDouble("totale"),
+                    rs.getDate("data")));
         }
     }
 }

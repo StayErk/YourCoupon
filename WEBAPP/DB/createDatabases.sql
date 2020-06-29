@@ -130,6 +130,7 @@ create table Fattura(
                         id              varchar(36)     not null primary key,
                         id_carrello     varchar(35)     not null,
                         totale          double          not null,
+                        data            date            not null,
                         foreign key     (id_carrello)   references Carrello(id_carrello)
                             ON DELETE CASCADE
                             ON UPDATE CASCADE

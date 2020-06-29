@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.fattura.FatturaBean" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: andreaerk
   Date: 5/20/20
@@ -35,23 +37,25 @@
                                 <th scope="col">Data di acquisto</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>000001</td>
-                                <td>300€</td>
-                                <td>YYYY-mm-gg</td>
-                            </tr>
-                            <tr>
-                                <td>000002</td>
-                                <td>120€</td>
-                                <td>YYYY-mm-gg</td>
-                            </tr>
-                            <tr>
-                                <td>000003</td>
-                                <td>80€</td>
-                                <td>YYYY-mm-gg</td>
-                            </tr>
-                            </tbody>
+                            <%
+                                ArrayList<FatturaBean> fatture = new ArrayList<>((List<FatturaBean>) request.getAttribute("fatture"));
+                                if(fatture != null) { %>
+                                    <tbody>
+                                        <%for(FatturaBean fattura : fatture) {%>
+                                            <tr>
+                                                <td><%=fattura.getId()%>></td>
+                                                <td><%=fattura.getTotale()%></td>
+                                                <td><%=fattura.getData().toString()%>></td>
+                                            </tr>
+                                        <%}%>
+                                    </tbody>
+                                <%} else if(fatture == null && request.getAttribute("errore") != null && ((Boolean) request.getAttribute("errore"))) {%>
+                                    <span class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                                        Errore, riprova più tardi.
+                                    </span>
+                                <%} else {
+                                    response.sendRedirect(response.encodeURL("/user/FatturaServlet?action=retrievedati"));
+                                }%>
                         </table>
                     </div>
                 </div>

@@ -79,6 +79,7 @@ public class CarrelloServlet extends HttpServlet {
                             String carrelloDaRit = gson.toJson(contenutoCarr);
                             response.setStatus(200);
                             response.getWriter().write(carrelloDaRit);
+                            response.addHeader("carrelloPieno", (contenutoCarr.size() > 0) + "");
                             break;
                         default:
                             break;

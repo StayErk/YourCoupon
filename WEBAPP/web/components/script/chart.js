@@ -8,6 +8,10 @@ window.onload = function () {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             let items = JSON.parse(xmlHttpRequest.responseText)
             riempiTabella(items, table)
+            console.log(items)
+            if(items.length > 0) {
+                document.getElementById('procedialpagamento').classList.remove('d-none')
+            }
         }
     }
 

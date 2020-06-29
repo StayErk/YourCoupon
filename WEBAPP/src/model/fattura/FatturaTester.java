@@ -16,6 +16,7 @@ import model.tour.TourBean;
 import model.tour.TourDAO;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.UUID;
 
 public class FatturaTester {
@@ -124,7 +125,7 @@ public class FatturaTester {
 
         System.out.println("\nCreazione fattura");
         try {
-            FatturaBean fatturaToSave = new FatturaBean(UUID.fromString("0dfe09a8-c575-485c-8332-4a1e330f993d"), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getId(), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getTotale());
+            FatturaBean fatturaToSave = new FatturaBean(UUID.fromString("0dfe09a8-c575-485c-8332-4a1e330f993d"), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getId(), carrelloDAO.retrieveByKey("g.cardaropoli99@gmail.com").getTotale(), new Date());
             fatturaDAO.doSave(fatturaToSave);
         }
         catch (SQLException e) {
