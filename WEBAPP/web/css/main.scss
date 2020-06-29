@@ -16,10 +16,6 @@ $theme-colors: (
   "danger": #F20505
 );
 
-
-
-@import "../Bootstrap/bootstrap-4.4.1/scss/bootstrap";
-
 .card-columns {
 
   @include media-breakpoint-only(sm) {
@@ -37,3 +33,7 @@ $theme-colors: (
     column-count: 4;
   }
 }
+
+
+@import "../Bootstrap/bootstrap-4.4.1/scss/bootstrap";
+
