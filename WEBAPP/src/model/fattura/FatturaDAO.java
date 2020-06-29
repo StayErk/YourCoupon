@@ -19,7 +19,6 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
         PreparedStatement preparedStatement = null;
         FatturaBean fattura;
 
-
         try{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(sql);
