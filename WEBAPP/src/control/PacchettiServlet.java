@@ -68,7 +68,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
             for (TourBean tour : pacchettoRaw.getTour()) {
                 pacchettoDAO.addTour(toInsert, tour);
             }
-            System.out.println(carrelloBean + "\n\n" + toInsert);
             if(!toInsert.isPredefinito()) {
                 response.sendRedirect(response.encodeURL("./user/chart.jsp"));
                 carrelloDAO.addPacchetto(carrelloBean, toInsert);
@@ -108,7 +107,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
                         componenti.add(p);
                         componenti.add(hotelDAO.retrieveByKey(p.getId_struttura()));
                         hashPacchetti.put(p.getId(), (ArrayList<Bean>) componenti.clone());
-                        System.out.println(componenti);
                         componenti.clear();
                     }
 
@@ -161,7 +159,6 @@ public class PacchettiServlet extends javax.servlet.http.HttpServlet {
 
 
                     } catch (SQLException e) {
-                        System.out.println("Errore byKey");
                         e.printStackTrace();
                         request.setAttribute("errore", e.toString());
                     }

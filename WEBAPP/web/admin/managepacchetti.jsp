@@ -60,28 +60,31 @@
             </div>
         </div>
         <%}%>
-        <form class="mx-auto my-4" onsubmit="return false" id="search">
-            <div class="form-row">
+        <div class="container mt-2">
+            <form class="mx-auto my-4" onsubmit="return false" id="search">
+                <div class="form-row">
 
-                <div class="col-12 my-3 my-md-0 col-md-3">
-                    <select class="max-size form-control" name="citta">
-                        <option value="nil" selected>Tutte le città</option>
-                    </select>
+                    <div class="col-12 my-3 my-md-0 col-md-3">
+                        <select class="max-size form-control" name="citta">
+                            <option value="nil" selected>Tutte le città</option>
+                        </select>
+                    </div>
+                    <div class="col-12 my-3 my-md-0 col-md-3">
+                        <input type="number" class="form-control max-size" min="1" name="persone" placeholder="Persone" >
+                    </div>
+                    <div class="col-12 my-3 my-md-0 col-md-3">
+                        <input type="number" class="form-control max-size" min="1" placeholder="Durata" >
+                    </div>
+                    <div class="col-12 my-3 my-md-0 col-md-3 text-center">
+                        <button class="btn btn-primary" type="button" id="cerca-btn" onclick="filtra()">Cerca</button>
+                        <button class="btn btn-secondary" type="reset" >Reset</button>
+                    </div>
                 </div>
-                <div class="col-12 my-3 my-md-0 col-md-3">
-                    <input type="number" class="form-control max-size" min="1" name="persone" placeholder="Persone" >
-                </div>
-                <div class="col-12 my-3 my-md-0 col-md-3">
-                    <input type="number" class="form-control max-size" min="1" placeholder="Durata" >
-                </div>
-                <div class="col-12 my-3 my-md-0 col-md-3 text-center">
-                    <button class="btn btn-primary" type="button" id="cerca-btn" onclick="filtra()">Cerca</button>
-                    <button class="btn btn-secondary" type="reset" >Reset</button>
-                </div>
-            </div>
-            <input type="hidden" value="<%=request.getSession().getId()%>">
-        </form>
-        <%@include file="../components/kinder-cards/_kinder-cards.jsp"%>
+                <input type="hidden" value="<%=request.getSession().getId()%>">
+            </form>
+            <%@include file="../components/kinder-cards/_kinder-cards.jsp"%>
+        </div>
+
 
     </div>
 </div>

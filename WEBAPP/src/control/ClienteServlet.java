@@ -33,7 +33,6 @@ public class ClienteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        System.out.println(action);
         if(action != null){
             switch (action) {
                 case "signup":
@@ -45,12 +44,10 @@ public class ClienteServlet extends HttpServlet {
                         if(checkTesto(nome, 15) && checkTesto(cognome, 15) && checkEmail(email) && checkPwd(password)) {
                             ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
                             modelDAO.doSave(bean);
-                            System.out.println("saved " + bean);
                             request.setAttribute("registrato", modelDAO.retrieveByKey(email));
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
                             requestDispatcher.forward(request, response);
                         } else {
-                            System.out.println("Ci sono");
                             request.setAttribute("errore", true);
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
                             requestDispatcher.forward(request, response);
@@ -69,7 +66,6 @@ public class ClienteServlet extends HttpServlet {
                             badInput(request, response, "non-esistente");
                         }
                         ClienteBean bean = null;
-                        System.out.println(email + "\n" + pass);
                         HttpSession session = request.getSession(true);
                         byte[] password = null;
                         try {
@@ -115,7 +111,6 @@ public class ClienteServlet extends HttpServlet {
                             if (fileName != null && !fileName.equals("")) {
                                 String path = savePath + File.separator + fileName;
                                 part.write(path);
-                                System.out.println(path);
 
                                 ClienteDAO clienteDAO = new ClienteDAO();
                                 ClienteBean clienteBean = new ClienteBean();
@@ -152,7 +147,6 @@ public class ClienteServlet extends HttpServlet {
                         }
                     } else{
                         response.setStatus(500);
-                        System.out.println(utente + newPwd);
                     }
                     break;
             }

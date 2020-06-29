@@ -15,7 +15,7 @@
     <%@include file="components/navbar/_navbar.jsp" %>
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
-            <div class="col-6 bg-light shadow rounded p-5">
+            <div class="col-12 col-md-6 bg-light shadow rounded p-5">
                 <h1 class="text-center text-success display-4"><span class="small text-black-50">Login</span><br>YourCoupon</h1>
                 <form method="post" action="ClienteServlet" id="loginForm">
                     <% if((request.getAttribute("errore-login") != null && (Boolean) request.getAttribute("errore-login") == true) || (request.getAttribute("non-esistente") != null && (Boolean) request.getAttribute("non-esistente") == true)) { %>

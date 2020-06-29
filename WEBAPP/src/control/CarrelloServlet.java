@@ -61,9 +61,6 @@ public class CarrelloServlet extends HttpServlet {
                             if(idpacchettoStr != null) {
                                 UUID id_pacchetto = UUID.fromString(idpacchettoStr);
                                 PacchettoBean pacchettoDaRimuovere = pacchettoDAO.retrieveByKey(id_pacchetto);
-                                System.out.println("porca madonna");
-                                System.out.println(id_pacchetto);
-                                System.out.println(carrello);
                                 carrelloDAO.removePacchetto(carrello, pacchettoDaRimuovere);
                                 response.setStatus(200);
                             }
@@ -89,7 +86,6 @@ public class CarrelloServlet extends HttpServlet {
                 }
             } catch (SQLException e) {
                 request.setAttribute("error", e.toString());
-                System.out.println("Errore visualizzazione carrello");
                 e.printStackTrace();
                 response.setStatus(500);
 

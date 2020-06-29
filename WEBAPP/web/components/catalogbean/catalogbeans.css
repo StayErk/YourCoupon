@@ -3,3 +3,8 @@
     object-fit: cover;
     object-position: center;
 }
+
+.card-title {
+    font-family: "Rufina", Serif !important;
+}
+

@@ -426,7 +426,6 @@ public class AdminServlet extends HttpServlet {
                 ArrayList<PacchettoBean> pacchettoBeans = new ArrayList<>(pacchettoDAO.retrieveAll("", ""));
                 for(PacchettoBean pacchettoBean : pacchettoBeans) {
                     ArrayList<RestaurantBean> ristoranti = new ArrayList<>(pacchettoDAO.retrieveExtraRistoranti(pacchettoBean.getId()));
-                    System.out.println(ristoranti);
                     for (RestaurantBean ristorante : ristoranti) {
                         contatore.computeIfPresent(ristorante.getId(), (id, tot) -> tot+1);
                         contatore.putIfAbsent(ristorante.getId(), 1);

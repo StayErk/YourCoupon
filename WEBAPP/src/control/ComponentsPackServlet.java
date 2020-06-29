@@ -65,16 +65,13 @@ public class ComponentsPackServlet extends HttpServlet {
                         for(HotelBean bean : hotel) {
                             if(!citta.contains(bean.getCitta()))
                                 citta.add(bean.getCitta());
-                            System.out.println(bean.getCitta() + "\n\n" + citta);
                         }
 
                         String cittadatornare = gson.toJson(citta);
                         response.setStatus(200);
                         response.getWriter().write(cittadatornare);
-                        System.out.println(cittadatornare);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
-                        System.out.println("Errore RetrieveAll Hotel");
                         e.printStackTrace();
                     }
                     break;
@@ -89,16 +86,13 @@ public class ComponentsPackServlet extends HttpServlet {
                         Gson gson = new Gson();
                         for(LuogoBean bean : luoghi) {
                             daritornare.putIfAbsent(bean.getId(), bean.getNome());
-                            System.out.println(bean);
                         }
 
                         String risposta = gson.toJson(daritornare);
                         response.setStatus(200);
                         response.getWriter().write(risposta);
-                        System.out.println(risposta);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
-                        System.out.println("Errore RetrieveAll Luoghi");
                         e.printStackTrace();
                     }
                     break;
@@ -121,7 +115,6 @@ public class ComponentsPackServlet extends HttpServlet {
                        response.getWriter().write(hoteldaritornare);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
-                        System.out.println("Errore RetrieveAll Hotel");
                         e.printStackTrace();
                     }
                     break;
@@ -135,7 +128,6 @@ public class ComponentsPackServlet extends HttpServlet {
                         ArrayList<RestaurantBean> ristoranti = new ArrayList<>();
                         if(filter != null && order != null) {
                            ristoranti = new ArrayList<>(restaurantDAO.retrieveAll(filter, order));
-                            System.out.println(filter + order);
                         } else {
                             ristoranti = new ArrayList<>(restaurantDAO.retrieveAll("", ""));
                         }
@@ -146,7 +138,6 @@ public class ComponentsPackServlet extends HttpServlet {
                         response.getWriter().write(ristorantidaRitornare);
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
-                        System.out.println("Errore RetriveAll Ristoranti");
                         e.printStackTrace();
                     }
                     break;
@@ -162,7 +153,6 @@ public class ComponentsPackServlet extends HttpServlet {
                         ArrayList<TourBean> tour = new ArrayList<>();
                         if(filter != null && order != null) {
                            tour = new ArrayList<>(tourDAO.retrieveAll(filter,order));
-                           System.out.println(filter + order);
                         } else {
                           tour = new ArrayList<>(tourDAO.retrieveAll("",""));
                         }
@@ -176,13 +166,11 @@ public class ComponentsPackServlet extends HttpServlet {
                         String hashmap = gson.toJson(hashTour);
                         response.setStatus(200);
 
-                        System.out.println("JSON: " + hashmap);
                         response.getWriter().write(hashmap);
 
 
                     } catch (SQLException e) {
                         request.setAttribute("error", e.toString());
-                        System.out.println("Errore RetrieveAll Tour");
                         e.printStackTrace();
                     }
 

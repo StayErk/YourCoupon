@@ -29,7 +29,6 @@ public class LoadPhotoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String typePhoto = request.getParameter("tipo");
-        System.out.println("Tipo: "+typePhoto);
 
         switch (typePhoto){
             case "user":
@@ -37,7 +36,6 @@ public class LoadPhotoServlet extends HttpServlet {
                 ClienteBean user = (ClienteBean) session.getAttribute("user");
                 String filename = user.getImmagine();
 
-                System.out.println(filename);
 
                 File file = new File(filename);
                 FileInputStream fileInputStream = new FileInputStream(file);

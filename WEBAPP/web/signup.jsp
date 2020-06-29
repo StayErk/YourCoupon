@@ -20,7 +20,7 @@
     <!-- Main Content -->
     <div class="container mt-5 mb-5">
             <div class="row justify-content-center">
-                <div class="col-6 bg-light shadow rounded p-5">
+                <div class="col-12 col-md-6 bg-light shadow rounded p-5">
                     <% if(registered == null) {%>
                     <h1 class="text-center text-success display-4"><span class="small text-black-50">Registrati su</span><br>YourCoupon</h1>
                     <form method="post" action="ClienteServlet" id="signUpForm">
