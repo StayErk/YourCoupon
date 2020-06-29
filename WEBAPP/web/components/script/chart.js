@@ -1,5 +1,6 @@
 let sessionID= $("#sessionid").val()
 let totaleCarrello = 0;
+let costo = 0;
 window.onload = function () {
     const table = document.getElementById("data");
     table.innerHTML = ''
@@ -32,9 +33,9 @@ function refreshCarrello() {
             let items = JSON.parse(xmlHttpRequest.responseText)
             riempiTabella(items, table)
             if(items.length === 0) {
-                document.getElementById('procedialpagamento').classList.remove('d-none')
+                document.getElementById('procedialpagamento').classList.add('d-none')
             }
-        document.getElementById("totalecarrello").innerText = `${totaleCarrello} €`
+            document.getElementById("totalecarrello").innerText = `${totaleCarrello} €`
         }
     }
 
@@ -43,7 +44,9 @@ function refreshCarrello() {
 }
 
 const riempiTabella = (data, table) => {
+    totaleCarrello = 0
     data.forEach((elemento => {
+
         const riga = document.createElement('tr')
         table.appendChild(riga);
         const cittaScelta = document.createElement('td')
@@ -81,4 +84,25 @@ function eliminaDalCarrello(elemento) {
 
     xmlHttpRequest.open("GET", `CarrelloServlet;jsessionid=${sessionID}?action=elimina&idpacchetto=${elemento.pacchetto.id}`, true)
     xmlHttpRequest.send();
+}
+
+function calcolaSconto() {
+    if (document.getElementById("quindicipunti").checked) {
+        costo = totaleCarrello - (totaleCarrello * 5 / 100)
+        console.log()
+    } else if (document.getElementById("venticinquepunti").checked) {
+        costo = totaleCarrello - (totaleCarrello * 10 / 100)
+    } else if (document.getElementById("trentacinquepunti").checked) {
+        costo = totaleCarrello - (totaleCarrello * 15 / 100)
+    } else if (document.getElementById('zeropunti').checked) {
+        costo = totaleCarrello
+    } else   {
+        costo = totaleCarrello - (totaleCarrello * 20 / 100)
+    }
+
+}
+
+function mostraSconto() {
+    calcolaSconto();
+    document.getElementById("totalecarrello").innerText = `${totaleCarrello}€, scontato ${costo}€`
 }

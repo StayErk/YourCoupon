@@ -29,7 +29,7 @@
         <ul class="list-unstyled components">
             <li class="nav-item"><a class="nav-link" href="./managehotel.jsp">Gestisci Hotel</a></li>
             <li class="nav-item"><a class="nav-link" href="./manageristorante.jsp">Gestisci Ristoranti</a></li>
-            <li class="nav-item"><a class="nav-link" href="">Gestisci Tour</a></li>
+            <li class="nav-item"><a class="nav-link" href="./managertour.jsp">Gestisci Tour</a></li>
             <li class="nav-item"><a class="nav-link" href="./managepacchetti.jsp">Gestisci Pacchetti</a></li>
 
         </ul>

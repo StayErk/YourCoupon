@@ -101,7 +101,7 @@ public class AdminServlet extends HttpServlet {
                         Double nuovoCosto = Double.parseDouble(request.getParameter("costo"));
                         String nuovonumeroTelefono = request.getParameter("numeroTelefono");
                         String nuovaEmail = request.getParameter("email");
-                        if(checkID(id) && checkCosto(nuovoCosto) && nuovonumeroTelefono != null && nuovaEmail != null && checkNumeroTelefono(nuovonumeroTelefono) && checkEmail(nuovaEmail)){
+                        if(checkID(id) && checkCosto(nuovoCosto)  && checkNumeroTelefono(nuovonumeroTelefono) && checkEmail(nuovaEmail)){
                             try {
                                 System.out.println("nel try");
                                 RestaurantBean daModificare = restaurantDAO.retrieveByKey(UUID.fromString(id));
@@ -116,6 +116,10 @@ public class AdminServlet extends HttpServlet {
                                 RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
                                 requestDispatcher.forward(request, response);
                             }
+                        } else {
+                            request.setAttribute("errore", true);
+                            RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/manageristorante.jsp");
+                            requestDispatcher.forward(request, response);
                         }
                         break;
                     case "new":
@@ -269,12 +273,14 @@ public class AdminServlet extends HttpServlet {
                                 e.printStackTrace();
                             }
                         } else if (componente.equals("tour")) {
+                            System.out.println("Gesu");
                             request.setAttribute("tipo", "tour");
                             try {
                                 request.setAttribute("tourdamodoficare", tourDao.retrieveByKey(UUID.fromString(id)));
                                 request.setAttribute("luogodamodificare", luogodao.retrieveByKey(tourDao.retrieveByKey(UUID.fromString(id)).getId_luogo()));
                                 RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/admin/editcomponent.jsp");
                                 requestDispatcher.forward(request, response);
+                                System.out.println("despatfhafafadsad");
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }

@@ -69,7 +69,7 @@
         </div>
         <div class="form-group">
             <label for="costonotte">Inserisci costo pasto</label>
-            <input type="number" class="form-control" id="costonotte" name="costo" required>
+            <input type="number" class="form-control" min="1" id="costonotte" name="costo" required>
         </div>
         <div class="form-group">
             <label for="numeroTelefono">Inserisci numero di telefono</label>
@@ -98,11 +98,11 @@
         </div>
         <div class="form-group">
             <label for="costo">Inserisci costo</label>
-            <input type="number" class="form-control" id="costo" name="costo" required>
+            <input type="number" min="1" class="form-control" id="costo" name="costo" required>
         </div>
         <div class="form-group">
             <label for="numeroPartecipanti">Inserisci Numero partecipanti medi</label>
-            <input type="number" class="form-control" id="numeroPartecipanti" name="numeroPartecipanti" min="1"  required>
+            <input type="number" min="1" class="form-control" id="numeroPartecipanti" name="numeroPartecipanti" min="1"  required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>
@@ -119,7 +119,7 @@
         </div>
         <div class="form-group">
             <label for="indirizzo">Inserisci Indirizzo</label>
-            <input type="indirizzo" class="form-control" id="indirizzo" name="indirizzo" required>
+            <input type="text" class="form-control" id="indirizzo" name="indirizzo" required>
         </div>
         <div class="form-group">
             <input class="form-control" type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>

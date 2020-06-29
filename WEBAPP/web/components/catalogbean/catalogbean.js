@@ -93,7 +93,7 @@ const createCardFromHash = (hashes) => {
             const btnEdit = document.createElement('a');
             btnEdit.classList.add('btn', 'btn-warning')
             btnEdit.href = `AdminServlet;jsessionid=${form.sessionid.value}?component=${document.title.toLowerCase()}&action=edit&id=${hash.id_tour}`
-            btnEdit.innerText = "Modiifica"
+            btnEdit.innerText = "Modifica"
             cardBody.appendChild(btnEdit)
             const btnDelete = document.createElement('button');
             btnDelete.addEventListener('click', () => eliminaDalDB(hash.id_tour))

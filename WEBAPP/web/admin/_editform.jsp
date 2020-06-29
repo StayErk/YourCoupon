@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label for="numeroTelefono">Modifica numero di telefono</label>
-                        <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>" required>
+                        <input type="text" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=daModificare.getNumeroTelefono()%>" required>
                     </div>
                     <div class="form-group">
                         <label for="stelle">Stelle</label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" value="<%=daModificare.getEmail()%>">
+                    <input type="email" class="form-control" id="email" name="email" value="<%=daModificare.getEmail()%>">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Modifica</button>
@@ -59,25 +59,34 @@
             </form>
         <%}%>
     <%} else if(tipo != null && tipo.equals("tour")) {
-        TourBean tourdaModificare = (TourBean) request.getAttribute("tourdamodificare");
+        TourBean tourdaModificare = (TourBean) request.getAttribute("tourdamodoficare");
         LuogoBean luogoDaMidificare = (LuogoBean) request.getAttribute("luogodamodificare");
+        System.out.println(tourdaModificare);
+        System.out.println(luogoDaMidificare);
         if(tourdaModificare != null && luogoDaMidificare != null) {%>
-        <form action="">
+        <form action="AdminServlet" method="post">
+            <input type="hidden" name="id" value="<%=tourdaModificare.getId()%>">
+            <input type="hidden" name="idluogo" value="<%=luogoDaMidificare.getId()%>">
+            <input type="hidden" name="tipo" value="<%=tipo%>">
+            <input type="hidden" name="action" value="edit">
             <div class="form-group">
                 <label for="costo">Modifica costo</label>
                 <input type="number" class="form-control" id="costo" name="costo" value="<%=tourdaModificare.getCosto()%>">
             </div>
             <div class="form-group">
-                <label for="numeroTelefono">Modifica numero di max partecipanti</label>
-                <input type="number" class="form-control" id="numeroTelefono" name="numeroTelefono" value="<%=tourdaModificare.getPartecipanti()%>">
+                <label for="numeroPartecipanti">Modifica numero di max partecipanti</label>
+                <input type="number" class="form-control" id="numeroPartecipanti" name="numeroPartecipanti" value="<%=tourdaModificare.getPartecipanti()%>">
             </div>
             <div class="form-group">
                 <label for="descrizione">Descrizione Luogo</label>
-               <textarea id="descrizione" name="descriione"><%=luogoDaMidificare.getDescrizione()%></textarea>
+               <textarea class="form-control" id="descrizione" name="descrizione"><%=luogoDaMidificare.getDescrizione()%></textarea>
             </div>
             <div class="form-group">
                 <label for="immagine">Inserisci link Immagine</label>
-                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20">
+                <input type="url" name="immagine" id="immagine" class="form-control" maxlength="20" value="<%=luogoDaMidificare.getImmagine()%>">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Modifica</button>
             </div>
         </form>
     <%}%>

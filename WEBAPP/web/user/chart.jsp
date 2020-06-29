@@ -67,7 +67,7 @@
                         <input type="hidden" name="action" value="paga">
                         <div class="form-group">
                             <label for="numerocarta">Inserisci numero carta</label>
-                            <input type="text" name="numerocarta" class="form-control" id="numerocarta">
+                            <input onclick="mostraSconto()" type="text" name="numerocarta" class="form-control" id="numerocarta">
                             <span id="errore" class="d-none form-text text-danger text-center border border-danger p-3 rounded m-3">
                                 Numero carta errato (1234-1234-1234-1234)
                             </span>
@@ -77,95 +77,95 @@
                         </span>
                         <%if (bean.getPuntiViaggio() >= 15 && bean.getPuntiViaggio() < 25) {%>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
                             <label class="form-check-label" for="zeropunti">
                                 Non Usare Punti viaggio  <span class="text-success">Guadagni un punto viaggio ogni 50€ spesi</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
                             <label class="form-check-label" for="quindicipunti">
                                 Usa 15 punti viaggio <span class="text-success">5% sconto</span>
                             </label>
                         </div>
                         <%} else if(bean.getPuntiViaggio() >= 25 && bean.getPuntiViaggio() < 35){%>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
                             <label class="form-check-label" for="zeropunti">
                                 Non Usare Punti viaggio  <span class="text-success">Guadagni un punto viaggio ogni 50€ spesi</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
                             <label class="form-check-label" for="quindicipunti">
                                 Usa 15 punti viaggio <span class="text-success">5% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
                             <label class="form-check-label" for="venticinquepunti">
                                 Usa 25 punti viaggio <span class="text-success">10% sconto</span>
                             </label>
                         </div>
                         <%} else if(bean.getPuntiViaggio() >= 35 && bean.getPuntiViaggio() < 40){%>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
                             <label class="form-check-label" for="zeropunti">
                                 Non Usare Punti viaggio, <span class="text-success">Guadagni un punto viaggio ogni 50€ spesi</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
                             <label class="form-check-label" for="quindicipunti">
                                 Usa 15 punti viaggio <span class="text-success">5% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
                             <label class="form-check-label" for="venticinquepunti">
                                 Usa 25 punti viaggio <span class="text-success">10% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="trentacinquepunti" value="35">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="trentacinquepunti" value="35">
                             <label class="form-check-label" for="trentacinquepunti">
                                 Usa 35 punti viaggio <span class="text-success">15% sconto</span>
                             </label>
                         </div>
                         <%} else if(bean.getPuntiViaggio() >= 40){%>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
                             <label class="form-check-label" for="zeropunti">
                                 Non Usare Punti viaggio  <span class="text-success">Guadagni un punto viaggio ogni 50€ spesi</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="quindicipunti" value="15">
                             <label class="form-check-label" for="quindicipunti">
                                 Usa 15 punti viaggio <span class="text-success">5% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="venticinquepunti" value="25">
                             <label class="form-check-label" for="venticinquepunti">
                                 Usa 25 punti viaggio <span class="text-success">10% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="trentacinquepunti" value="35">
+                            <input  onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="trentacinquepunti" value="35">
                             <label class="form-check-label" for="trentacinquepunti">
                                 Usa 35 punti viaggio <span class="text-success">15% sconto</span>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="numeropunti" id="quarantapunti" value="40">
+                            <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="quarantapunti" value="40">
                             <label class="form-check-label" for="quarantapunti">
                                 Usa 40 punti viaggio <span class="text-success">20% sconto</span>
                             </label>
                         </div>
                         <%} else if(bean.getPuntiViaggio() >= 0 && bean.getPuntiViaggio() < 15){%>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
+                                <input onclick="mostraSconto()" class="form-check-input" type="radio" name="numeropunti" id="zeropunti" value="0" checked>
                                 <label class="form-check-label" for="zeropunti">
                                     Non Usare Punti viaggio  <span class="text-success">Guadagni un punto viaggio ogni 50€ spesi</span>
                                 </label>
