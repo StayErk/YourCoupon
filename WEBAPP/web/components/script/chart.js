@@ -30,6 +30,9 @@ function refreshCarrello() {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             let items = JSON.parse(xmlHttpRequest.responseText)
             riempiTabella(items, table)
+            if(items.length === 0) {
+                document.getElementById('procedialpagamento').classList.remove('d-none')
+            }
         }
     }
 
@@ -69,6 +72,7 @@ function eliminaDalCarrello(elemento) {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             console.log('click')
             refreshCarrello()
+
         }
     }
 

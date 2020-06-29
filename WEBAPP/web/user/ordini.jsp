@@ -37,8 +37,10 @@
                                 <th scope="col">Data di acquisto</th>
                             </tr>
                             </thead>
-                            <%
-                                ArrayList<FatturaBean> fatture = new ArrayList<>((List<FatturaBean>) request.getAttribute("fatture"));
+                            <% ArrayList<FatturaBean> fatture = null;
+                                if(request.getAttribute("fatture") != null) {
+                                    fatture = new ArrayList<>((List<FatturaBean>) request.getAttribute("fatture"));
+                                }
                                 if(fatture != null) { %>
                                     <tbody>
                                         <%for(FatturaBean fattura : fatture) {%>
