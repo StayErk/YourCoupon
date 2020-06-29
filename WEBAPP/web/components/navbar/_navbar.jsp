@@ -69,7 +69,7 @@
                 <%} else {%>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="small text-muted">Ciao, </span> <span class="text-success"><%=bean.getNome()%></span>
+                        <span class="small text-muted"><i class="fa fa-user-circle text-light fa-2x mr-1" aria-hidden="true"></i></span> <span class="text-success"><%=bean.getNome()%></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <% if(request.getRequestURI().contains("user") && bean != null) { %>
@@ -86,9 +86,9 @@
                 </li>
                     <li class="nav-item">
                         <% if(request.getRequestURI().contains("user") && bean != null) { %>
-                            <a class="nav-link" href="<%=response.encodeURL("./chart.jsp")%>">Carrello</a>
+                            <a class="nav-link" href="<%=response.encodeURL("./chart.jsp")%>"><i class="fa fa-shopping-cart fa-lg text-light mt-1" aria-hidden="true"></i></a>
                         <% } else {%>
-                            <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>">Carrello</a>
+                            <a class="nav-link" href="<%=response.encodeURL("./user/chart.jsp")%>"><i class="fa fa-shopping-cart fa-lg text-light mt-1" aria-hidden="true"></i></a>
                         <% } %>
                     </li>
                 <%}%>
