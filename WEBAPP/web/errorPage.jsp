@@ -22,7 +22,7 @@
             </div>
             <h2>Ci scusiamo, Pagina non trovata!</h2>
             <p>La pagina che stai cercando potrebbe essere stata rimossa o temporaneamente non disponibile.</p>
-            <a href="http://localhost:8080/YourCoupon2_war_exploded/index.jsp">Torna alla Homepage</a>
+            <a href="<%= request.getContextPath() + "/index.jsp" %>">Torna alla Homepage</a>
         </div>
     </div>
 

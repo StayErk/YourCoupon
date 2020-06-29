@@ -134,6 +134,7 @@
             <label for="immagine">Inserisci link Immagine</label>
             <input type="url" name="immagine" id="immagine" class="form-control" maxlength="200" required>
         </div>
+        
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Crea</button>
         </div>
