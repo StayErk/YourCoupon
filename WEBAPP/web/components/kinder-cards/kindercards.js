@@ -88,11 +88,11 @@ function createCard(hashes) {
             card.appendChild(cardBody);
             const cardTitle = document.createElement('h5');
             cardTitle.classList.add('card-title');
-            cardTitle.innerText = `Pacchetto ad ${hash.citta}`
+            cardTitle.innerText = `Pacchetto a ${hash.citta}`
             cardBody.appendChild(cardTitle);
             const cardPar = document.createElement('p');
             cardPar.classList.add('card-text');
-            cardPar.innerText = `Soggiorno ad ${hash.citta} in ${hash.nome_albergo} per ${hash.persone} persone della durata di ${hash.durata} giorni.`
+            cardPar.innerText = `Soggiorno a ${hash.citta} in ${hash.nome_albergo} per ${hash.persone} persone della durata di ${hash.durata} giorni.`
             cardBody.appendChild(cardPar);
             const cardPar2 = document.createElement('p');
             cardPar2.classList.add('card-text');
