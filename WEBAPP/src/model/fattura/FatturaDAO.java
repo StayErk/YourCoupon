@@ -14,7 +14,7 @@ import java.util.UUID;
 public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
     @Override
     public FatturaBean retrieveByKey(UUID key) throws SQLException {
-       String sql = "SELECT * FROM Fattura WHERE id = ?";
+       String sql = "SELECT * FROM Fattura WHERE id_carrello = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         FatturaBean fattura;
@@ -60,7 +60,7 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
         return fatture;
     }
 
-    public List<FatturaBean> retrieveAllCliente(UUID key) throws SQLException {
+    public List<FatturaBean> retrieveAllCliente(String key) throws SQLException {
         String sql = "SELECT * FROM Fattura WHERE id_carrello = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;

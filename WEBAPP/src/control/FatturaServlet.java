@@ -90,7 +90,7 @@ public class FatturaServlet extends HttpServlet {
             switch (action) {
                 case "retrievedati":
                     try {
-                        List<FatturaBean> fatture = fatturaDAO.retrieveAll("", "");
+                        List<FatturaBean> fatture = fatturaDAO.retrieveAllCliente(utente.getEmail());
                         request.setAttribute("fatture", fatture);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/user/ordini.jsp");
                         dispatcher.forward(request, response);

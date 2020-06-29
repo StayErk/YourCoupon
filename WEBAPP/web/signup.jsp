@@ -13,6 +13,8 @@
 <head>
     <title>Sign Up page</title>
     <link rel="stylesheet" href="css/main.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
 <body class="">
     <!-- Navbar -->
@@ -72,7 +74,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <a href="#" class="btn btn-success w-100">Log-In</a>
+                                <a href="./login.jsp" class="btn btn-success w-100">Log-In</a>
                             </div>
                             <div class="col-6">
                                 <a href="./index.jsp" class="btn btn-outline-info w-100">Torna Alla Home</a>

@@ -11,6 +11,8 @@
 <head>
     <%if (tipo!= null && !tipo.equals("")) {%>
         <title>Modifica <%=tipo%>></title>
+    <%} else {%>
+        <title>Modifica</title>
     <%}%>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="admin.css">

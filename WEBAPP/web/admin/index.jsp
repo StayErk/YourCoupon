@@ -82,7 +82,7 @@
                             <div class="card-body text-primary">
                                 <h5 class="card-title">L'Hotel più scelto è <span class="text-success"><%=((HotelBean) statistiche.get("migliorHotel")).getNome()%></span>
                                 </h5>
-                                <p class="card-text">Vi sono <strong><%=statistiche.get("numeroHotel")%>></strong> Hotel</p>
+                                <p class="card-text">Vi sono <strong><%=statistiche.get("numeroHotel")%></strong> Hotel</p>
                                 <a href="<%=response.encodeURL("./managehotel.jsp")%>" class="btn btn-outline-info">Gestisci Hotel</a>
                             </div>
                         </div>
