@@ -37,10 +37,7 @@
                                 <th scope="col">Data di acquisto</th>
                             </tr>
                             </thead>
-                            <% ArrayList<FatturaBean> fatture = null;
-                                if(request.getAttribute("fatture") != null) {
-                                    fatture = new ArrayList<>((List<FatturaBean>) request.getAttribute("fatture"));
-                                }
+                            <% List<FatturaBean> fatture = (List<FatturaBean>) request.getAttribute("fatture");
                                 if(fatture != null) { %>
                                     <tbody>
                                         <%for(FatturaBean fattura : fatture) {%>
@@ -56,7 +53,7 @@
                                         Errore, riprova più tardi.
                                     </span>
                                 <%} else {
-                                    response.sendRedirect(response.encodeURL("/user/FatturaServlet?action=retrievedati"));
+                                    response.sendRedirect(response.encodeURL("FatturaServlet?action=retrievedati"));
                                 }%>
                         </table>
                     </div>
