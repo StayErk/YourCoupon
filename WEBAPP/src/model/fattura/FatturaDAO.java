@@ -60,6 +60,31 @@ public class FatturaDAO implements ComponentCRUD<FatturaBean, UUID> {
         return fatture;
     }
 
+    public List<FatturaBean> retrieveAllCliente(UUID key) throws SQLException {
+        String sql = "SELECT * FROM Fattura WHERE id_carrello = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        List<FatturaBean> fatture = new ArrayList<>();
+
+        try{
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, key.toString());
+
+            ResultSet rs = preparedStatement.executeQuery();
+            mapFromResultSet(fatture, rs);
+        } finally {
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+
+        return fatture;
+    }
+
+
     @Override
     public void doSave(FatturaBean objectToSave) throws SQLException {
         String sql = "INSERT INTO Fattura (id, id_carrello, totale, data) VALUES (?, ?, ?, NOW())"; //id, id_carrello, totale
