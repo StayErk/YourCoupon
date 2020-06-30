@@ -42,7 +42,8 @@ public class ClienteServlet extends HttpServlet {
                         String email = request.getParameter("email");
                         String password = request.getParameter("password");
                         if(checkTesto(nome, 15) && checkTesto(cognome, 15) && checkEmail(email) && checkPwd(password)) {
-                            ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
+                            String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR + File.separator + "user";
+                            ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, savePath);
                             modelDAO.doSave(bean);
                             request.setAttribute("registrato", modelDAO.retrieveByKey(email));
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
@@ -54,7 +55,9 @@ public class ClienteServlet extends HttpServlet {
                         }
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        request.setAttribute("errore", true);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                        requestDispatcher.forward(request, response);
                     }
                     break;
 
@@ -109,13 +112,13 @@ public class ClienteServlet extends HttpServlet {
                         for (Part part : request.getParts()) {
                             String fileName = extractFileName(part);
                             if (fileName != null && !fileName.equals("")) {
-                                String path = savePath + File.separator + fileName;
-                                part.write(path);
-
                                 ClienteDAO clienteDAO = new ClienteDAO();
                                 ClienteBean clienteBean = new ClienteBean();
                                 HttpSession session = request.getSession(false);
                                 clienteBean = (ClienteBean) session.getAttribute("user");
+                                String path = savePath + File.separator + clienteBean.getEmail().replace("@","").replace(".","") + "user";
+                                part.write(path);
+
                                 clienteBean.setImmagine(path);
                                 try {
                                     clienteDAO.doUpdate(clienteBean);

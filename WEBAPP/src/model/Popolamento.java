@@ -26,10 +26,10 @@ public class Popolamento {
         PacchettoDAO pacchettoDAO = new PacchettoDAO();
 
         try {
-            clienteDAO.doSave(new ClienteBean("Andrea", "Ercolino", 50, "a.ercolino6@studenti.unisa.it", "StayErk99.", false, "https://bit.ly/2BGONAN"));
-            clienteDAO.doSave(new ClienteBean("Maria Chiara", "Nasto", 30, "m.nasto6@studenti.unisa.it", "Bataclan00", false, "https://bit.ly/2BGONAN"));
-            clienteDAO.doSave(new ClienteBean("Giuseppe", "Cardaropoli", 10, "g.cardaropoli15@studenti.unisa.it", "Madonna118", false, "https://bit.ly/2BGONAN"));
-            clienteDAO.doSave(new ClienteBean("YouPon", "YouPon", 0, "youpon@gmail.com", "adminadmin", true, "https://bit.ly/31cCFm1"));
+            clienteDAO.doSave(new ClienteBean("Andrea", "Ercolino", 50, "a.ercolino6@studenti.unisa.it", "StayErk99.", false, ""));
+            clienteDAO.doSave(new ClienteBean("Maria Chiara", "Nasto", 30, "m.nasto6@studenti.unisa.it", "Bataclan00", false, ""));
+            clienteDAO.doSave(new ClienteBean("Giuseppe", "Cardaropoli", 10, "g.cardaropoli15@studenti.unisa.it", "Madonna118", false, ""));
+            clienteDAO.doSave(new ClienteBean("YouPon", "YouPon", 0, "youpon@gmail.com", "adminadmin", true, ""));
 
         } catch (SQLException throwables) {
             System.out.println("Errore popolamento Utenti");
