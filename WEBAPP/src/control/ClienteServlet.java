@@ -24,7 +24,7 @@ import static model.BackendValidation.*;
 
 @WebServlet({"/ClienteServlet", "/user/ClienteServlet"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB after which the file will be
-        maxFileSize = 1024 * 1024 * 10, // 10MB maximum size allowed for uploaded files
+         // 10MB maximum size allowed for uploaded files
         maxRequestSize = 1024 * 1024 * 50) // 50MB overall size of all uploaded files
 public class ClienteServlet extends HttpServlet {
 
@@ -111,20 +111,31 @@ public class ClienteServlet extends HttpServlet {
 
                     if (request.getParts() != null && request.getParts().size() > 0) {
                         for (Part part : request.getParts()) {
-                            String fileName = extractFileName(part);
-                            if (fileName != null && !fileName.equals("")) {
-                                String path = savePath + File.separator + fileName;
-                                part.write(path);
+                            if (part.getSize() > 1024 * 1024 * 10) {
+                                response.setStatus(500);
+                                request.setAttribute("fotoerr", true);
+                                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/profile.jsp");
+                                requestDispatcher.forward(request, response);
+                            } else {
+                                String fileName = extractFileName(part);
+                                if (fileName != null && !fileName.equals("")) {
+                                    String path = savePath + File.separator + fileName;
+                                    part.write(path);
 
-                                ClienteDAO clienteDAO = new ClienteDAO();
-                                ClienteBean clienteBean = new ClienteBean();
-                                HttpSession session = request.getSession(false);
-                                clienteBean = (ClienteBean) session.getAttribute("user");
-                                clienteBean.setImmagine(path);
-                                try {
-                                    clienteDAO.doUpdate(clienteBean);
-                                } catch (SQLException throwables) {
-                                    throwables.printStackTrace();
+                                    ClienteDAO clienteDAO = new ClienteDAO();
+                                    ClienteBean clienteBean = new ClienteBean();
+                                    HttpSession session = request.getSession(false);
+                                    clienteBean = (ClienteBean) session.getAttribute("user");
+                                    clienteBean.setImmagine(path);
+                                    try {
+                                        clienteDAO.doUpdate(clienteBean);
+                                    } catch (SQLException throwables) {
+                                        response.setStatus(500);
+                                        request.setAttribute("fotoerr", true);
+                                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/profile.jsp");
+                                        requestDispatcher.forward(request, response);
+                                        throwables.printStackTrace();
+                                    }
                                 }
                             }
                         }
@@ -153,10 +164,11 @@ public class ClienteServlet extends HttpServlet {
                             throwables.printStackTrace();
                         }
                     } else{
+                        response.setStatus(500);
                         request.setAttribute("errore", true);
                         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/profile.jsp");
                         requestDispatcher.forward(request, response);
-                        response.setStatus(500);
+
                     }
                     break;
             }

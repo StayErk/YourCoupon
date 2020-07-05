@@ -64,6 +64,11 @@
                         </ul>
                     </div>
                     <%}%>
+                    <%if (request.getAttribute("fotoerr") != null && (Boolean) request.getAttribute("fotoerr") == true) {%>
+                    <div class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                        <p>Dimensione massima della foto 10mb</p>
+                    </div>
+                    <%}%>
                     <p>Nome: <span class="text-bold"><%=bean.getNome()%></span></p>
                     <p>Cognome: <span class="text-boold"><%=bean.getCognome()%></span></p>
                     <p>Punti viaggio: <span class="text-bold"><%=bean.getPuntiViaggio()%></span></p>
