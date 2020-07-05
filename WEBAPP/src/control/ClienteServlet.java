@@ -54,6 +54,7 @@ public class ClienteServlet extends HttpServlet {
                         }
 
                     } catch (SQLException e) {
+                        badInput(request, response, "non-esistente");
                         e.printStackTrace();
                     }
                     break;
@@ -93,6 +94,7 @@ public class ClienteServlet extends HttpServlet {
                             }
                         }
                     } catch (SQLException e) {
+                        badInput(request, response, "non-esistente");
                         e.printStackTrace();
                     }
                     break;
@@ -142,19 +144,21 @@ public class ClienteServlet extends HttpServlet {
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
                             requestDispatcher.forward(request, response);
                         } catch (SQLException throwables) {
+                            request.setAttribute("errore", true);
+                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/profile.jsp");
+                            requestDispatcher.forward(request, response);
                             response.setStatus(500);
                             throwables.printStackTrace();
                         }
                     } else{
+                        request.setAttribute("errore", true);
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/user/profile.jsp");
+                        requestDispatcher.forward(request, response);
                         response.setStatus(500);
                     }
                     break;
             }
-
-
         }
-
-
     }
 
     private void badInput(HttpServletRequest request, HttpServletResponse response, String s2) throws ServletException, IOException {

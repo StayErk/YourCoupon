@@ -10,8 +10,10 @@
 <head>
     <title>Il tuo profilo </title>
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./user/style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
@@ -52,6 +54,16 @@
                     <h1 class="page-title text-success"><span class="small text-secondary">Ciao,</span>&nbsp;<%=bean.getNome()%></h1>
                 </div>
                 <div class="col-12">
+                    <%if (request.getAttribute("errore") != null && (Boolean) request.getAttribute("errore") == true) {%>
+                    <div class="form-text text-danger text-center border border-danger p-3 rounded m-3">
+                        <p>I Dati forniti non sono corretti.</p>
+                        <ul class="list-unstyled">
+                            <li>Password: almeno 8 caratteri</li>
+                            <li>Nome: massimo 15 caratteri</li>
+                            <li>Cognome: massimo 15 caratteri</li>
+                        </ul>
+                    </div>
+                    <%}%>
                     <p>Nome: <span class="text-bold"><%=bean.getNome()%></span></p>
                     <p>Cognome: <span class="text-boold"><%=bean.getCognome()%></span></p>
                     <p>Punti viaggio: <span class="text-bold"><%=bean.getPuntiViaggio()%></span></p>
