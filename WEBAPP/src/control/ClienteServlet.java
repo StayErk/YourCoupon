@@ -42,7 +42,8 @@ public class ClienteServlet extends HttpServlet {
                         String email = request.getParameter("email");
                         String password = request.getParameter("password");
                         if(checkTesto(nome, 15) && checkTesto(cognome, 15) && checkEmail(email) && checkPwd(password)) {
-                            ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, "");
+                            String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR + File.separator + "user";
+                            ClienteBean bean = new ClienteBean(nome, cognome, 0, email, password, false, savePath);
                             modelDAO.doSave(bean);
                             request.setAttribute("registrato", modelDAO.retrieveByKey(email));
                             RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
@@ -54,8 +55,10 @@ public class ClienteServlet extends HttpServlet {
                         }
 
                     } catch (SQLException e) {
-                        badInput(request, response, "non-esistente");
                         e.printStackTrace();
+                        request.setAttribute("errore", true);
+                        RequestDispatcher requestDispatcher = this.getServletContext().getRequestDispatcher("/signup.jsp");
+                        requestDispatcher.forward(request, response);
                     }
                     break;
 
@@ -94,7 +97,6 @@ public class ClienteServlet extends HttpServlet {
                             }
                         }
                     } catch (SQLException e) {
-                        badInput(request, response, "non-esistente");
                         e.printStackTrace();
                     }
                     break;
