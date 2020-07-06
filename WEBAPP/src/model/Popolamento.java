@@ -26,9 +26,6 @@ public class Popolamento {
         PacchettoDAO pacchettoDAO = new PacchettoDAO();
 
         try {
-            clienteDAO.doSave(new ClienteBean("Andrea", "Ercolino", 50, "a.ercolino6@studenti.unisa.it", "StayErk99.", false, ""));
-            clienteDAO.doSave(new ClienteBean("Maria Chiara", "Nasto", 30, "m.nasto6@studenti.unisa.it", "Bataclan00", false, ""));
-            clienteDAO.doSave(new ClienteBean("Giuseppe", "Cardaropoli", 10, "g.cardaropoli15@studenti.unisa.it", "Madonna118", false, ""));
             clienteDAO.doSave(new ClienteBean("YouPon", "YouPon", 0, "youpon@gmail.com", "adminadmin", true, ""));
 
         } catch (SQLException throwables) {
@@ -40,7 +37,7 @@ public class Popolamento {
             hotelDAO.doSave(new HotelBean(UUID.fromString("39867a1b-eb84-4fe6-9c80-4d973c6fa3b7"), "Hotel Roma", "Via Garibaldi 11", "Roma", 55, 5, "https://bit.ly/3hYzdkN", "pbrealey0@skype.com", "017145321"));
             hotelDAO.doSave(new HotelBean(UUID.fromString("6a65bdd0-b5b5-4016-a9ee-85a6bbcf1ade"), "Hotel Rosa", "Corso Diaz 3", "Roma", 30, 3, "https://bit.ly/3dzn1Um", "bcoulthard0@ustream.tv", "013640923"));
             hotelDAO.doSave(new HotelBean(UUID.fromString("cd21f109-8ea6-4f70-94e4-3b4668ab7cb7"), "Hotel Stella", "Largo Leone 9", "Firenze", 25, 3, "https://bit.ly/2BGXdrT", "lmcgilroy1@google.co.uk", "055352190"));
-            hotelDAO.doSave(new HotelBean(UUID.fromString("1990e400-fb93-4867-be79-0f36cf0f7ac3"), "Hotel Da Vinci", "Via Roma 15", "Firenze", 20, 3, "https://bit.ly/3fYo9SS", "jkenryd2@creativecommons.org", "05548651"));
+            hotelDAO.doSave(new HotelBean(UUID.fromString("1990e400-fb93-4867-be79-0f36cf0f7ac3"), "Hotel Da Vinci", "Via Roma 15", "Firenze", 20, 3, "https://bit.ly/31MYJny", "jkenryd2@creativecommons.org", "05548651"));
             hotelDAO.doSave(new HotelBean(UUID.fromString("dd19d5e0-920a-4a03-bc30-f15db9f1756c"), "Hotel Vista", "Via Scotti 69", "Angri", 40, 4, "https://bit.ly/3i0IQzA", "hbeadham3@hexun.com", "081890267"));
             hotelDAO.doSave(new HotelBean(UUID.fromString("ba52aaaa-a5ab-4a04-92ed-bcc687ad881c"), "Hotel Nazionale", "Vico Equense 22", "Angri", 15, 2, "https://bit.ly/3eJSHHK", "baubrey4@cnbc.com", "081451293"));
             hotelDAO.doSave(new HotelBean(UUID.fromString("798c621c-e695-4fe2-90a5-08f09ceebd33"), "Hotel Pineta", "Piazza Sordi 20", "Bari", 35, 3, "https://bit.ly/2VdYbD2", "dmorriarty5@dion.ne.jp", "080825770"));
@@ -78,15 +75,15 @@ public class Popolamento {
             luogoDAO.doSave(new LuogoBean(UUID.fromString("3b2ec08d-d966-4656-a772-64a3fa317566"), "Colosseo", "475 Bluestem Street", "Roma", "Il Colosseo è il più grande anfiteatro del mondo.", "https://bit.ly/3dsLg6w"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("8644fe22-c170-460e-9097-022edd117ca6"), "Pantheon", "055 Fieldstone Crossing", "Roma", "Il Pantheon è un edificio della Roma antica situato nel rione Pigna nel centro storico.", "https://bit.ly/2YwYavZ"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("986ca522-e1d8-4c56-af4c-0f84c83fd266"), "Palazzo Vecchio", "30 Butterfield Alley", "Firenze", "Palazzo Vecchio si trova in piazza della Signoria a Firenze ed è la sede del Comune.", "https://bit.ly/3g2e7jT"));
-            luogoDAO.doSave(new LuogoBean(UUID.fromString("8ca06888-afb2-4fb0-ba8a-232d44b5bd09"), "Galleria degli Uffizi", "91 Mifflin Parkway", "Firenze", "La Galleria degli Uffizi fa parte del complesso museale fiorentino.", "https://bit.ly/31g1vBt"));
+            luogoDAO.doSave(new LuogoBean(UUID.fromString("8ca06888-afb2-4fb0-ba8a-232d44b5bd09"), "Galleria degli Uffizi", "91 Mifflin Parkway", "Firenze", "La Galleria degli Uffizi fa parte del complesso museale fiorentino.", "https://bit.ly/2BLcNDj"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("3fddb369-740b-420a-836b-2a6a5536662c"), "Castello Doria", "1162 Muir Trail", "Angri", "Castello di epoca medievale", "https://bit.ly/3i0VkXM"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("d810ef8f-848d-43c8-b4a0-56fce4d64d13"), "Chiesa San Maria", "93 Hallows Plaza", "Angri", "La chiesa sorge sui resti di un antico tempio romando dedicato a Venere.", "https://bit.ly/2VgyLVx"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("4b9d991b-c659-43b8-a6d0-f55b214a858e"), "Basilica San Nicola", "3 Banding Court", "Bari", "La basilica è uno degli esempi più significativi di architettura del romanico pugliese.", "https://bit.ly/3hZRSNh"));
-            luogoDAO.doSave(new LuogoBean(UUID.fromString("ee6f5f06-2bc9-405e-a288-02524afdf61d"), "Teatro Petruzzelli", "3561 Pond Parkway", "Bari", "Il teatro Petruzzelli è il maggiore teatro di Bari e il quarto più grande d'Italia.", "https://bit.ly/2YyM4CF"));
-            luogoDAO.doSave(new LuogoBean(UUID.fromString("80b200b6-38ea-4474-9b72-2b89191ab14f"), "Duomo di Milano", "12629 Caliangt Avenue", "Milano", "Il Duomo di Milano è la cattedrale dell'arcidiocesi di Milano.", "https://bit.ly/3i3f9ha"));
-            luogoDAO.doSave(new LuogoBean(UUID.fromString("1d5da82f-0273-4a92-9fd0-7c008c53a726"), "Castello Sforzesco", "20868 Daystar Place", "Milano", "Il Castello Sforzesco è un grande complesso fortificato eretto nel XV secolo.", "https://bit.ly/3i3x5YX"));
+            luogoDAO.doSave(new LuogoBean(UUID.fromString("ee6f5f06-2bc9-405e-a288-02524afdf61d"), "Teatro Petruzzelli", "3561 Pond Parkway", "Bari", "Il teatro Petruzzelli è il maggiore teatro di Bari e il quarto più grande d'Italia.", "https://bit.ly/3e5NE3i"));
+            luogoDAO.doSave(new LuogoBean(UUID.fromString("80b200b6-38ea-4474-9b72-2b89191ab14f"), "Duomo di Milano", "12629 Caliangt Avenue", "Milano", "Il Duomo di Milano è la cattedrale dell'arcidiocesi di Milano.", "https://bit.ly/3iC82wE"));
+            luogoDAO.doSave(new LuogoBean(UUID.fromString("1d5da82f-0273-4a92-9fd0-7c008c53a726"), "Castello Sforzesco", "20868 Daystar Place", "Milano", "Il Castello Sforzesco è un grande complesso fortificato eretto nel XV secolo.", "https://bit.ly/2VLKR9l"));
             luogoDAO.doSave(new LuogoBean(UUID.fromString("8ab47f3d-e86f-43ec-8636-e06d1ced64d6"), "Bastione di Saint Remy", "05424 Butterfield Point", "Cagliari", "Il bastione di Saint Remy è una delle fortificazioni più importanti di Cagliari.", "https://bit.ly/3hVIn1D"));
-            luogoDAO.doSave(new LuogoBean(UUID.fromString("e2e5cc14-8e6f-4a46-b46d-79dd0c93e2b5"), "Torre di San Pancrazio", "47950 Eastlawn Way", "Cagliari", "La torre più alta di Cagliari, simbolo della città.", "https://bit.ly/2ZcTQRG"));
+            luogoDAO.doSave(new LuogoBean(UUID.fromString("e2e5cc14-8e6f-4a46-b46d-79dd0c93e2b5"), "Torre di San Pancrazio", "47950 Eastlawn Way", "Cagliari", "La torre più alta di Cagliari, simbolo della città.", "https://bit.ly/2VQQenE"));
 
         } catch (SQLException throwables) {
             System.out.println("Errore popolamento Luoghi");
