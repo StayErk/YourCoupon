@@ -130,6 +130,7 @@ function createCard(hashes) {
 }
 
 function createObjects(data, hashes) {
+    console.log(data)
     for(let propt in data) {
         let hash = {
             id_pacchetto: data[propt][0].id,
@@ -160,6 +161,8 @@ function addCart(hash) {
         if(xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
             $("#aggiunto").text(hash.citta)
             $("#notification").toast('show')
+        } else if (xmlHttpRequest.status == 302 && xmlHttpRequest.readyState == 4) {
+            window.location.replace("./login.jsp")
         }
     }
 

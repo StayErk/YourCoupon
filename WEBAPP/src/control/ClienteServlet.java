@@ -119,13 +119,13 @@ public class ClienteServlet extends HttpServlet {
                             } else {
                                 String fileName = extractFileName(part);
                                 if (fileName != null && !fileName.equals("")) {
-                                    String path = savePath + File.separator + fileName;
-                                    part.write(path);
-
                                     ClienteDAO clienteDAO = new ClienteDAO();
                                     ClienteBean clienteBean = new ClienteBean();
                                     HttpSession session = request.getSession(false);
                                     clienteBean = (ClienteBean) session.getAttribute("user");
+                                    String path = savePath + File.separator + clienteBean.getEmail().replace("@","").replace(".","") + "user";
+                                    part.write(path);
+
                                     clienteBean.setImmagine(path);
                                     try {
                                         clienteDAO.doUpdate(clienteBean);

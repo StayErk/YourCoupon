@@ -1,5 +1,4 @@
 let sessionID = $("#sessionid").val();
-console.log($("#sessionid").val())
 let package = {
     durata:0,
     persone:0,

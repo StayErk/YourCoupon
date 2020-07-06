@@ -42,15 +42,6 @@ public class LoadPhotoServlet extends HttpServlet {
                 byte[] bt = fileInputStream.readAllBytes();
                 ServletOutputStream out = response.getOutputStream();
                 out.write(bt);
-
-                break;
-
-            case "hotel":
-
-                break;
-
-            case "tour":
-
                 break;
         }
 

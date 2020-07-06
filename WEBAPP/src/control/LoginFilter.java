@@ -59,8 +59,12 @@ public class LoginFilter implements Filter {
             ClienteBean bean = (ClienteBean) session.getAttribute("user");
             if (check(bean, tipo)) {
                 chain.doFilter(req, resp);
-            } else hresponse.sendRedirect(hrequest.getContextPath() + "/login.jsp");
-        } else hresponse.sendRedirect(hrequest.getContextPath() + "/login.jsp");
+            } else {
+                hresponse.setStatus(302);
+            }
+        } else {
+            hresponse.setStatus(302);
+        }
     }
 
     /**
