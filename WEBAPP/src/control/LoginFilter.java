@@ -60,7 +60,12 @@ public class LoginFilter implements Filter {
             if (check(bean, tipo)) {
                 chain.doFilter(req, resp);
             } else {
-                hresponse.setStatus(302);
+                if(tipo.equals("admin")) {
+                    hresponse.sendRedirect(hrequest.getContextPath() + "/login.jsp");
+                }
+                else {
+                    hresponse.setStatus(302);
+                }
             }
         } else {
             hresponse.setStatus(302);

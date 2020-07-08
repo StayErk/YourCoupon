@@ -122,6 +122,7 @@
             <input type="text" class="form-control" id="indirizzo" name="indirizzo" required>
         </div>
         <div class="form-group">
+            <label for="nomidicitta">Inserisci Citta</label>
             <input class="form-control" type="text" name="citta" list="nomidicitta" id="citta" maxlength="20" required>
             <datalist id="nomidicitta">
             </datalist>
