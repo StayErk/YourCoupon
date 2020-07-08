@@ -26,7 +26,7 @@ create table StrutturaAlberghiera(
                         citta           varchar(20)     not null,
                         costoNotte      double          not null,
                         stelle          int             not null check (stelle >= 0 AND stelle <= 5),
-                        immagine        varchar(100)    not null,
+                        immagine        varchar(512)    not null,
                         email           varchar(30)     not null,
                         numeroTelefono  varchar(11)      not null
 );
@@ -54,7 +54,7 @@ create table StruttureRistorative(
                         citta           varchar(20)     not null,
                         nome            varchar(20)     not null,
                         costo           double          not null,
-                        immagine        varchar(100)    not null,
+                        immagine        varchar(512)    not null,
                         numeroTelefono  varchar(11)      not null,
                         email           varchar(30)     not null
 );
@@ -79,7 +79,7 @@ create table Luogo(
                         indirizzo       varchar(50)     not null,
                         citta           varchar(20)     not null,
                         descrizione     varchar(500)    not null,
-                        immagine        varchar(100)    not null
+                        immagine        varchar(512)    not null
 );
 
 create table VisitaGuidata(
