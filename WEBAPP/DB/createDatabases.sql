@@ -75,7 +75,7 @@ create table Pacchetto_Ristorante(
 
 create table Luogo(
                         id              char(36)        not null primary key,
-                        nome            varchar(25)     not null,
+                        nome            varchar(30)     not null,
                         indirizzo       varchar(50)     not null,
                         citta           varchar(20)     not null,
                         descrizione     varchar(500)    not null,
