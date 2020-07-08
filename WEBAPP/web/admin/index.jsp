@@ -80,7 +80,7 @@
                         <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
                             <div class="card-header">Strutture Alberghiere</div>
                             <div class="card-body text-primary">
-                                <h5 class="card-title">L'Hotel più scelto è <span class="text-success"><%=((HotelBean) statistiche.get("migliorHotel")).getNome()%></span>
+                                <h5 class="card-title">L'Hotel più scelto è <span class="text-success"><%=((HotelBean) statistiche.get("migliorHotel")).getNome() != null ? ((HotelBean) statistiche.get("migliorHotel")).getNome() : "nessuno"%></span>
                                 </h5>
                                 <p class="card-text">Vi sono <strong><%=statistiche.get("numeroHotel")%></strong> Hotel</p>
                                 <a href="<%=response.encodeURL("./managehotel.jsp")%>" class="btn btn-outline-info">Gestisci Hotel</a>
@@ -92,7 +92,7 @@
                             <div class="card-header">Strutture Ristorative</div>
                             <div class="card-body text-primary">
                                 <h5 class="card-title">Il Ristorante più scelto è <span
-                                        class="text-success"><%=((RestaurantBean) statistiche.get("migliorRistorante")).getNome()%></span></h5>
+                                        class="text-success"><%=((RestaurantBean) statistiche.get("migliorRistorante")).getNome() != null ? ((RestaurantBean) statistiche.get("migliorRistorante")).getNome() : "nessuno"%></span></h5>
                                 <p class="card-text">Vi sono <strong><%=statistiche.get("numeroRistoranti")%></strong> Ristoranti</p>
                                 <a href="<%=response.encodeURL("./manageristorante.jsp")%>" class="btn btn-outline-info">Gestisci Ristoranti</a>
                             </div>
@@ -102,7 +102,7 @@
                         <div class="card border-primary mb-3  h-100 " style="max-width: 18rem;">
                             <div class="card-header">Tour</div>
                             <div class="card-body text-primary">
-                                <h5 class="card-title">Il Tour più scelto è <span class="text-success">quello a <%=((LuogoBean) statistiche.get("migliorTour")).getNome()%></span>
+                                <h5 class="card-title">Il Tour più scelto è <span class="text-success">quello a <%=((LuogoBean) statistiche.get("migliorTour")).getNome() != null ? ((LuogoBean) statistiche.get("migliorTour")).getNome() : "nessuno" %></span>
                                 </h5>
                                 <p class="card-text">Vi sono <strong><%=statistiche.get("numeroTour")%></strong> Tour</p>
                                 <a href="<%=response.encodeURL("./mangetour.jsp")%>" class="btn btn-outline-info">Gestisci Tour</a>
